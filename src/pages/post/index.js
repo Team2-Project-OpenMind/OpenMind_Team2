@@ -1,3 +1,3 @@
-export default function PostPage() {
-  return <></>;
-}
+import PostContainer from './PostContainer';
+
+export default PostContainer;
