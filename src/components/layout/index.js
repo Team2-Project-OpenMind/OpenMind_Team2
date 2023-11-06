@@ -17,8 +17,14 @@ export default function Layout({ children }) {
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  overflow-x: hidden;
 `;
 
-const Body = styled.section``;
+const Body = styled.section`
+  flex-grow: 1;
+  background: var(--gray20);
+`;
