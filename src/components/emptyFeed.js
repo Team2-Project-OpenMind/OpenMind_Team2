@@ -5,5 +5,3 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
-//깃헙 리모트 오리진 실험용입니다.
