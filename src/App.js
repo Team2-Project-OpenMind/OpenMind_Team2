@@ -1,7 +1,13 @@
 import './reset.css';
 
+import Layout from 'components/layout';
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <Layout>
+      <div className="App"></div>
+    </Layout>
+  );
 }
 
 export default App;
