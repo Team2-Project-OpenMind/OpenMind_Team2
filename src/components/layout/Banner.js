@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import BannerImage from 'assets/background_image.svg';
+import BannerImage from 'assets/banner.svg';
 import ProfileImage from 'assets/images/profile.svg';
 
 export default function Banner() {
