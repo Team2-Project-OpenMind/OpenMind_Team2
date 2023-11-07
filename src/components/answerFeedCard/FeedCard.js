@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { createAnswer } from '../../api/api.questions';
+import { updateAnswersPartial } from '../../api/api.answers';
 import * as S from './FeedCardStyled';
-
 import kebab from '../../assets/images/More.svg';
 import profile from '../../assets/images/Ellipse 1.svg';
 import down from '../../assets/images/down.svg';
@@ -9,16 +10,34 @@ import editor from '../../assets/images/Edit.svg';
 import clickedUp from '../../assets/images/clicked_up.svg';
 import clickedDown from '../../assets/images/clicked_down.svg';
 
-export default function Feedcard() {
+export default function Feedcard({ question }) {
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmit, setIsSubmited] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
   const [editAnswer, setEditAnswer] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
+  const [likeCount, setLikeCount] = useState(question.like);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
-  const [dislikeCount, setDislikeCount] = useState(0);
+  const [dislikeCount, setDislikeCount] = useState(question.dislike);
+
+  const handleCreateAnswer = async (questionId, answerData) => {
+    try {
+      const result = await createAnswer(questionId, answerData);
+      setAnswer(result.content);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePatchAnswer = async (answerId, answerData) => {
+    try {
+      const result = await updateAnswersPartial(answerId, answerData);
+      setAnswer(result.content);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleChangeAnswer = (e) => {
     setAnswer(e.target.value);
@@ -26,14 +45,18 @@ export default function Feedcard() {
     if (e.target.value === '') return setIsCompleted(false);
   };
 
-  const handleSubmitAnswer = () => setIsSubmited(true);
-
+  const handleSubmitAnswer = (questionId, answerText) => {
+    setIsSubmited(true);
+    handleCreateAnswer(questionId, answerText);
+  };
   const handleUpdateAnswer = () => setUpdate(!isUpdate);
 
   const handelUpdateEditAnswer = () => setEditAnswer(false);
 
-  const handleSubmitEditAnswer = () => setEditAnswer(true);
-
+  const handleSubmitEditAnswer = (answerId, answerText) => {
+    setEditAnswer(true);
+    handlePatchAnswer(answerId, answerText);
+  };
   const handletoggleLike = () => {
     if (liked === false) {
       setLiked(!liked);
@@ -65,13 +88,13 @@ export default function Feedcard() {
         <img src={kebab} alt="케밥버튼" />
       </S.FcHeader>
       <S.FcQuestionWrapper>
-        <S.QuestionDate>질문 2주전(임시)</S.QuestionDate>
-        <S.QuestionContent>좋아하는 동물은?(임시)</S.QuestionContent>
+        <S.QuestionDate>질문 {question.createdAt}</S.QuestionDate>
+        <S.QuestionContent>{question.content}</S.QuestionContent>
       </S.FcQuestionWrapper>
       <S.FcAnswerContainer>
         <S.FcProfile src={profile} alt="프로필" />
         <S.FcAnswerWrapper>
-          <S.FcAnswerer>고양이</S.FcAnswerer>
+          <S.FcAnswerer>나중에 서브젝트로</S.FcAnswerer>
           <S.FcAnswerContent>
             {!isSubmit ? (
               <>
@@ -81,7 +104,10 @@ export default function Feedcard() {
                   placeholder="답변을 입력해주세요"
                   onChange={handleChangeAnswer}
                 ></S.FcAnswerInput>
-                <S.FcAnswerButton onClick={handleSubmitAnswer} $isCompleted={isCompleted}>
+                <S.FcAnswerButton
+                  onClick={handleSubmitAnswer(question.id, answer)}
+                  $isCompleted={isCompleted}
+                >
                   답변 완료
                 </S.FcAnswerButton>
               </>
@@ -109,7 +135,7 @@ export default function Feedcard() {
                   $editAnswer={editAnswer}
                 ></S.FcAnswerInput>
                 <S.FcAnswerButton
-                  onClick={handleSubmitEditAnswer}
+                  onClick={handleSubmitEditAnswer(question.answer.id, answer)}
                   $isCompleted={isCompleted}
                   $editAnswer={editAnswer}
                 >

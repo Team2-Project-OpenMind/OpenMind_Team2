@@ -1,6 +1,21 @@
 import * as S from './PostStyle';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
+import { getSubjectsOnQuestions } from '../../api/api.subjects.js';
+import { useState, useEffect } from 'react';
+
 export default function Post() {
+  const [questionList, setQusetionList] = useState([]);
+
+  const handleRenderSubjectsOnQ = async () => {
+    try {
+      const { result } = await getSubjectsOnQuestions();
+      setQusetionList(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // useEffect(() => handleRenderSubjectsOnQ(), []);
   return (
     <S.Wrapper>
       <S.Title>아초는 고양이</S.Title>
@@ -15,7 +30,9 @@ export default function Post() {
           <span>개의 질문이 있습니다</span>
         </S.Info>
         <div>
-          <FeedCard />
+          {questionList.map((question) => {
+            return <FeedCard {...question} />;
+          })}
         </div>
       </S.FeedContainer>
     </S.Wrapper>
