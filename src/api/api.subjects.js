@@ -10,7 +10,7 @@ const headers = { 'Content-Type': 'application/json; charset=utf-8' };
 
 // 전체 유저 조회
 export async function getAllSubjects() {
-  const res = await fetch(`${BASE_URL}/subjects`, {
+  const res = await fetch(`${BASE_URL}/subjects/`, {
     headers,
   });
 
@@ -23,7 +23,7 @@ export async function getAllSubjects() {
 
 // 특정 유저 조회 => user를 생성해서 얻은 id
 export async function getSubject(userId) {
-  const res = await fetch(`${BASE_URL}/subjects/${userId}`, {
+  const res = await fetch(`${BASE_URL}/subjects/${userId}/`, {
     headers,
   });
 
@@ -36,7 +36,7 @@ export async function getSubject(userId) {
 
 // 특정 유저의 질문목록
 export async function getSubjectsOnQuestions(userId) {
-  const res = await fetch(`${BASE_URL}/subjects/${userId}/questions`, {
+  const res = await fetch(`${BASE_URL}/subjects/${userId}/questions/`, {
     headers,
   });
 
@@ -51,7 +51,7 @@ export async function getSubjectsOnQuestions(userId) {
 
 // 유저 생성
 export async function createSubject(userData) {
-  const res = await fetch(`${BASE_URL}/subjects`, {
+  const res = await fetch(`${BASE_URL}/subjects/`, {
     headers,
     body: JSON.stringify(userData),
   });
@@ -65,7 +65,7 @@ export async function createSubject(userData) {
 
 // 질문 생성 => 이후, 특정 유저의 질문목록에 보여짐
 export async function createQuestions(userId, questionsData) {
-  const res = await fetch(`${BASE_URL}/subjects/${userId}/questions`, {
+  const res = await fetch(`${BASE_URL}/subjects/${userId}/questions/`, {
     headers,
     body: JSON.stringify(questionsData),
   });
@@ -81,7 +81,7 @@ export async function createQuestions(userId, questionsData) {
 
 // 특정 유저 삭제
 export async function deleteSubject(userId) {
-  const res = await fetch(`${BASE_URL}/subjects/${userId}`, {
+  const res = await fetch(`${BASE_URL}/subjects/${userId}/`, {
     headers,
   });
 

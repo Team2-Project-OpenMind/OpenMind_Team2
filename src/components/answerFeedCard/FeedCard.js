@@ -10,7 +10,7 @@ import editor from '../../assets/images/Edit.svg';
 import clickedUp from '../../assets/images/clicked_up.svg';
 import clickedDown from '../../assets/images/clicked_down.svg';
 
-export default function Feedcard({ question }) {
+export default function Feedcard(question) {
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmit, setIsSubmited] = useState(false);
@@ -20,11 +20,13 @@ export default function Feedcard({ question }) {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(question.dislike);
+  const [qAndAobj, setQAndAobj] = useState({});
 
   const handleCreateAnswer = async (questionId, answerData) => {
     try {
       const result = await createAnswer(questionId, answerData);
       setAnswer(result.content);
+      setQAndAobj({ ...qAndAobj, questionId: result.id });
     } catch (error) {
       console.log(error);
     }
@@ -46,8 +48,10 @@ export default function Feedcard({ question }) {
   };
 
   const handleSubmitAnswer = (questionId, answerText) => {
-    setIsSubmited(true);
-    handleCreateAnswer(questionId, answerText);
+    if (answer) {
+      setIsSubmited(true);
+      handleCreateAnswer(questionId, answerText);
+    }
   };
   const handleUpdateAnswer = () => setUpdate(!isUpdate);
 
@@ -94,7 +98,7 @@ export default function Feedcard({ question }) {
       <S.FcAnswerContainer>
         <S.FcProfile src={profile} alt="프로필" />
         <S.FcAnswerWrapper>
-          <S.FcAnswerer>나중에 서브젝트로</S.FcAnswerer>
+          <S.FcAnswerer></S.FcAnswerer>
           <S.FcAnswerContent>
             {!isSubmit ? (
               <>
@@ -102,10 +106,10 @@ export default function Feedcard({ question }) {
                   name="answer"
                   value={answer}
                   placeholder="답변을 입력해주세요"
-                  onChange={handleChangeAnswer}
+                  onChange={(e) => handleChangeAnswer(e)}
                 ></S.FcAnswerInput>
                 <S.FcAnswerButton
-                  onClick={handleSubmitAnswer(question.id, answer)}
+                  onClick={() => handleSubmitAnswer(question.id, answer)}
                   $isCompleted={isCompleted}
                 >
                   답변 완료
@@ -115,7 +119,7 @@ export default function Feedcard({ question }) {
               <>
                 <S.SubmitedAnswer $isUpdate={isUpdate}>{answer}</S.SubmitedAnswer>
                 <S.EditorButton
-                  onClick={handleUpdateAnswer}
+                  onClick={() => handleUpdateAnswer()}
                   $editAnswer={editAnswer}
                   $isUpdate={isUpdate}
                 >
@@ -129,13 +133,13 @@ export default function Feedcard({ question }) {
                 <S.FcAnswerInput
                   name="answer"
                   value={answer}
-                  onChange={handleChangeAnswer}
+                  onChange={(e) => handleChangeAnswer(e)}
                   placeholder="답변을 입력해주세요"
                   $isCompleted={isCompleted}
                   $editAnswer={editAnswer}
                 ></S.FcAnswerInput>
                 <S.FcAnswerButton
-                  onClick={handleSubmitEditAnswer(question.answer.id, answer)}
+                  onClick={() => handleSubmitEditAnswer(qAndAobj[question.id], answer)}
                   $isCompleted={isCompleted}
                   $editAnswer={editAnswer}
                 >

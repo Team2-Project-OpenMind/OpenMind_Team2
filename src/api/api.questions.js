@@ -6,7 +6,7 @@ const headers = { 'Content-Type': 'application/json; charset=utf-8' };
 
 // 특정 질문 조회(질문에 대한 답변 포함)
 export async function getQuestions(questionId) {
-  const res = await fetch(`${BASE_URL}/questions/${questionId}`, {
+  const res = await fetch(`${BASE_URL}/questions/${questionId}/`, {
     headers,
   });
 
@@ -21,7 +21,7 @@ export async function getQuestions(questionId) {
 
 // 특정 질문에 대한 좋아요/싫어요
 export async function createReaction(questionId, reactionType) {
-  const res = await fetch(`${BASE_URL}/questions/${questionId}/reaction`, {
+  const res = await fetch(`${BASE_URL}/questions/${questionId}/reaction/`, {
     headers,
     body: JSON.stringify({ type: reactionType }),
   });
@@ -35,7 +35,7 @@ export async function createReaction(questionId, reactionType) {
 
 // 특정 질문에 대한 답변 작성하기
 export async function createAnswer(questionId, answerData) {
-  const res = await fetch(`${BASE_URL}/questions/${questionId}/answers`, {
+  const res = await fetch(`${BASE_URL}/questions/${questionId}/answers/`, {
     headers,
     body: JSON.stringify(answerData),
   });
@@ -51,7 +51,7 @@ export async function createAnswer(questionId, answerData) {
 
 // 특정 질문 삭제하기
 export async function deleteQuestion(questionId) {
-  const res = await fetch(`${BASE_URL}/questions/${questionId}`, {
+  const res = await fetch(`${BASE_URL}/questions/${questionId}/`, {
     headers,
   });
 

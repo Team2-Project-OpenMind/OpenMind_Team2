@@ -6,16 +6,20 @@ import { useState, useEffect } from 'react';
 export default function Post() {
   const [questionList, setQusetionList] = useState([]);
 
-  const handleRenderSubjectsOnQ = async () => {
+  const handleRenderSubjectsOnQ = async (id) => {
     try {
-      const { result } = await getSubjectsOnQuestions();
-      setQusetionList(result);
+      const { results } = await getSubjectsOnQuestions(id);
+
+      setQusetionList(results);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // useEffect(() => handleRenderSubjectsOnQ(), []);
+  useEffect(() => {
+    handleRenderSubjectsOnQ(81);
+  }, []);
+
   return (
     <S.Wrapper>
       <S.Title>아초는 고양이</S.Title>
@@ -31,7 +35,7 @@ export default function Post() {
         </S.Info>
         <div>
           {questionList.map((question) => {
-            return <FeedCard {...question} />;
+            return <FeedCard key={question.id} {...question} />;
           })}
         </div>
       </S.FeedContainer>
