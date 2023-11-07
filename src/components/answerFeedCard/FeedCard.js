@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useState } from 'react';
 import * as S from './FeedCardStyled';
 
@@ -24,6 +23,7 @@ export default function Feedcard() {
   const handleChangeAnswer = (e) => {
     setAnswer(e.target.value);
     answer.length >= 8 ? setIsCompleted(true) : setIsCompleted(false);
+    if (e.target.value === '') return setIsCompleted(false);
   };
 
   const handleSubmitAnswer = () => setIsSubmited(true);
@@ -62,14 +62,14 @@ export default function Feedcard() {
         ) : (
           <S.AnswerMark>답변 완료</S.AnswerMark>
         )}
-        <img src={kebab} alt="" />
+        <img src={kebab} alt="케밥버튼" />
       </S.FcHeader>
       <S.FcQuestionWrapper>
         <S.QuestionDate>질문 2주전(임시)</S.QuestionDate>
         <S.QuestionContent>좋아하는 동물은?(임시)</S.QuestionContent>
       </S.FcQuestionWrapper>
       <S.FcAnswerContainer>
-        <S.FcProfile src={profile} alt="" />
+        <S.FcProfile src={profile} alt="프로필" />
         <S.FcAnswerWrapper>
           <S.FcAnswerer>고양이</S.FcAnswerer>
           <S.FcAnswerContent>
@@ -138,12 +138,16 @@ export default function Feedcard() {
         <S.FcFooterLine />
         <S.FcReactionMarkWrapper>
           <S.Reaction onClick={handletoggleLike} $liked={liked}>
-            {liked ? <img src={clickedUp} alt="" /> : <img src={up} alt="" />}
+            {liked ? <img src={clickedUp} alt="활성화 된 좋아요" /> : <img src={up} alt="좋아요" />}
             <span>좋아요 {likeCount}</span>
           </S.Reaction>
 
           <S.Reaction onClick={handletoggleDislike} $disliked={disliked}>
-            {disliked ? <img src={clickedDown} alt="" /> : <img src={down} alt="" />}
+            {disliked ? (
+              <img src={clickedDown} alt="활성화 된 싫어요" />
+            ) : (
+              <img src={down} alt="싫어요" />
+            )}
             <span>싫어요 {dislikeCount} </span>
           </S.Reaction>
         </S.FcReactionMarkWrapper>

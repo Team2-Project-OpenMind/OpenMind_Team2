@@ -56,10 +56,7 @@ export const QuestionDate = styled.div`
   align-items: center;
   gap: 0.8rem;
   color: var(--grayscale-40, #818181);
-  font-family: Pretendard;
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 50rem;
+  font: var(--caption1-medium);
   line-height: 1.8rem;
 `;
 
@@ -121,10 +118,7 @@ export const FcAnswerInput = styled.textarea`
   border-radius: 0.8rem;
   background: var(--gray20);
   color: var(--gray40);
-  font-family: Pretendard;
-  font-size: 1.6prem;
-  font-style: normal;
-  font-weight: 40rem;
+  font: var(--body3-regular);
   line-height: 2.2rem;
   border: none;
   &:focus {
@@ -146,15 +140,12 @@ export const FcAnswerButton = styled.button`
   gap: 1rem;
   align-self: stretch;
   border-radius: 0.8rem;
-  background: var(--brown30);
-  color: var(--grayscale-10, #fff);
-  font-family: Pretendard;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 40rem;
+
+  color: var(--gray10);
+  font: var(--body3-regular);
   line-height: 2.2rem;
   border: none;
-  background: ${({ $isCompleted }) => ($isCompleted ? 'var(--brown40)' : 'var(--brown-30)')};
+  background: ${({ $isCompleted }) => ($isCompleted ? 'var(--brown40)' : 'var(--brown30)')};
   display: ${({ $editAnswer }) => ($editAnswer ? 'none' : 'flex')};
 `;
 
@@ -201,10 +192,7 @@ export const EditorButton = styled.button`
   bottom: 2.8rem;
   right: 3.2rem;
   color: var(--gray50);
-  font-family: Pretendard;
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 50rem;
+  font: var(--caption1-medium);
   line-height: 1.8rem;
   display: ${({ $isUpdate }) => ($isUpdate ? 'none' : 'block')};
   display: ${({ $editAnswer }) => {
@@ -215,10 +203,7 @@ export const EditorButton = styled.button`
 `;
 export const SubmitedAnswer = styled.div`
   color: var(--gray60);
-  font-family: Pretendard;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 40rem;
+  font: var(--body3-regular);
   line-height: 2.2rem;
   display: ${({ $isUpdate }) => ($isUpdate ? 'none' : 'block')};
 `;

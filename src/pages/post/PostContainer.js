@@ -1,5 +1,5 @@
 import * as S from './PostStyle';
-
+import FeedCard from 'components/answerFeedCard/FeedCard.js';
 export default function Post() {
   return (
     <S.Wrapper>
@@ -14,7 +14,9 @@ export default function Post() {
           <S.IconMessage />
           <span>개의 질문이 있습니다</span>
         </S.Info>
-        <div>카드 컴포넌트</div>
+        <div>
+          <FeedCard />
+        </div>
       </S.FeedContainer>
     </S.Wrapper>
   );
