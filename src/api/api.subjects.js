@@ -65,7 +65,8 @@ export async function createSubject(userData) {
 
 // 질문 생성 => 이후, 특정 유저의 질문목록에 보여짐
 export async function createQuestions(userId, questionsData) {
-  const res = await fetch(`${BASE_URL}/subjects/${userId}/questions`, {
+  const res = await fetch(`${BASE_URL}/subjects/${userId}/questions/`, {
+    method: 'POST',
     headers,
     body: JSON.stringify(questionsData),
   });

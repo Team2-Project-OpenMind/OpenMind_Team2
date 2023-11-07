@@ -1,12 +1,42 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import { createQuestions } from 'api/api.subjects';
 import { ReactComponent as MsgIcon } from 'assets/images/message.svg';
 import closeIcon from 'assets/images/CloseButton.svg';
 import modalProfile from 'assets/images/modal_profile.svg';
 
 function QuestionModal({ onClick }) {
+  const [textValue, setTextValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const TEMPORAL_USER_ID = 81;
+  const questionsData = {
+    content: textValue,
+  };
+
+  const handleTextChange = (e) => {
+    const nextValue = e.target.value;
+    setTextValue(nextValue);
+  };
+
+  const handleSubmit = async () => {
+    let result;
+    try {
+      setIsLoading(true);
+      result = await createQuestions(TEMPORAL_USER_ID, questionsData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+    console.log(result);
+    setTextValue('');
+    onClick();
+  };
+
   return (
     <BG>
-      <Container>
+      <Container onSubmit={handleSubmit}>
         <TitleWrapper>
           <TitleContainer>
             <MessageIcon alt="메시지_아이콘" />
@@ -19,8 +49,8 @@ function QuestionModal({ onClick }) {
           <ReceiverProfileImg src={modalProfile} alt="프로필_이미지"></ReceiverProfileImg>
           아초는고양이
         </ReceiverWrapper>
-        <TextArea placeholder="질문을 입력해주세요" />
-        <FormButton>질문 보내기</FormButton>
+        <TextArea placeholder="질문을 입력해주세요" value={textValue} onChange={handleTextChange} />
+        <FormButton disabled={isLoading}>질문 보내기</FormButton>
       </Container>
     </BG>
   );
@@ -29,8 +59,13 @@ function QuestionModal({ onClick }) {
 export default QuestionModal;
 
 const BG = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-shrink: 0;
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.56);
@@ -40,11 +75,6 @@ const BG = styled.div`
 const Container = styled.form`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: auto;
   padding: 40px 40px 70px;
   width: 612px;
   height: 454px;
