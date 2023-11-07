@@ -123,7 +123,7 @@ export default function Feedcard(question) {
                   $editAnswer={editAnswer}
                   $isUpdate={isUpdate}
                 >
-                  <img src={editor} />
+                  <img src={editor} alt="수정하기" />
                   수정하기
                 </S.EditorButton>
               </>
@@ -156,7 +156,7 @@ export default function Feedcard(question) {
                   $editAnswer={editAnswer}
                   $isUpdate={isUpdate}
                 >
-                  <img src={editor} />
+                  <img src={editor} alt="수정하기" />
                   수정하기
                 </S.EditorButton>
               </>

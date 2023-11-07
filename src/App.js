@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './reset.css';
@@ -7,6 +6,7 @@ import Layout from 'components/layout';
 import LandingContainer from 'pages/landing';
 import PostContainer from 'pages/post';
 import ListContainer from 'pages/list';
+import AnswerContainer from 'pages/answer';
 
 function App() {
   return (
@@ -20,6 +20,9 @@ function App() {
             </Route>
             <Route path="post">
               <Route index element={<PostContainer />}></Route>
+            </Route>
+            <Route path="answer">
+              <Route index element={<AnswerContainer />}></Route>
             </Route>
           </Route>
         </Routes>
