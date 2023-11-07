@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 const Message = styled.div`
   color: var(--gray10);
   font-family: Pretendard;
-  font-size: 0.875rem;
+  font-size: 1.4rem;
   font-weight: 500;
   line-height: 18px;
 `;
