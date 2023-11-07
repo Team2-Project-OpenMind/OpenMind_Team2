@@ -82,10 +82,10 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 62.5%;
   box-sizing: border-box;
+  font-size: 100%;
 }
-/* HTML5 display-role reset for older browsers */
+
 article,
 aside,
 details,
@@ -120,4 +120,7 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+html {
+  font-size: 62.5%;
 }

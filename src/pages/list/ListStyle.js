@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import arrowUp from '../../assets/images/arrow-up.svg';
-import arrowDown from '../../assets/images/arrow-down.svg';
 import { breakPoints } from '../../components/common/media';
 
 export const ListContainerBox = styled.div`
@@ -46,29 +44,55 @@ export const ListTitle = styled.h2`
   }
 `;
 
-export const ListSelect = styled.select`
-  color: var(--gray40);
-  border: 1px solid var(--gray40);
-  outline: 0;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 8px;
+export const Dropdown = styled.div`
+  position: relative;
+  cursor: pointer;
   margin-bottom: 30px;
-  width: 79px;
-  appearance: none;
-  background: url(${arrowDown}) no-repeat right 8px center;
-  @media screen and (${breakPoints.mobile}) {
-    margin-bottom: 0px;
+`;
+
+export const DropdownButton = styled.button`
+  border-radius: 8px;
+  border: 1px solid var(${({ $isDropdownView }) => ($isDropdownView ? '--gray60' : '--gray40')});
+  background: var(--gray10);
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  span {
+    color: var(${({ $isDropdownView }) => ($isDropdownView ? '--gray60' : '--gray40')});
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  img {
+    width: 14px;
+    height: 14px;
   }
 `;
 
-export const ListOption = styled.option`
+export const DropdownList = styled.ul`
+  position: absolute;
+  top: 40px;
+  left: 0;
+  border: 1px solid #ddd;
+  width: 100%;
+  background: var(--gray10);
+  border-radius: 8px;
+`;
+
+export const DropdownListItme = styled.li`
+  padding: 5px;
   color: var(--gray50);
+  font-family: Pretendard;
   font-size: 14px;
   font-weight: 500;
-  padding: 6px 16px;
+  line-height: 18px;
+  text-align: center;
+  padding: 6px 0;
+  &:hover {
+    color: var(--blue50);
+  }
 `;
 
 export const ListPagination = styled.ul`
