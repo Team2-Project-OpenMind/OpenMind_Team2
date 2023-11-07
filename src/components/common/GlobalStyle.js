@@ -4,7 +4,6 @@ import 'assets/font/Actor/Actor.css';
 
 const GlobalStyle = createGlobalStyle`
     :root {
-
         // Color
         --gray10: #ffffff;
         --gray20: #f9f9f9;
@@ -30,6 +29,8 @@ const GlobalStyle = createGlobalStyle`
         --shadow3pt: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
 
         // Font
+        font-size: 62.5%;
+
         --body1-regular: 400 2rem 'Pretendard';
         --body2-regular: 400 1.8rem 'Pretendard';
         --body3-regular: 400 1.6rem 'Pretendard';
@@ -41,6 +42,17 @@ const GlobalStyle = createGlobalStyle`
         --caption1-regular: 400 1.4rem 'Pretendard';
         --caption1-medium: 500 1.4rem 'Pretendard';
         --caption1-bold: 400 1.4rem 'Actor';
+    }    
+
+    html, body {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+    }
+
+    div {
+        width: 100%;
+        height: 100%;
     }    
     
     h1, h2, h3 {
@@ -59,7 +71,6 @@ const GlobalStyle = createGlobalStyle`
     h3 {
         font-size: 2.4rem;
     }
-
 `;
 
 export default GlobalStyle;
