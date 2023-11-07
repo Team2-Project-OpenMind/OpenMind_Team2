@@ -2,22 +2,20 @@ import styled from 'styled-components';
 import { breakPoints } from '../../components/common/media';
 
 export const ListContainerBox = styled.div`
-  background: var(--gray20);
   width: 100%;
-  height: 100vh;
 `;
 
 export const ListWrap = styled.div`
-  width: 100%;
-  max-width: 1004px;
-  margin: 0 auto;
-  padding: 137px 32px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 1004px;
+  padding: 0 3.2rem;
+  margin: 0 auto;
   @media screen and (${breakPoints.mobile}) {
     max-width: 500px;
-    padding: 137px 24px 0;
+    padding: 0 2.4rem;
   }
 `;
 
@@ -27,42 +25,45 @@ export const ListUpper = styled.div`
   justify-content: center;
   align-items: center;
   @media screen and (${breakPoints.mobile}) {
-    width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 18px;
+    margin-bottom: 1.8rem;
+    width: 100%;
   }
 `;
 export const ListTitle = styled.h2`
+  margin-bottom: 1.2rem;
+  font-size: 4rem;
   color: var(--gray60);
   text-align: center;
-  font-size: 40px;
-  margin-bottom: 12px;
   @media screen and (${breakPoints.mobile}) {
-    font-size: 24px;
     margin-bottom: 0px;
+    font-size: 2.4rem;
   }
 `;
 
 export const Dropdown = styled.div`
   position: relative;
+  margin-bottom: 3rem;
   cursor: pointer;
-  margin-bottom: 30px;
+  @media screen and (${breakPoints.mobile}) {
+    margin-bottom: 0px;
+  }
 `;
 
 export const DropdownButton = styled.button`
-  border-radius: 8px;
-  border: 1px solid var(${({ $isDropdownView }) => ($isDropdownView ? '--gray60' : '--gray40')});
-  background: var(--gray10);
   display: flex;
-  padding: 8px 12px;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(${({ $isDropdownView }) => ($isDropdownView ? '--gray60' : '--gray40')});
+  border-radius: 8px;
+  background: var(--gray10);
   span {
     color: var(${({ $isDropdownView }) => ($isDropdownView ? '--gray60' : '--gray40')});
     font-family: Pretendard;
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 500;
   }
   img {
@@ -75,17 +76,17 @@ export const DropdownList = styled.ul`
   position: absolute;
   top: 40px;
   left: 0;
-  border: 1px solid #ddd;
   width: 100%;
-  background: var(--gray10);
+  border: 1px solid #ddd;
   border-radius: 8px;
+  background: var(--gray10);
 `;
 
 export const DropdownListItme = styled.li`
   padding: 5px;
   color: var(--gray50);
   font-family: Pretendard;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 500;
   line-height: 18px;
   text-align: center;
@@ -96,14 +97,21 @@ export const DropdownListItme = styled.li`
 `;
 
 export const ListPagination = styled.ul`
-  margin-top: 40px;
   display: flex;
+  margin-top: 4rem;
+  @media screen and (${breakPoints.mobile}) {
+    margin-top: 3rem;
+  }
 `;
 
 export const ListPaginationNumber = styled.li`
-  width: 40px;
-  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--gray40);
+  font-size: 2rem;
+  font-family: Actor;
+  font-weight: 400;
 `;
