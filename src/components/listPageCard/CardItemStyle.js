@@ -15,6 +15,7 @@ export const ProfileCard = styled.div``;
 export const ProfileCardImg = styled.img`
   width: 60px;
   margin-bottom: 1.2rem;
+  border-radius: 50%;
 `;
 
 export const ProfileCardName = styled.h4`
