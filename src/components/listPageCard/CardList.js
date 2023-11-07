@@ -1,14 +1,18 @@
 import CardItem from './CardItem';
 import * as S from './CardListStyle';
 
-const list = [1, 2, 3, 4, 5, 6];
-
-export default function CardList() {
+export default function CardList({ data, message }) {
+  if (!data) return;
+  const { results } = data;
   return (
     <S.ListCards>
-      {list.map((li, index) => {
-        return <CardItem keys={li} />;
-      })}
+      {!message ? (
+        results.map((li) => {
+          return <CardItem friends={li} />;
+        })
+      ) : (
+        <li>{message}</li>
+      )}
     </S.ListCards>
   );
 }

@@ -14,7 +14,7 @@ export async function getAllSubjects() {
     headers,
   });
 
-  if (!res) {
+  if (!res.ok) {
     throw new Error('에러가 발생했습니다.');
   }
   const data = await res.json();
@@ -27,7 +27,7 @@ export async function getSubject(userId) {
     headers,
   });
 
-  if (!res) {
+  if (!res.ok) {
     throw new Error('에러가 발생했습니다.');
   }
   const data = await res.json();
@@ -40,7 +40,7 @@ export async function getSubjectsOnQuestions(userId) {
     headers,
   });
 
-  if (!res) {
+  if (!res.ok) {
     throw new Error('에러가 발생했습니다.');
   }
   const data = await res.json();
@@ -58,7 +58,7 @@ export async function createSubject(userData) {
     body: JSON.stringify(userData),
   });
 
-  if (!res) {
+  if (!res.ok) {
     throw new Error('에러가 발생했습니다.');
   }
   const data = await res.json();
@@ -73,7 +73,7 @@ export async function createQuestions(userId, questionsData) {
     body: JSON.stringify(questionsData),
   });
 
-  if (!res) {
+  if (!res.ok) {
     throw new Error('에러가 발생했습니다.');
   }
   const data = await res.json();
@@ -89,7 +89,7 @@ export async function deleteSubject(userId) {
     headers,
   });
 
-  if (!res) {
+  if (!res.ok) {
     throw new Error('에러가 발생했습니다.');
   }
 }
