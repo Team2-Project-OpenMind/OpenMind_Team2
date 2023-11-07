@@ -21,6 +21,21 @@ export async function getAllSubjects() {
   return data;
 }
 
+// 전체 유저 조회(페이지네이션용)
+export async function getPageSubjects(limit, offset) {
+  console.log(limit * offset);
+  console.log(`${BASE_URL}/subjects/?limit=${limit}&offset=${limit * offset}`);
+  const res = await fetch(`${BASE_URL}/subjects/?limit=${limit}&offset=${limit * offset}`, {
+    headers,
+  });
+
+  if (!res.ok) {
+    throw new Error('에러가 발생했습니다.');
+  }
+  const data = await res.json();
+  return data;
+}
+
 // 특정 유저 조회 => user를 생성해서 얻은 id
 export async function getSubject(userId) {
   const res = await fetch(`${BASE_URL}/subjects/${userId}/`, {
