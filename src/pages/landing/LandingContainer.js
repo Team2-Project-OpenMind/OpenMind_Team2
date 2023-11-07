@@ -7,18 +7,17 @@ export default function LandingContainer() {
     <style.Container>
       <style.GoAskButton>
         질문하러가기
-        <img src={arrowRight} />
+        <img src={arrowRight} alt="" />
       </style.GoAskButton>
-      <style.Main>
-        <style.Logo src="/images/logo.svg" alt="로고" />
-        <style.Form>
-          <style.Input>
-            <img src={personImg} />
-            <input type="text" placeholder="이름을 입력하세요"></input>
-          </style.Input>
-          <style.Button>질문받기</style.Button>
-        </style.Form>
-      </style.Main>
+      <style.Logo src="/images/logo.svg" alt="로고" />
+      <style.Form>
+        <style.Input>
+          <img src={personImg} alt="" />
+          <input type="text" placeholder="이름을 입력하세요"></input>
+        </style.Input>
+        <style.Button>질문받기</style.Button>
+      </style.Form>
+      <style.HeroImage></style.HeroImage>
     </style.Container>
   );
 }

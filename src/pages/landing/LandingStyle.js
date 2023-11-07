@@ -1,6 +1,9 @@
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: var(--gray20);
 `;
 
@@ -33,6 +36,7 @@ export const Main = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: fit-content;
 
   background: url('/images/heroImage.svg');
   background-size: 100%;
@@ -65,8 +69,8 @@ export const Input = styled.div`
 
   width: 100%;
   height: fit-content;
-  padding: 1.2rem 1.6rem;
   margin-bottom: 1.6rem;
+  padding: 1.2rem 1.6rem;
 
   color: var(--gray40);
   background-color: var(--gray10);
@@ -101,4 +105,13 @@ export const Button = styled.button`
   font: var(--body3-regular);
   border-radius: 8px;
   border: none;
+`;
+
+export const HeroImage = styled.div`
+  width: 100%;
+  height: 41rem;
+  background: url('/images/heroImage.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
 `;
