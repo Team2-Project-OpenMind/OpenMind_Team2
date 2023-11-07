@@ -56,7 +56,15 @@ export default function Post() {
                 : `아직 질문이 없습니다`}
             </S.QuestionCount>
           </S.Info>
-          {FEED_COUNT_TEMPORAL === 0 ? <S.EmptyBoxImg /> : <FeedCard />}
+          {FEED_COUNT_TEMPORAL === 0 ? (
+            <S.EmptyBoxImg />
+          ) : (
+            <>
+              {questionList.map((question) => {
+                return <FeedCard key={question.id} {...question} />;
+              })}
+            </>
+          )}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleClickButton}>질문 작성하기</S.CreateQuestionButton>
         <ClipBoardCopyMessage />
