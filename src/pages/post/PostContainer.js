@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import * as S from './PostStyle';
+
 import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
 import QuestionModal from 'components/questionModal';
+import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
@@ -35,7 +37,7 @@ export default function Post() {
                 : `아직 질문이 없습니다`}
             </S.QuestionCount>
           </S.Info>
-          {FEED_COUNT_TEMPORAL === 0 ? <S.EmptyBoxImg /> : <div>카드 컴포넌트</div>}
+          {FEED_COUNT_TEMPORAL === 0 ? <S.EmptyBoxImg /> : <FeedCard />}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleClickButton}>질문 작성하기</S.CreateQuestionButton>
         <ClipBoardCopyMessage />
