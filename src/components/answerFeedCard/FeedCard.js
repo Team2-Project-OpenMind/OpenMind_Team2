@@ -20,13 +20,13 @@ export default function Feedcard(question) {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(question.dislike);
-  const [qAndAobj, setQAndAobj] = useState({});
+  const [qAndAId, setQAndAId] = useState({});
 
   const handleCreateAnswer = async (questionId, answerData) => {
     try {
       const result = await createAnswer(questionId, answerData);
       setAnswer(result.content);
-      setQAndAobj({ ...qAndAobj, questionId: result.id });
+      setQAndAId({ ...qAndAId, [questionId]: result.id });
     } catch (error) {
       console.log(error);
     }
@@ -47,19 +47,19 @@ export default function Feedcard(question) {
     if (e.target.value === '') return setIsCompleted(false);
   };
 
-  const handleSubmitAnswer = (questionId, answerText) => {
-    if (answer) {
+  const handleSubmitAnswer = (questionId, text, boolean) => {
+    if (text) {
       setIsSubmited(true);
-      handleCreateAnswer(questionId, answerText);
+      handleCreateAnswer(questionId, { content: text, isRejected: boolean });
     }
   };
   const handleUpdateAnswer = () => setUpdate(!isUpdate);
 
   const handelUpdateEditAnswer = () => setEditAnswer(false);
 
-  const handleSubmitEditAnswer = (answerId, answerText) => {
+  const handleSubmitEditAnswer = (answerId, text, boolean) => {
     setEditAnswer(true);
-    handlePatchAnswer(answerId, answerText);
+    handlePatchAnswer(answerId, { content: text, isRejected: boolean });
   };
   const handletoggleLike = () => {
     if (liked === false) {
@@ -109,7 +109,7 @@ export default function Feedcard(question) {
                   onChange={(e) => handleChangeAnswer(e)}
                 ></S.FcAnswerInput>
                 <S.FcAnswerButton
-                  onClick={() => handleSubmitAnswer(question.id, answer)}
+                  onClick={() => handleSubmitAnswer(question.id, answer, false)}
                   $isCompleted={isCompleted}
                 >
                   답변 완료
@@ -139,7 +139,7 @@ export default function Feedcard(question) {
                   $editAnswer={editAnswer}
                 ></S.FcAnswerInput>
                 <S.FcAnswerButton
-                  onClick={() => handleSubmitEditAnswer(qAndAobj[question.id], answer)}
+                  onClick={() => handleSubmitEditAnswer(qAndAId[question.id], answer, false)}
                   $isCompleted={isCompleted}
                   $editAnswer={editAnswer}
                 >

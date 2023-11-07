@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import * as S from './PostStyle';
 
 import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
@@ -15,7 +14,7 @@ const FEED_COUNT_TEMPORAL = 0;
 
 export default function Post() {
   const [questionList, setQusetionList] = useState([]);
-
+  const [isOpenModal, setOpenModal] = useState(false);
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
@@ -25,17 +24,14 @@ export default function Post() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    handleRenderSubjectsOnQ(81);
-  }, []);
-
-  const [isOpenModal, setOpenModal] = useState(false);
   const isEmpty = FEED_COUNT_TEMPORAL === 0;
 
   const handleClickButton = () => {
     setOpenModal(!isOpenModal);
   };
+  useEffect(() => {
+    handleRenderSubjectsOnQ(81);
+  }, []);
 
   return (
     <>
@@ -51,12 +47,12 @@ export default function Post() {
           <S.Info>
             <S.IconMessage />
             <S.QuestionCount>
-              {FEED_COUNT_TEMPORAL
+              {!FEED_COUNT_TEMPORAL
                 ? `${FEED_COUNT_TEMPORAL}개의 질문이 있습니다`
                 : `아직 질문이 없습니다`}
             </S.QuestionCount>
           </S.Info>
-          {FEED_COUNT_TEMPORAL === 0 ? (
+          {!FEED_COUNT_TEMPORAL === 0 ? (
             <S.EmptyBoxImg />
           ) : (
             <>
