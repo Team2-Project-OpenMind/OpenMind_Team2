@@ -22,6 +22,7 @@ export async function getQuestions(questionId) {
 // 특정 질문에 대한 좋아요/싫어요
 export async function createReaction(questionId, reactionType) {
   const res = await fetch(`${BASE_URL}/questions/${questionId}/reaction/`, {
+    method: 'POST',
     headers,
     body: JSON.stringify({ type: reactionType }),
   });
@@ -34,8 +35,10 @@ export async function createReaction(questionId, reactionType) {
 }
 
 // 특정 질문에 대한 답변 작성하기
+// 이미 답변이 존재하는 경우, 해당 메세지가 들어있는 객체를 return해 줌(참고)
 export async function createAnswer(questionId, answerData) {
   const res = await fetch(`${BASE_URL}/questions/${questionId}/answers/`, {
+    method: 'POST',
     headers,
     body: JSON.stringify(answerData),
   });
@@ -43,6 +46,7 @@ export async function createAnswer(questionId, answerData) {
   if (!res) {
     throw new Error('에러가 발생했습니다.');
   }
+
   const data = await res.json();
   return data;
 }
@@ -52,6 +56,7 @@ export async function createAnswer(questionId, answerData) {
 // 특정 질문 삭제하기
 export async function deleteQuestion(questionId) {
   const res = await fetch(`${BASE_URL}/questions/${questionId}/`, {
+    method: 'DELETE',
     headers,
   });
 

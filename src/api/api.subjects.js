@@ -50,8 +50,10 @@ export async function getSubjectsOnQuestions(userId) {
 // 2. POST 요청
 
 // 유저 생성
+// 참고 - body에 프로퍼티 중 team을 넣지 않아도 정상 등록
 export async function createSubject(userData) {
   const res = await fetch(`${BASE_URL}/subjects/`, {
+    method: 'POST',
     headers,
     body: JSON.stringify(userData),
   });
@@ -66,6 +68,7 @@ export async function createSubject(userData) {
 // 질문 생성 => 이후, 특정 유저의 질문목록에 보여짐
 export async function createQuestions(userId, questionsData) {
   const res = await fetch(`${BASE_URL}/subjects/${userId}/questions/`, {
+    method: 'POST',
     headers,
     body: JSON.stringify(questionsData),
   });
@@ -82,6 +85,7 @@ export async function createQuestions(userId, questionsData) {
 // 특정 유저 삭제
 export async function deleteSubject(userId) {
   const res = await fetch(`${BASE_URL}/subjects/${userId}/`, {
+    method: 'DELETE',
     headers,
   });
 
