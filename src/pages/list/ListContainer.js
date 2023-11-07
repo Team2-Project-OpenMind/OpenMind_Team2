@@ -5,8 +5,6 @@ import * as S from './ListStyle';
 import { useEffect, useState } from 'react';
 import { getAllSubjects } from 'api/api.subjects';
 
-const numberList = ['1', '2', '3', '4', '5', '6', '7', '8'];
-
 export default function ListContainer() {
   const [isDropdownView, setDropdownView] = useState(false);
   const [range, setRange] = useState('');
@@ -25,7 +23,6 @@ export default function ListContainer() {
   useEffect(() => {
     handleSubjectsData();
   }, []);
-  console.log(friends);
   const handleClickSelect = () => {
     setDropdownView(!isDropdownView);
   };
@@ -63,11 +60,6 @@ export default function ListContainer() {
           </S.Dropdown>
         </S.ListUpper>
         <CardList data={friends} message={dataErrorMessage} />
-        <S.ListPagination>
-          {numberList.map((list, index) => {
-            return <S.ListPaginationNumber key={index}>{list}</S.ListPaginationNumber>;
-          })}
-        </S.ListPagination>
       </S.ListWrap>
     </S.ListContainerBox>
   );
