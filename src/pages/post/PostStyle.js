@@ -10,11 +10,12 @@ export const Wrapper = styled.div`
   gap: 0.75rem;
   position: relative;
   height: 100%;
-  padding: 2.6rem 15.125rem;
+  padding: 0 15.125rem 2.6rem;
   padding-bottom: 8.5rem;
 `;
 
 export const Title = styled.h1`
+  margin-top: 43px;
   font-family: Actor;
   font-size: 3.2rem;
   font-weight: 400;
@@ -22,7 +23,17 @@ export const Title = styled.h1`
 `;
 
 export const LinkContainer = styled.div`
+  margin-top: 12px;
   padding-bottom: 2.625rem;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+`;
+
+export const LinkIcon = styled.img`
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
 `;
 
 export const FeedContainer = styled.div`
@@ -33,8 +44,7 @@ export const FeedContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 716px;
-  height: 100%;
-  min-height: 330px;
+  height: ${(isEmpty) => (isEmpty ? '330px' : '100%')};
   padding: 1rem;
   border-radius: 1rem;
   border: 1px solid var(--brown30);
