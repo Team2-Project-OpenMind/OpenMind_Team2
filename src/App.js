@@ -6,7 +6,11 @@ import Layout from 'components/layout';
 import LandingContainer from 'pages/landing';
 import PostContainer from 'pages/post';
 import ListContainer from 'pages/list';
+
 import AnswerContainer from 'pages/answer';
+
+import Header from 'components/Header';
+
 
 function App() {
   return (
@@ -16,7 +20,15 @@ function App() {
           <Route path="/">
             <Route index element={<LandingContainer />}></Route>
             <Route path="list">
-              <Route index element={<ListContainer />}></Route>
+              <Route
+                index
+                element={
+                  <>
+                    <Header />
+                    <ListContainer />
+                  </>
+                }
+              ></Route>
             </Route>
             <Route path="post">
               <Route index element={<PostContainer />}></Route>
