@@ -48,12 +48,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         width: 100%;
         height: 100%;
-    }
-
-    div {
-        width: 100%;
-        height: 100%;
-    }    
+    } 
     
     h1, h2, h3 {
         font-family: 'Actor';
