@@ -86,7 +86,7 @@ export default function Feedcard(question) {
   return (
     <S.FcContainer>
       <S.FcHeader>
-        {!isSubmit ? (
+        {!question?.answer ? (
           <S.UnansweredMark>미답변</S.UnansweredMark>
         ) : (
           <S.AnswerMark>답변 완료</S.AnswerMark>
@@ -105,12 +105,12 @@ export default function Feedcard(question) {
         <S.FcAnswerWrapper>
           <S.FcAnswerer>
             아초는 고양이
-            {isSubmit ? (
+            {question?.answer ? (
               <S.DisplayTime>{timeForToday(question.answer?.createdAt)}</S.DisplayTime>
             ) : null}
           </S.FcAnswerer>
           <S.FcAnswerContent>
-            {!isSubmit ? (
+            {!question?.answer && !isSubmit ? (
               <>
                 <S.FcAnswerInput
                   name="answer"
@@ -127,7 +127,9 @@ export default function Feedcard(question) {
               </>
             ) : (
               <>
-                <S.SubmitedAnswer $isUpdate={isUpdate}>{answer}</S.SubmitedAnswer>
+                <S.SubmitedAnswer $isUpdate={isUpdate}>
+                  {question?.answer?.content || answer}
+                </S.SubmitedAnswer>
                 <S.EditorButton
                   onClick={() => handleUpdateAnswer()}
                   $editAnswer={editAnswer}
