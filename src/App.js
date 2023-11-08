@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 
 import './reset.css';
 
@@ -13,33 +14,33 @@ import Header from 'components/Header';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/">
-            <Route index element={<LandingContainer />}></Route>
-            <Route path="list">
-              <Route
-                index
-                element={
-                  <>
-                    <Header />
-                    <ListContainer />
-                  </>
-                }
-              />
-            </Route>
-            <Route path="post">
-              <Route index element={<PostContainer />} />
-              <Route path=":id" element={<PostContainer />} />
-            </Route>
-            <Route path="answer">
-              <Route index element={<AnswerContainer />}></Route>
+    <Layout>
+      <Routes>
+        <Route path="/">
+          <Route index element={<LandingContainer />}></Route>
+          <Route path="list">
+            <Route
+              index
+              element={
+                <>
+                  <Header />
+                  <ListContainer />
+                </>
+              }
+            ></Route>
+          </Route>
+          <Route path="post">
+            <Route index element={<PostContainer />}></Route>
+            <Route path=":id" element={<PostContainer />}>
+              <Route path="answer">
+                <Route index element={<AnswerContainer />}></Route>
+              </Route>
+
             </Route>
           </Route>
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+        </Route>
+      </Routes>
+    </Layout>
   );
 }
 
