@@ -7,12 +7,13 @@ import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
 import ModalPortal from 'components/ModalPortal';
 import QuestionModal from 'components/questionModal';
 import FeedCardList from 'components/feed/FeedCardList';
-
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
-// const FEED_COUNT_TEMPORAL = 0;
+
+const FEED_COUNT_TEMPORAL = 11;
+
 
 export default function Post({ id = 41 }) {
   const [questionCount, setQuestionCount] = useState(0);

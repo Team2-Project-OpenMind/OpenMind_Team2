@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ReactComponent as Kebab } from 'assets/images/More.svg';
 
 export const FcContainer = styled.div`
   display: flex;
@@ -30,6 +31,10 @@ export const AnswerMark = styled.div`
   border: 1px solid var(--brown40);
   background: var(--gray10);
   color: var(--brown40);
+  font-family: Pretendard;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8rem;
 `;
 
 export const UnansweredMark = styled.div`
@@ -41,6 +46,16 @@ export const UnansweredMark = styled.div`
   border-radius: 0.8rem;
   border: 1px solid var(--gray40);
   background: var(--gray10);
+  font-family: Pretendard;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8rem;
+`;
+
+export const KebabButton = styled(Kebab)`
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
 `;
 
 export const FcQuestionWrapper = styled.div`
@@ -174,6 +189,10 @@ export const Reaction = styled.div`
   align-items: center;
   gap: 0.6rem;
   cursor: pointer;
+  font-family: Pretendard;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8rem;
   color: ${({ $liked }) => ($liked ? 'var( --blue50)' : 'var(--gray40)')};
   color: ${({ $disliked }) => ($disliked ? 'var(--gray60)' : '')};
 `;
@@ -193,7 +212,6 @@ export const EditorButton = styled.button`
   right: 3.2rem;
   color: var(--gray50);
   font: var(--caption1-medium);
-  line-height: 1.8rem;
   display: ${({ $isUpdate }) => ($isUpdate ? 'none' : 'block')};
   display: ${({ $editAnswer }) => {
     if ($editAnswer === true) {
