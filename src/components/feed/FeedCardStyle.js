@@ -88,7 +88,7 @@ export const InfoTimeDiff = styled.span`
 export const ContentDescription = styled.div`
   /* height: 15.4rem; */
   font: var(--body3-regular);
-  color: var(--gray60);
+  color: ${({ $state }) => ($state ? 'var(--red50)' : 'var(--gray60)')};
   line-height: 2.2rem;
   border: none;
   resize: none;

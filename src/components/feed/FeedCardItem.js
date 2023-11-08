@@ -6,6 +6,7 @@ export default function FeedCardItem({ questionData }) {
   const { content, createdAt, like, dislike, answer } = questionData;
 
   const isAnswerCompleted = answer !== null;
+  const isAnswerRejected = isAnswerCompleted && answer.isRejected;
 
   return (
     <S.Wrapper>
@@ -24,7 +25,9 @@ export default function FeedCardItem({ questionData }) {
               <S.InfoTitle>아초는고양이</S.InfoTitle>
               <S.InfoTimeDiff>2주전</S.InfoTimeDiff>
             </S.ContentInfo>
-            <S.ContentDescription>{answer.content}</S.ContentDescription>
+            <S.ContentDescription $state={isAnswerRejected}>
+              {isAnswerRejected ? '답변 거절' : answer.content}
+            </S.ContentDescription>
           </S.Content>
         </S.Contents>
       )}
