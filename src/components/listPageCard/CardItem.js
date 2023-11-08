@@ -1,20 +1,21 @@
-import * as style from './CardItemStyle';
+import * as S from './CardItemStyle';
 import messageIcon from '../../assets/images/message.svg';
 
-export default function CardItem() {
+export default function CardItem({ friends }) {
+  const { id, name, imageSource, questionCount } = friends;
   return (
-    <style.ListCard>
-      <style.ProfileCard>
-        <style.ProfileCardImg src="/images/profile.svg" alt="프로필 아이콘" />
-        <style.ProfileCardName>아초는 고양이</style.ProfileCardName>
-      </style.ProfileCard>
-      <style.CardText>
-        <style.CardMessageWrap>
-          <style.CardMessageIcon src={messageIcon} alt="메세지아이콘" />
+    <S.ListCard key={id}>
+      <S.ProfileCard>
+        <S.ProfileCardImg src={imageSource} alt="프로필 아이콘" />
+        <S.ProfileCardName>{name}</S.ProfileCardName>
+      </S.ProfileCard>
+      <S.CardText>
+        <S.CardMessageWrap>
+          <S.CardMessageIcon src={messageIcon} alt="메세지아이콘" />
           <span>받은 질문</span>
-        </style.CardMessageWrap>
-        <div>9개</div>
-      </style.CardText>
-    </style.ListCard>
+        </S.CardMessageWrap>
+        <div>{questionCount}개</div>
+      </S.CardText>
+    </S.ListCard>
   );
 }
