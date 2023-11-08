@@ -37,7 +37,7 @@ export default function Answer() {
     <>
       {isOpenModal && <QuestionModal onClick={handleClickButton} />}
       <S.Wrapper>
-        <S.Title>아초는 고양이</S.Title>
+        <S.Title>아초는 고양이1111111</S.Title>
         <S.LinkContainer>
           <S.LinkIcon src={ShareIcon} alt="링크공유_아이콘"></S.LinkIcon>
           <S.LinkIcon src={KAKAO} alt="카카오링크_아이콘"></S.LinkIcon>
