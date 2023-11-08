@@ -1,7 +1,7 @@
 import * as S from '../post/PostStyle';
 
 import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
-import QuestionModal from 'components/questionModal';
+import QuestionModal from 'components/modal/questionModal';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import { getSubjectsOnQuestions } from '../../api/api.subjects.js';
 import { useState, useEffect } from 'react';

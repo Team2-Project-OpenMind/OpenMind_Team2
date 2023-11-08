@@ -3,14 +3,14 @@ import { useState } from 'react';
 
 import FeedCard from 'components/answerFeedCard/FeedCard';
 import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
-import QuestionModal from 'components/questionModal';
+import QuestionModal from 'components/modal/questionModal';
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 import Card from 'components/feed/Card';
 import ModalPortal from 'components/ModalPortal';
 
-const FEED_COUNT_TEMPORAL = 0;
+const FEED_COUNT_TEMPORAL = 11;
 
 export default function Post() {
   const [isOpenModal, setOpenModal] = useState(false);
@@ -45,8 +45,8 @@ export default function Post() {
                 : `아직 질문이 없습니다`}
             </S.QuestionCount>
           </S.Info>
-          {FEED_COUNT_TEMPORAL === 0 ? <S.EmptyBoxImg /> : <FeedCard />}
-          <Card />
+          {isEmpty ? <S.EmptyBoxImg /> : <FeedCard />}
+          {/* <Card /> */}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleClickButton}>질문 작성하기</S.CreateQuestionButton>
         <ClipBoardCopyMessage />
