@@ -10,7 +10,6 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push({ id: i, isDone: false });
   }
-
   return (
     <>
       <S.ListPagination>

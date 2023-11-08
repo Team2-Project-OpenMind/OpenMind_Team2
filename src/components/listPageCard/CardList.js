@@ -13,7 +13,7 @@ export default function CardList({ data, message, range }) {
   const indexOfFirst = indexOfLast - postsPerPage; // 페이지 첫번째 수8 - 8 = 0
 
   const currentPosts = (datas) => {
-    let currentPosts = datas.slice(indexOfFirst, indexOfLast); //데이터를 0~8번째까지 슬라이스함 인덱스0~7까지
+    let currentPosts = datas.slice(indexOfFirst, indexOfLast); //데이터를 0~8번째까지 슬라이스함 인덱스7까지
     return currentPosts;
   };
 
@@ -29,7 +29,7 @@ export default function CardList({ data, message, range }) {
   });
 
   const postLists = currentPosts(sortData); //위 조건문 통과 후에 페이징 슬라이스
-
+  console.log(postLists);
   return (
     <>
       <S.ListCards>

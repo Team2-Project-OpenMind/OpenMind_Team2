@@ -3,7 +3,7 @@ import arrowUp from '../../assets/images/arrow-up.svg';
 import arrowDown from '../../assets/images/arrow-down.svg';
 import * as S from './ListStyle';
 import { useEffect, useState } from 'react';
-import { getAllSubjects } from 'api/api.subjects';
+import { getAllDataSubjects, getAllSubjects } from 'api/api.subjects';
 
 export default function ListContainer() {
   const [isDropdownView, setDropdownView] = useState(false);
@@ -13,7 +13,7 @@ export default function ListContainer() {
 
   const handleSubjectsData = async () => {
     try {
-      const data = await getAllSubjects();
+      const data = await getAllDataSubjects();
       setFriends(data);
     } catch (error) {
       setDataErrorMessage(error.message);
@@ -23,6 +23,7 @@ export default function ListContainer() {
   useEffect(() => {
     handleSubjectsData();
   }, []);
+
   const handleClickSelect = () => {
     setDropdownView(!isDropdownView);
   };

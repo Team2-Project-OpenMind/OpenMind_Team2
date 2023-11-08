@@ -10,6 +10,19 @@ const headers = { 'Content-Type': 'application/json; charset=utf-8' };
 
 // 전체 유저 조회
 export async function getAllSubjects() {
+  const res = await fetch(`${BASE_URL}/subjects/`, {
+    headers,
+  });
+
+  if (!res.ok) {
+    throw new Error('에러가 발생했습니다.');
+  }
+  const data = await res.json();
+  return data;
+}
+
+// 전체 유저 조회(모든데이터 정렬 때문에 사용함)
+export async function getAllDataSubjects() {
   const res = await fetch(`${BASE_URL}/subjects/?limit=9999`, {
     headers,
   });
