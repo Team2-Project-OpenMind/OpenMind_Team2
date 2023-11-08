@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { CookiesProvider } from 'react-cookie';
+import { Cookies, CookiesProvider } from 'react-cookie';
 
 import './reset.css';
 
@@ -11,34 +11,28 @@ import ListContainer from 'pages/list';
 import AnswerContainer from 'pages/answer';
 
 import Header from 'components/Header';
-
+const localId = window.localStorage.getItem('id');
 function App() {
   return (
     <Layout>
       <Routes>
         <Route path="/">
-          <Route index element={<LandingContainer />}></Route>
+          <Route index element={<LandingContainer saveCookie={localId} />}></Route>
           <Route path="list">
             <Route
               index
               element={
                 <>
-                  <Header />
+                  <Header saveCookie={localId} />
                   <ListContainer />
                 </>
               }
             ></Route>
           </Route>
           <Route path="post">
-            <Route index element={<PostContainer />}></Route>
-            <Route path=":id" element={<PostContainer />}>
-              {/* <Route path="answer">
-                <Route index element={<AnswerContainer />}></Route>
-              </Route> */}
-            </Route>
-          </Route>
-          <Route path="answer">
-            <Route index element={<AnswerContainer />}></Route>
+            <Route index element={<PostContainer />} />
+            <Route path=":id" element={<PostContainer />} />
+            <Route path={`${localId}/answer`} element={<AnswerContainer userId={localId} />} />
           </Route>
         </Route>
       </Routes>

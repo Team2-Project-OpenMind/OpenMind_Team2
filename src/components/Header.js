@@ -1,8 +1,20 @@
 import styled from 'styled-components';
 import arrowRight from '../assets/images/arrow-right.svg';
 import { breakPoints } from './common/media';
+import { useNavigate } from 'react-router';
 
-export default function Header() {
+export default function Header({ saveCookie }) {
+  console.log(saveCookie);
+  const navigate = useNavigate();
+  const handleNavigator = (e) => {
+    e.preventDefault();
+    if (!saveCookie) {
+      alert('회원가입하지 않았습니다.');
+      navigate('/');
+    } else {
+      navigate(`/post/${saveCookie}/answer`);
+    }
+  };
   return (
     <ListPageHeader>
       <HeaderWrap>
@@ -11,9 +23,9 @@ export default function Header() {
             <img src="images/logo.svg" alt="로고이미지" />
           </h1>
         </a>
-        <GoAskButton href="/post">
+        <GoAskButton type="button" onClick={handleNavigator}>
           <span>답변하러 가기</span>
-          <img src={arrowRight} />
+          <img src={arrowRight} alt="화살표 이미지" />
         </GoAskButton>
       </HeaderWrap>
     </ListPageHeader>
@@ -54,7 +66,7 @@ const HeaderWrap = styled.div`
   }
 `;
 
-export const GoAskButton = styled.a`
+export const GoAskButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
