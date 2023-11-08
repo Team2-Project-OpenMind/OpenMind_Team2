@@ -7,27 +7,26 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.2rem;
   position: relative;
   height: 100%;
-  padding: 0 15.125rem 2.6rem;
-  padding-bottom: 8.5rem;
+  padding-bottom: 13.6rem;
 `;
 
 export const Title = styled.h1`
-  margin-top: 43px;
+  margin-top: 4.3rem;
   font-family: Actor;
   font-size: 3.2rem;
   font-weight: 400;
-  line-height: 25px;
+  line-height: 2.5rem;
 `;
 
 export const LinkContainer = styled.div`
-  margin-top: 12px;
-  padding-bottom: 2.625rem;
+  margin-top: 1.2rem;
+  padding-bottom: 4.2rem;
   display: inline-flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 1.2rem;
 `;
 
 export const LinkIcon = styled.img`
@@ -40,21 +39,24 @@ export const FeedContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.6rem;
   position: relative;
   width: 100%;
-  max-width: 716px;
-  height: ${(isEmpty) => (isEmpty ? '330px' : '100%')};
-  padding: 1rem;
-  border-radius: 1rem;
+  max-width: 71.6rem;
+  height: 100%;
+  min-height: 33rem;
+  /* height: ${($isEmpty) => ($isEmpty ? '330px' : '100%')}; */
+  padding: 1.6rem;
+  border-radius: 1.6rem;
   border: 1px solid var(--brown30);
   background: var(--brown10);
+
   @media screen and (${breakPoints.tablet}) {
-    width: 704px;
+    width: 70.4rem;
     max-width: none;
   }
   @media screen and (${breakPoints.mobile}) {
-    width: 327px;
+    width: 32.7rem;
     max-width: none;
   }
 `;
@@ -62,25 +64,24 @@ export const FeedContainer = styled.div`
 export const Info = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1.28rem;
 `;
 
 export const EmptyBoxImg = styled(emptyIcon)`
   position: absolute;
-  top: 111px;
-  bottom: 65px;
+  top: 11.1rem;
+  bottom: 6.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 150px;
-  height: 150px;
+  width: 15rem;
+  height: 15rem;
 `;
 
-export const QuestionCount = styled.h2`
-  color: #542f1a;
+export const QuestionCount = styled.p`
+  color: var(--brown40);
   font-family: Actor;
   font-size: 2rem;
   font-weight: 400;
-  line-height: 25px;
 `;
 
 export const IconMessage = styled(MessageIcon)`
@@ -96,8 +97,7 @@ export const CreateQuestionButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+  gap: 0.8rem;
   position: fixed;
   bottom: 24px;
   right: 24px;

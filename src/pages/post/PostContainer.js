@@ -7,6 +7,7 @@ import QuestionModal from 'components/questionModal';
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
+import Card from 'components/feed/Card';
 
 const FEED_COUNT_TEMPORAL = 0;
 
@@ -29,7 +30,7 @@ export default function Post() {
           <S.LinkIcon src={KAKAO} alt="카카오링크_아이콘"></S.LinkIcon>
           <S.LinkIcon src={FACEBOOK} alt="페이스북링크_아이콘"></S.LinkIcon>
         </S.LinkContainer>
-        <S.FeedContainer isEmpty={isEmpty}>
+        <S.FeedContainer $isEmpty={isEmpty}>
           <S.Info>
             <S.IconMessage />
             <S.QuestionCount>
@@ -39,6 +40,7 @@ export default function Post() {
             </S.QuestionCount>
           </S.Info>
           {FEED_COUNT_TEMPORAL === 0 ? <S.EmptyBoxImg /> : <FeedCard />}
+          <Card />
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleClickButton}>질문 작성하기</S.CreateQuestionButton>
         <ClipBoardCopyMessage />
