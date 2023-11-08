@@ -4,6 +4,7 @@ import * as S from './PostStyle';
 import { getSubjectsOnQuestions } from 'api/api.subjects';
 
 import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
+import ModalPortal from 'components/ModalPortal';
 import QuestionModal from 'components/questionModal';
 import FeedCardList from 'components/feed/FeedCardList';
 
@@ -30,6 +31,7 @@ export default function Post({ id = 41 }) {
     }
   };
 
+  //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
   const handleClickButton = () => {
     setOpenModal(!isOpenModal);
   };
@@ -40,8 +42,12 @@ export default function Post({ id = 41 }) {
 
   return (
     <>
-      {isOpenModal && <QuestionModal onClick={handleClickButton} />}
       <S.Wrapper>
+        {isOpenModal && (
+          <ModalPortal>
+            <QuestionModal onClick={handleClickButton} />
+          </ModalPortal>
+        )}
         <S.Title>아초는 고양이</S.Title>
         <S.LinkContainer>
           <S.LinkIcon src={ShareIcon} alt="링크공유_아이콘"></S.LinkIcon>
