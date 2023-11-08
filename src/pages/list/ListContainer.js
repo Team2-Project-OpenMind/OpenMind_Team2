@@ -59,7 +59,7 @@ export default function ListContainer() {
             )}
           </S.Dropdown>
         </S.ListUpper>
-        <CardList data={friends} message={dataErrorMessage} />
+        <CardList data={friends} message={dataErrorMessage} range={range} />
       </S.ListWrap>
     </S.ListContainerBox>
   );

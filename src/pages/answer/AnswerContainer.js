@@ -2,7 +2,7 @@ import * as S from '../post/PostStyle';
 
 import { useState, useEffect } from 'react';
 import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
-import QuestionModal from 'components/questionModal';
+import QuestionModal from 'components/modal/questionModal';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import { getSubjectsOnQuestions } from '../../api/api.subjects.js';
 import { deleteQuestion } from '../../api/api.questions';
@@ -46,14 +46,15 @@ export default function Answer() {
   };
 
   useEffect(() => {
+
+ 
     handleRenderSubjectsOnQ(143);
   }, []);
 
   return (
     <>
-      {isOpenModal && <QuestionModal onClick={handleClickButton} />}
       <S.Wrapper>
-        <S.Title>아초는 고양이</S.Title>
+        <S.Title>아초는 고양이1111111</S.Title>
         <S.LinkContainer>
           <S.LinkIcon src={ShareIcon} alt="링크공유_아이콘"></S.LinkIcon>
           <S.LinkIcon src={KAKAO} alt="카카오링크_아이콘"></S.LinkIcon>

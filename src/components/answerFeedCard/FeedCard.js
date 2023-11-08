@@ -4,13 +4,13 @@ import { updateAnswersPartial } from '../../api/api.answers';
 import { timeForToday } from '../../date';
 
 import * as S from './FeedCardStyled';
-import kebab from '../../assets/images/More.svg';
 import profile from '../../assets/images/Ellipse 1.svg';
 import down from '../../assets/images/down.svg';
 import up from '../../assets/images/thumbs-up.svg';
 import editor from '../../assets/images/Edit.svg';
 import clickedUp from '../../assets/images/clicked_up.svg';
 import clickedDown from '../../assets/images/clicked_down.svg';
+import PopOverMenu from 'components/modal/PopOverMenu';
 
 export default function Feedcard(question) {
   const [answer, setAnswer] = useState('');
@@ -23,6 +23,7 @@ export default function Feedcard(question) {
   const [disliked, setDisliked] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(question.dislike);
   const [qAndAId, setQAndAId] = useState({});
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleCreateAnswer = async (questionId, answerData) => {
     try {
@@ -83,15 +84,26 @@ export default function Feedcard(question) {
     }
   };
 
+  const handleMenuToggle = () => {
+    setMenuOpen((isMenuOpen) => !isMenuOpen);
+  };
+
   return (
     <S.FcContainer>
+      {isMenuOpen && (
+        <PopOverMenu
+          id={question?.id}
+          answerId={question?.answer?.id}
+          $rejectStatus={question?.answer?.isRejected}
+        />
+      )}
       <S.FcHeader>
         {!question?.answer ? (
           <S.UnansweredMark>미답변</S.UnansweredMark>
         ) : (
           <S.AnswerMark>답변 완료</S.AnswerMark>
         )}
-        <img src={kebab} alt="케밥버튼" />
+        <S.KebabButton alt="케밥버튼" onClick={handleMenuToggle} />
       </S.FcHeader>
       <S.FcQuestionWrapper>
         <S.QuestionDate>
