@@ -11,7 +11,6 @@ import AnswerContainer from 'pages/answer';
 
 import Header from 'components/Header';
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -28,10 +27,11 @@ function App() {
                     <ListContainer />
                   </>
                 }
-              ></Route>
+              />
             </Route>
             <Route path="post">
-              <Route index element={<PostContainer />}></Route>
+              <Route index element={<PostContainer />} />
+              <Route path=":id" element={<PostContainer />} />
             </Route>
             <Route path="answer">
               <Route index element={<AnswerContainer />}></Route>

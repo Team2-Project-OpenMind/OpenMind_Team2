@@ -35,7 +35,11 @@ export default function CardList({ data, message }) {
       <S.ListCards>
         {!message ? (
           sliceData?.results.map((li) => {
-            return <CardItem friends={li} />;
+            return (
+              <Link to={`/post/${li.id}`}>
+                <CardItem friends={li} />
+              </Link>
+            );
           })
         ) : (
           <li>{message}</li>
