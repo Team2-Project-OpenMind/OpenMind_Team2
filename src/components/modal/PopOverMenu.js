@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { deleteAnswers } from 'api/api.answers';
+
 export default function PopOverMenu() {
   return (
     <Container>

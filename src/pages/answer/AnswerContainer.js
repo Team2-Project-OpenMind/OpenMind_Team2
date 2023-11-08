@@ -30,7 +30,7 @@ export default function Answer() {
     setOpenModal(!isOpenModal);
   };
   useEffect(() => {
-    handleRenderSubjectsOnQ(81);
+    handleRenderSubjectsOnQ(41);
   }, []);
 
   return (
