@@ -1,13 +1,47 @@
 import styled from 'styled-components';
 
 import { deleteAnswers } from 'api/api.answers';
+import { updateAnswers } from 'api/api.answers';
+import { deleteQuestion } from 'api/api.questions';
+import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu() {
+export default function PopOverMenu({ id }) {
+  // console.log(id);
+  const handleDeleteAnswer = async () => {
+    try {
+      const result = await deleteAnswers(id);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteQuestion = async () => {
+    try {
+      await deleteQuestion(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRejectAnswer = async () => {
+    const POST_DATA = {
+      content: '답변을 거절하겠습니다~~',
+      isRejected: 'true',
+    };
+    try {
+      const answer = await createAnswer(id, POST_DATA);
+      console.log(answer);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
-      <MenuItem>답변 삭제</MenuItem>
-      <MenuItem>질문 삭제</MenuItem>
-      <MenuItem>답변 거절</MenuItem>
+      <MenuItem onClick={handleDeleteAnswer}>답변 삭제</MenuItem>
+      <MenuItem onClick={handleDeleteQuestion}>질문 삭제</MenuItem>
+      <MenuItem onClick={handleRejectAnswer}>답변 거절</MenuItem>
     </Container>
   );
 }

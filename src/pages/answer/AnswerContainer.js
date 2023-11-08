@@ -30,12 +30,11 @@ export default function Answer() {
     setOpenModal(!isOpenModal);
   };
   useEffect(() => {
-    handleRenderSubjectsOnQ(41);
+    handleRenderSubjectsOnQ(138);
   }, []);
 
   return (
     <>
-      {isOpenModal && <QuestionModal onClick={handleClickButton} />}
       <S.Wrapper>
         <S.Title>아초는 고양이1111111</S.Title>
         <S.LinkContainer>
