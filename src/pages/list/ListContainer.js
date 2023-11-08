@@ -2,14 +2,27 @@ import CardList from 'components/listPageCard/CardList';
 import arrowUp from '../../assets/images/arrow-up.svg';
 import arrowDown from '../../assets/images/arrow-down.svg';
 import * as S from './ListStyle';
-import { useState } from 'react';
-
-const numberList = ['1', '2', '3', '4', '5', '6', '7', '8'];
+import { useEffect, useState } from 'react';
+import { getAllSubjects } from 'api/api.subjects';
 
 export default function ListContainer() {
   const [isDropdownView, setDropdownView] = useState(false);
   const [range, setRange] = useState('');
+  const [friends, setFriends] = useState(null);
+  const [dataErrorMessage, setDataErrorMessage] = useState('');
 
+  const handleSubjectsData = async () => {
+    try {
+      const data = await getAllSubjects();
+      setFriends(data);
+    } catch (error) {
+      setDataErrorMessage(error.message);
+    }
+  };
+
+  useEffect(() => {
+    handleSubjectsData();
+  }, []);
   const handleClickSelect = () => {
     setDropdownView(!isDropdownView);
   };
@@ -38,7 +51,6 @@ export default function ListContainer() {
                 <img src={isDropdownView ? arrowUp : arrowDown} alt="화살표 이미지"></img>
               </S.DropdownButton>
             </label>
-
             {isDropdownView && (
               <S.DropdownList>
                 <S.DropdownListItme onClick={handleClickList}>이름순</S.DropdownListItme>
@@ -47,12 +59,7 @@ export default function ListContainer() {
             )}
           </S.Dropdown>
         </S.ListUpper>
-        <CardList />
-        <S.ListPagination>
-          {numberList.map((list, index) => {
-            return <S.ListPaginationNumber key={index}>{list}</S.ListPaginationNumber>;
-          })}
-        </S.ListPagination>
+        <CardList data={friends} message={dataErrorMessage} />
       </S.ListWrap>
     </S.ListContainerBox>
   );

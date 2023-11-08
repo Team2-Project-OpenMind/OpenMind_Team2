@@ -1,27 +1,57 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import { createQuestions } from 'api/api.subjects';
 import { ReactComponent as MsgIcon } from 'assets/images/message.svg';
 import closeIcon from 'assets/images/CloseButton.svg';
 import modalProfile from 'assets/images/modal_profile.svg';
 
-function QuestionModal() {
+function QuestionModal({ onClick }) {
+  const [textValue, setTextValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const TEMPORAL_USER_ID = 81;
+  const questionsData = {
+    content: textValue,
+  };
+
+  const handleTextChange = (e) => {
+    const nextValue = e.target.value;
+    setTextValue(nextValue);
+  };
+
+  const handleSubmit = async () => {
+    let result;
+    try {
+      setIsLoading(true);
+      result = await createQuestions(TEMPORAL_USER_ID, questionsData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+    console.log(result);
+    setTextValue('');
+    onClick();
+  };
+
   return (
     <BG>
-      <Wrapper>
+      <Container onSubmit={handleSubmit}>
         <TitleWrapper>
           <TitleContainer>
             <MessageIcon alt="메시지_아이콘" />
             <Title>질문을 작성하세요</Title>
           </TitleContainer>
-          <CloseIcon src={closeIcon} alt="닫는_아이콘"></CloseIcon>
+          <CloseIcon src={closeIcon} alt="닫는_아이콘" onClick={onClick}></CloseIcon>
         </TitleWrapper>
         <ReceiverWrapper>
-          To.
+          <To>To.</To>
           <ReceiverProfileImg src={modalProfile} alt="프로필_이미지"></ReceiverProfileImg>
           아초는고양이
         </ReceiverWrapper>
-        <TextArea placeholder="질문을 입력해주세요" />
-        <FormButton>질문 보내기</FormButton>
-      </Wrapper>
+        <TextArea placeholder="질문을 입력해주세요" value={textValue} onChange={handleTextChange} />
+        <FormButton disabled={isLoading}>질문 보내기</FormButton>
+      </Container>
     </BG>
   );
 }
@@ -29,21 +59,22 @@ function QuestionModal() {
 export default QuestionModal;
 
 const BG = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-shrink: 0;
   position: fixed;
-  width: 1200px;
-  height: 832px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.56);
+  z-index: 1;
 `;
 
-const Wrapper = styled.form`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: auto;
   padding: 40px 40px 70px;
   width: 612px;
   height: 454px;
@@ -74,7 +105,7 @@ const MessageIcon = styled(MsgIcon)`
 
 const Title = styled.div`
   font-family: Actor;
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   font-weight: 400;
   line-height: 30px;
 `;
@@ -91,6 +122,15 @@ const ReceiverWrapper = styled.div`
   gap: 4px;
   margin-bottom: 12px;
   font-family: Pretendard;
+  font-size: 1.6rem;
+`;
+
+const To = styled.span`
+  font-family: Actor;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.4rem;
 `;
 
 const ReceiverProfileImg = styled.img`
@@ -108,6 +148,9 @@ const TextArea = styled.textarea`
   border-radius: 8px;
   background: var(--gray20);
   font-family: Pretendard;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.2rem;
   resize: none;
 
   &::placeholder {
@@ -132,7 +175,7 @@ const FormButton = styled.button`
   background: var(--brown30);
   color: var(--gray10);
   font-family: Pretendard;
-  font-size: 1rem;
+  font-size: 1.6rem;
   font-weight: 400;
   line-height: 22px;
   cursor: pointer;
