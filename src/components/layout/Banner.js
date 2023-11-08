@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   height: 234px;
   background: no-repeat url(${(props) => props.image});
   background-position: top;
+  background-color: var(--gray10);
 `;
 
 const Profile = styled.img`
@@ -24,5 +25,5 @@ const Profile = styled.img`
   top: 129px;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 8.5rem;
+  width: 13.6rem;
 `;
