@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
+import { timeForToday } from '../../date';
+
 import * as S from './FeedCardStyled';
 import profile from '../../assets/images/Ellipse 1.svg';
 import down from '../../assets/images/down.svg';
@@ -96,7 +98,7 @@ export default function Feedcard(question) {
         />
       )}
       <S.FcHeader>
-        {!isSubmit ? (
+        {!question?.answer ? (
           <S.UnansweredMark>미답변</S.UnansweredMark>
         ) : (
           <S.AnswerMark>답변 완료</S.AnswerMark>
@@ -104,15 +106,23 @@ export default function Feedcard(question) {
         <S.KebabButton alt="케밥버튼" onClick={handleMenuToggle} />
       </S.FcHeader>
       <S.FcQuestionWrapper>
-        <S.QuestionDate>질문 {question.createdAt}</S.QuestionDate>
+        <S.QuestionDate>
+          질문
+          <S.DisplayTime>{timeForToday(question.createdAt)}</S.DisplayTime>
+        </S.QuestionDate>
         <S.QuestionContent>{question.content}</S.QuestionContent>
       </S.FcQuestionWrapper>
       <S.FcAnswerContainer>
         <S.FcProfile src={profile} alt="프로필" />
         <S.FcAnswerWrapper>
-          <S.FcAnswerer></S.FcAnswerer>
+          <S.FcAnswerer>
+            아초는 고양이
+            {question?.answer ? (
+              <S.DisplayTime>{timeForToday(question.answer?.createdAt)}</S.DisplayTime>
+            ) : null}
+          </S.FcAnswerer>
           <S.FcAnswerContent>
-            {!isSubmit ? (
+            {!question?.answer && !isSubmit ? (
               <>
                 <S.FcAnswerInput
                   name="answer"
@@ -129,7 +139,9 @@ export default function Feedcard(question) {
               </>
             ) : (
               <>
-                <S.SubmitedAnswer $isUpdate={isUpdate}>{answer}</S.SubmitedAnswer>
+                <S.SubmitedAnswer $isUpdate={isUpdate}>
+                  {question?.answer?.content || answer}
+                </S.SubmitedAnswer>
                 <S.EditorButton
                   onClick={() => handleUpdateAnswer()}
                   $editAnswer={editAnswer}

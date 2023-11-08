@@ -4,6 +4,7 @@ import { ReactComponent as Kebab } from 'assets/images/More.svg';
 export const FcContainer = styled.div`
   display: flex;
   position: relative;
+  margin: 0 auto;
   width: 62rem;
   padding: 3.2rem;
   flex-direction: column;
@@ -62,7 +63,7 @@ export const FcQuestionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.4rem;
+  gap: 1rem;
   flex: 1 0 0;
 `;
 
@@ -112,6 +113,12 @@ export const FcAnswerer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  color: var(--gray60);
+  font-family: Actor;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.4rem;
 `;
 
 export const FcAnswerContent = styled.div`
@@ -220,8 +227,20 @@ export const EditorButton = styled.button`
   }};
 `;
 export const SubmitedAnswer = styled.div`
+  display: flex;
+  justify-content: flex-start;
   color: var(--gray60);
   font: var(--body3-regular);
   line-height: 2.2rem;
   display: ${({ $isUpdate }) => ($isUpdate ? 'none' : 'block')};
+`;
+
+export const DisplayTime = styled.span`
+  color: var(--gray40);
+
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
 `;
