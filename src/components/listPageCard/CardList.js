@@ -19,8 +19,8 @@ export default function CardList({ data, message }) {
     }
   };
   useEffect(() => {
-    handleLinkData(results.length);
-  }, []);
+    handleLinkData(data?.results.length);
+  }, [data]);
   if (!data) return;
 
   const { results } = data;
@@ -34,7 +34,7 @@ export default function CardList({ data, message }) {
     <>
       <S.ListCards>
         {!message ? (
-          sliceData.results.map((li) => {
+          sliceData?.results.map((li) => {
             return <CardItem friends={li} />;
           })
         ) : (
