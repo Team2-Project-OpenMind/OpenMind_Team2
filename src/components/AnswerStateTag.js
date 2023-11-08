@@ -7,7 +7,7 @@ export default function AnswerStateTag({ state }) {
 }
 
 export const Tag = styled.span`
-  width: ${({ state }) => (state ? '8rem' : '6.5rem')};
+  width: ${({ $state }) => ($state ? '8rem' : '6.5rem')};
   padding: 0.4rem 1.2rem;
   font-size: 1.4rem;
   font: var(--caption1-regular);

@@ -9,7 +9,7 @@ export default function FeedCardItem({ questionData }) {
 
   return (
     <S.Wrapper>
-      <AnswerStateTag state={isAnswerCompleted} />
+      <AnswerStateTag $state={isAnswerCompleted} />
       <S.Description>
         <S.Info>
           <span>질문 · {createdAt}</span>
