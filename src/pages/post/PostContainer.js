@@ -8,6 +8,7 @@ import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 import Card from 'components/feed/Card';
+import ModalPortal from 'components/ModalPortal';
 
 const FEED_COUNT_TEMPORAL = 0;
 
@@ -22,7 +23,11 @@ export default function Post() {
 
   return (
     <>
-      {isOpenModal && <QuestionModal onClick={handleClickButton} />}
+      {isOpenModal && (
+        <ModalPortal>
+          <QuestionModal onClick={handleClickButton} />
+        </ModalPortal>
+      )}
       <S.Wrapper>
         <S.Title>아초는 고양이</S.Title>
         <S.LinkContainer>
