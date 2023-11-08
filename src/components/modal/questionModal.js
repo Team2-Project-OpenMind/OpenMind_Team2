@@ -5,11 +5,11 @@ import { ReactComponent as MsgIcon } from 'assets/images/message.svg';
 import closeIcon from 'assets/images/CloseButton.svg';
 import modalProfile from 'assets/images/modal_profile.svg';
 
-function QuestionModal({ onClick }) {
+function QuestionModal({ id, onClick }) {
   const [textValue, setTextValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const TEMPORAL_USER_ID = 81;
+  const USER_ID = id;
   const questionsData = {
     content: textValue,
   };
@@ -23,7 +23,7 @@ function QuestionModal({ onClick }) {
     let result;
     try {
       setIsLoading(true);
-      result = await createQuestions(TEMPORAL_USER_ID, questionsData);
+      result = await createQuestions(USER_ID, questionsData);
     } catch (error) {
       console.log(error);
     } finally {

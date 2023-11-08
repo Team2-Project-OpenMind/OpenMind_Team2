@@ -31,12 +31,10 @@ function App() {
           </Route>
           <Route path="post">
             <Route index element={<PostContainer />}></Route>
-            <Route path=":id" element={<PostContainer />}>
-              <Route path="answer">
-                <Route index element={<AnswerContainer />}></Route>
-              </Route>
-
-            </Route>
+            <Route path=":id" element={<PostContainer />}></Route>
+          </Route>
+          <Route path="answer">
+            <Route index element={<AnswerContainer />}></Route>
           </Route>
         </Route>
       </Routes>
