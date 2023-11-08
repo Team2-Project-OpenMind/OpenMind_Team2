@@ -17,18 +17,19 @@ export default function Post() {
 
   const isEmpty = FEED_COUNT_TEMPORAL === 0;
 
+  //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
   const handleClickButton = () => {
     setOpenModal(!isOpenModal);
   };
 
   return (
     <>
-      {isOpenModal && (
-        <ModalPortal>
-          <QuestionModal onClick={handleClickButton} />
-        </ModalPortal>
-      )}
       <S.Wrapper>
+        {isOpenModal && (
+          <ModalPortal>
+            <QuestionModal onClick={handleClickButton} />
+          </ModalPortal>
+        )}
         <S.Title>아초는 고양이</S.Title>
         <S.LinkContainer>
           <S.LinkIcon src={ShareIcon} alt="링크공유_아이콘"></S.LinkIcon>
