@@ -1,20 +1,20 @@
 import * as S from '../post/PostStyle';
 
+import { useState, useEffect } from 'react';
 import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
 import QuestionModal from 'components/questionModal';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import { getSubjectsOnQuestions } from '../../api/api.subjects.js';
-import { useState, useEffect } from 'react';
+import { deleteQuestion } from '../../api/api.questions';
 
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
-const FEED_COUNT_TEMPORAL = 0;
-
 export default function Answer() {
   const [questionList, setQusetionList] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
+
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
@@ -24,13 +24,29 @@ export default function Answer() {
       console.log(error);
     }
   };
-  const isEmpty = FEED_COUNT_TEMPORAL === 0;
 
   const handleClickButton = () => {
     setOpenModal(!isOpenModal);
   };
+
+  const handleAllDeleteQuestionList = async (id) => {
+    try {
+      const { results } = await getSubjectsOnQuestions(id);
+
+      const questionIdForDelete = results.map((result) => result.id);
+
+      questionIdForDelete.map(async (id) => {
+        await deleteQuestion(id);
+      });
+
+      setQusetionList([]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    handleRenderSubjectsOnQ(81);
+    handleRenderSubjectsOnQ(143);
   }, []);
 
   return (
@@ -43,16 +59,18 @@ export default function Answer() {
           <S.LinkIcon src={KAKAO} alt="카카오링크_아이콘"></S.LinkIcon>
           <S.LinkIcon src={FACEBOOK} alt="페이스북링크_아이콘"></S.LinkIcon>
         </S.LinkContainer>
-        <S.FeedContainer isEmpty={isEmpty}>
+
+        <S.ButtonWrapper>
+          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(143)}>삭제하기</S.DeleteButton>
+        </S.ButtonWrapper>
+        <S.FeedContainer isEmpty={questionList}>
           <S.Info>
             <S.IconMessage />
             <S.QuestionCount>
-              {!FEED_COUNT_TEMPORAL
-                ? `${FEED_COUNT_TEMPORAL}개의 질문이 있습니다`
-                : `아직 질문이 없습니다`}
+              {questionList ? `${questionList.length}개의 질문이 있습니다` : `아직 질문이 없습니다`}
             </S.QuestionCount>
           </S.Info>
-          {!FEED_COUNT_TEMPORAL === 0 ? (
+          {!questionList ? (
             <S.EmptyBoxImg />
           ) : (
             <>

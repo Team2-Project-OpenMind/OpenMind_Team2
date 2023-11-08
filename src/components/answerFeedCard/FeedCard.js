@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
+import { timeForToday } from '../../date';
+
 import * as S from './FeedCardStyled';
 import kebab from '../../assets/images/More.svg';
 import profile from '../../assets/images/Ellipse 1.svg';
@@ -92,13 +94,21 @@ export default function Feedcard(question) {
         <img src={kebab} alt="케밥버튼" />
       </S.FcHeader>
       <S.FcQuestionWrapper>
-        <S.QuestionDate>질문 {question.createdAt}</S.QuestionDate>
+        <S.QuestionDate>
+          질문
+          <S.DisplayTime>{timeForToday(question.createdAt)}</S.DisplayTime>
+        </S.QuestionDate>
         <S.QuestionContent>{question.content}</S.QuestionContent>
       </S.FcQuestionWrapper>
       <S.FcAnswerContainer>
         <S.FcProfile src={profile} alt="프로필" />
         <S.FcAnswerWrapper>
-          <S.FcAnswerer></S.FcAnswerer>
+          <S.FcAnswerer>
+            아초는 고양이
+            {isSubmit ? (
+              <S.DisplayTime>{timeForToday(question.answer?.createdAt)}</S.DisplayTime>
+            ) : null}
+          </S.FcAnswerer>
           <S.FcAnswerContent>
             {!isSubmit ? (
               <>
