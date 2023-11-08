@@ -10,10 +10,14 @@ import FeedCardList from 'components/feed/FeedCardList';
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
+import { useParams } from 'react-router-dom';
+
 
 const FEED_COUNT_TEMPORAL = 11;
 
-export default function Post({ id = 41 }) {
+
+export default function Post() {
+  const { id } = useParams();
   const [questionCount, setQuestionCount] = useState(0);
   const [questionData, setQuestionData] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
@@ -44,7 +48,7 @@ export default function Post({ id = 41 }) {
       <S.Wrapper>
         {isOpenModal && (
           <ModalPortal>
-            <QuestionModal onClick={handleClickButton} />
+            <QuestionModal onClick={handleClickButton} id={id} />
           </ModalPortal>
         )}
         <S.Title>아초는 고양이</S.Title>
