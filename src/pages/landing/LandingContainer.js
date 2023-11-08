@@ -1,6 +1,6 @@
-import arrowRight from '../../assets/images/arrow-right.svg';
-import personImg from '../../assets/images/Person.svg';
+import LogIn from 'components/Login';
 import * as style from './LandingStyle';
+import arrowRight from '../../assets/images/arrow-right.svg';
 
 export default function LandingContainer() {
   return (
@@ -10,13 +10,7 @@ export default function LandingContainer() {
         <img src={arrowRight} alt="" />
       </style.GoAskButton>
       <style.Logo src="/images/logo.svg" alt="로고" />
-      <style.Form>
-        <style.Input>
-          <img src={personImg} alt="" />
-          <input type="text" placeholder="이름을 입력하세요"></input>
-        </style.Input>
-        <style.Button>질문받기</style.Button>
-      </style.Form>
+      <LogIn></LogIn>
       <style.HeroImage></style.HeroImage>
     </style.Container>
   );
