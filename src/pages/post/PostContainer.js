@@ -25,7 +25,6 @@ export default function Post({ id = 41 }) {
       const res = await getSubjectsOnQuestions(id);
       setQuestionCount(res.count);
       setQuestionData(res.results);
-      // console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -38,8 +37,6 @@ export default function Post({ id = 41 }) {
   useEffect(() => {
     handleLoaded();
   }, []);
-
-  console.log(questionData);
 
   return (
     <>
