@@ -8,6 +8,7 @@ import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 import Card from 'components/feed/Card';
+import ModalPortal from 'components/ModalPortal';
 
 const FEED_COUNT_TEMPORAL = 0;
 
@@ -16,14 +17,19 @@ export default function Post() {
 
   const isEmpty = FEED_COUNT_TEMPORAL === 0;
 
+  //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
   const handleClickButton = () => {
     setOpenModal(!isOpenModal);
   };
 
   return (
     <>
-      {isOpenModal && <QuestionModal onClick={handleClickButton} />}
       <S.Wrapper>
+        {isOpenModal && (
+          <ModalPortal>
+            <QuestionModal onClick={handleClickButton} />
+          </ModalPortal>
+        )}
         <S.Title>아초는 고양이</S.Title>
         <S.LinkContainer>
           <S.LinkIcon src={ShareIcon} alt="링크공유_아이콘"></S.LinkIcon>
