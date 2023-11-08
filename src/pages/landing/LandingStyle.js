@@ -7,7 +7,7 @@ export const Container = styled.div`
   background-color: var(--gray20);
 `;
 
-export const GoAskButton = styled.button`
+export const GoAskButton = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;

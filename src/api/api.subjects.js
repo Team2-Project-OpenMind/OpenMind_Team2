@@ -10,22 +10,7 @@ const headers = { 'Content-Type': 'application/json; charset=utf-8' };
 
 // 전체 유저 조회
 export async function getAllSubjects() {
-  const res = await fetch(`${BASE_URL}/subjects/`, {
-    headers,
-  });
-
-  if (!res.ok) {
-    throw new Error('에러가 발생했습니다.');
-  }
-  const data = await res.json();
-  return data;
-}
-
-// 전체 유저 조회(페이지네이션용)
-export async function getPageSubjects(limit, offset) {
-  console.log(limit * offset);
-  console.log(`${BASE_URL}/subjects/?limit=${limit}&offset=${limit * offset}`);
-  const res = await fetch(`${BASE_URL}/subjects/?limit=${limit}&offset=${limit * offset}`, {
+  const res = await fetch(`${BASE_URL}/subjects/?limit=9999`, {
     headers,
   });
 

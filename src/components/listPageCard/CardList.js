@@ -1,40 +1,35 @@
 import { Link } from 'react-router-dom';
 import CardItem from './CardItem';
 import * as S from './CardListStyle';
-import { getPageSubjects } from 'api/api.subjects';
-import { useEffect, useState } from 'react';
-
-const numberList = ['1', '2', '3', '4', '5', '6', '7', '8'];
+import { useState } from 'react';
+import Pagination from 'components/pagination/Pagination';
 
 export default function CardList({ data, message }) {
-  const [sliceData, setSliceData] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostPerPage] = useState(8); //한페이지당 렌더링 되는 데이터 수
 
-  const handleLinkData = async (length, num) => {
-    try {
-      const datas = await getPageSubjects(length, num);
-      console.log(datas);
-      setSliceData(datas);
-    } catch (error) {
-      console.log(error);
-    }
+  //페이지숫자 리스트 구현 계산
+  const indexOfLast = currentPage * postsPerPage; //페이지 마지막수 1 * 10
+  const indexOfFirst = indexOfLast - postsPerPage; // 페이지 첫번째 수10 - 10 = 0
+
+  const currentPosts = (datas) => {
+    let currentPosts = datas.slice(indexOfFirst, indexOfLast); //데이터를 0~10번째까지 슬라이스함
+    return currentPosts;
   };
-  useEffect(() => {
-    handleLinkData(data?.results.length);
-  }, [data]);
+
   if (!data) return;
 
   const { results } = data;
-  const pageNumbers = []; //페이지 넘버 배열 설정
-  //console.log(data.count / results.length);
-  for (let i = 1; i <= Math.ceil(data.count / results.length); i++) {
-    pageNumbers.push({ id: i, isDone: false });
-  }
+  console.log(results);
+  const sortData = results.sort((a, b) => (a.name > b.name ? 1 : -1));
 
+  const postLists = currentPosts(sortData); //위 조건문 통과 후에 페이징 슬라이스
+  console.log(postLists);
   return (
     <>
       <S.ListCards>
         {!message ? (
-          sliceData?.results.map((li) => {
+          postLists.map((li) => {
             return (
               <Link to={`/post/${li.id}`}>
                 <CardItem friends={li} />
@@ -45,18 +40,13 @@ export default function CardList({ data, message }) {
           <li>{message}</li>
         )}
       </S.ListCards>
-      <S.ListPagination>
-        {pageNumbers.map((Num, index) => {
-          return (
-            <S.ListPaginationNumber
-              key={Num.id}
-              onClick={() => handleLinkData(results.length, index)}
-            >
-              {Num.id}
-            </S.ListPaginationNumber>
-          );
-        })}
-      </S.ListPagination>
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={data.results.length}
+        paginate={setCurrentPage}
+        isDone={false}
+        currentPage={currentPage}
+      />
     </>
   );
 }
