@@ -29,7 +29,6 @@ export default function CardList({ data, message, range }) {
   });
 
   const postLists = currentPosts(sortData); //위 조건문 통과 후에 페이징 슬라이스
-  console.log(postLists);
   return (
     <>
       <S.ListCards>
