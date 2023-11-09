@@ -21,11 +21,9 @@ export async function getAllSubjects() {
   return data;
 }
 
-// 전체 유저 조회(페이지네이션용)
-export async function getPageSubjects(limit, offset) {
-  console.log(limit * offset);
-  console.log(`${BASE_URL}/subjects/?limit=${limit}&offset=${limit * offset}`);
-  const res = await fetch(`${BASE_URL}/subjects/?limit=${limit}&offset=${limit * offset}`, {
+// 전체 유저 조회(모든데이터 정렬 때문에 사용함)
+export async function getAllDataSubjects() {
+  const res = await fetch(`${BASE_URL}/subjects/?limit=9999`, {
     headers,
   });
 

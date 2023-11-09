@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { ReactComponent as Kebab } from 'assets/images/More.svg';
 
 export const FcContainer = styled.div`
   display: flex;
   position: relative;
+  margin: 0 auto;
   width: 62rem;
   padding: 3.2rem;
   flex-direction: column;
@@ -30,6 +32,10 @@ export const AnswerMark = styled.div`
   border: 1px solid var(--brown40);
   background: var(--gray10);
   color: var(--brown40);
+  font-family: Pretendard;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8rem;
 `;
 
 export const UnansweredMark = styled.div`
@@ -41,13 +47,23 @@ export const UnansweredMark = styled.div`
   border-radius: 0.8rem;
   border: 1px solid var(--gray40);
   background: var(--gray10);
+  font-family: Pretendard;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8rem;
+`;
+
+export const KebabButton = styled(Kebab)`
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
 `;
 
 export const FcQuestionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.4rem;
+  gap: 1rem;
   flex: 1 0 0;
 `;
 
@@ -97,6 +113,12 @@ export const FcAnswerer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  color: var(--gray60);
+  font-family: Actor;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.4rem;
 `;
 
 export const FcAnswerContent = styled.div`
@@ -174,6 +196,10 @@ export const Reaction = styled.div`
   align-items: center;
   gap: 0.6rem;
   cursor: pointer;
+  font-family: Pretendard;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8rem;
   color: ${({ $liked }) => ($liked ? 'var( --blue50)' : 'var(--gray40)')};
   color: ${({ $disliked }) => ($disliked ? 'var(--gray60)' : '')};
 `;
@@ -193,7 +219,6 @@ export const EditorButton = styled.button`
   right: 3.2rem;
   color: var(--gray50);
   font: var(--caption1-medium);
-  line-height: 1.8rem;
   display: ${({ $isUpdate }) => ($isUpdate ? 'none' : 'block')};
   display: ${({ $editAnswer }) => {
     if ($editAnswer === true) {
@@ -202,8 +227,20 @@ export const EditorButton = styled.button`
   }};
 `;
 export const SubmitedAnswer = styled.div`
+  display: flex;
+  justify-content: flex-start;
   color: var(--gray60);
   font: var(--body3-regular);
   line-height: 2.2rem;
   display: ${({ $isUpdate }) => ($isUpdate ? 'none' : 'block')};
+`;
+
+export const DisplayTime = styled.span`
+  color: var(--gray40);
+
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
 `;
