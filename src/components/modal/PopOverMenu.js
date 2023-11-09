@@ -25,10 +25,13 @@ export default function PopOverMenu({ id }) {
   };
 
   const handleRejectAnswer = async () => {
+
+    const content = prompt('거절사유입력')
     const POST_DATA = {
-      content: '답변을 거절하겠습니다~~',
+      content,
       isRejected: 'true',
     };
+    console.log(content);
     try {
       const answer = await createAnswer(id, POST_DATA);
       console.log(answer);
