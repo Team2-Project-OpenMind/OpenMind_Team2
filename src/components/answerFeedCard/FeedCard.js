@@ -13,6 +13,7 @@ import clickedDown from '../../assets/images/clicked_down.svg';
 import PopOverMenu from 'components/modal/PopOverMenu';
 
 export default function Feedcard(question) {
+  console.log(question);
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmit, setIsSubmited] = useState(false);
