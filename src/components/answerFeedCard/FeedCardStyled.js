@@ -96,6 +96,14 @@ export const FcAnswerContainer = styled.div`
 `;
 
 export const FcProfile = styled.div`
+  border-radius: 48px;
+  background-image: ${({ $url }) => ($url ? `url(${$url})` : '')};
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+`;
+
+export const FcProfileWrapper = styled.div`
   display: flex;
   width: 4.8rem;
   height: 4.8rem;

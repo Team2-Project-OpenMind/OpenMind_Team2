@@ -4,7 +4,7 @@ import { updateAnswersPartial } from '../../api/api.answers';
 import { timeForToday } from '../../date';
 
 import * as S from './FeedCardStyled';
-import profile from '../../assets/images/Ellipse 1.svg';
+
 import down from '../../assets/images/down.svg';
 import up from '../../assets/images/thumbs-up.svg';
 import editor from '../../assets/images/Edit.svg';
@@ -114,10 +114,12 @@ export default function Feedcard(question) {
         <S.QuestionContent>{question.content}</S.QuestionContent>
       </S.FcQuestionWrapper>
       <S.FcAnswerContainer>
-        <S.FcProfile src={profile} alt="프로필" />
+        <S.FcProfileWrapper>
+          <S.FcProfile $url={question.imageSource} alt="프로필" />
+        </S.FcProfileWrapper>
         <S.FcAnswerWrapper>
           <S.FcAnswerer>
-            아초는 고양이
+            {question?.name}
             {question?.answer ? (
               <S.DisplayTime>{timeForToday(question.answer?.createdAt)}</S.DisplayTime>
             ) : null}
