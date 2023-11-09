@@ -1,8 +1,8 @@
 import * as S from '../post/PostStyle';
 
 import { useState, useEffect } from 'react';
-import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
-import QuestionModal from 'components/modal/questionModal';
+import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
+import QuestionModal from 'components/modal/QuestionModal';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import { getSubjectsOnQuestions } from '../../api/api.subjects.js';
 import { deleteQuestion } from '../../api/api.questions';
@@ -11,7 +11,7 @@ import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
-export default function Answer() {
+export default function Answer({ userId }) {
   const [questionList, setQusetionList] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
 
@@ -46,8 +46,10 @@ export default function Answer() {
   };
 
   useEffect(() => {
-    handleRenderSubjectsOnQ(207);
-  }, []);
+
+    handleRenderSubjectsOnQ(userId);
+  }, [userId]);
+
 
   return (
     <>
@@ -60,7 +62,7 @@ export default function Answer() {
         </S.LinkContainer>
 
         <S.ButtonWrapper>
-          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(207)}>삭제하기</S.DeleteButton>
+          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>삭제하기</S.DeleteButton>
         </S.ButtonWrapper>
         <S.FeedContainer>
           <S.Info>
