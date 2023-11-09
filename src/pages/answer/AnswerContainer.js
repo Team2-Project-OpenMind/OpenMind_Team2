@@ -46,8 +46,10 @@ export default function Answer({ userId }) {
   };
 
   useEffect(() => {
+
     handleRenderSubjectsOnQ(userId);
   }, [userId]);
+
 
   return (
     <>
@@ -60,9 +62,9 @@ export default function Answer({ userId }) {
         </S.LinkContainer>
 
         <S.ButtonWrapper>
-          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(143)}>삭제하기</S.DeleteButton>
+          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>삭제하기</S.DeleteButton>
         </S.ButtonWrapper>
-        <S.FeedContainer isEmpty={questionList}>
+        <S.FeedContainer>
           <S.Info>
             <S.IconMessage />
             <S.QuestionCount>
