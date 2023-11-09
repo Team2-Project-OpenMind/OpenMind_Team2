@@ -12,9 +12,7 @@ import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 import { useParams } from 'react-router-dom';
 
-
 const FEED_COUNT_TEMPORAL = 11;
-
 
 export default function Post() {
   const { id } = useParams();

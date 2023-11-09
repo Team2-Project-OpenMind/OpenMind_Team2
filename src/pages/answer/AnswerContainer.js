@@ -11,7 +11,7 @@ import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
-export default function Answer() {
+export default function Answer({ userId }) {
   const [questionList, setQusetionList] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
 
@@ -46,10 +46,8 @@ export default function Answer() {
   };
 
   useEffect(() => {
-
- 
-    handleRenderSubjectsOnQ(143);
-  }, []);
+    handleRenderSubjectsOnQ(userId);
+  }, [userId]);
 
   return (
     <>
