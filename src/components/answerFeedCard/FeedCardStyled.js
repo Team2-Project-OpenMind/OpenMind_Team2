@@ -6,7 +6,7 @@ export const FcContainer = styled.div`
   position: relative;
   margin: 0 auto;
   width: 62rem;
-  height: 479px;
+
   padding: 3.2rem;
   flex-direction: column;
   align-items: flex-start;

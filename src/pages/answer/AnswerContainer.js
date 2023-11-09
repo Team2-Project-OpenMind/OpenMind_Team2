@@ -14,6 +14,7 @@ import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 export default function Answer({ userId }) {
   const [questionList, setQusetionList] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
+  const [answererImg, setAnswerImg] = useState('');
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -46,10 +47,8 @@ export default function Answer({ userId }) {
   };
 
   useEffect(() => {
-
     handleRenderSubjectsOnQ(userId);
   }, [userId]);
-
 
   return (
     <>
@@ -62,7 +61,9 @@ export default function Answer({ userId }) {
         </S.LinkContainer>
 
         <S.ButtonWrapper>
-          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>삭제하기</S.DeleteButton>
+          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>
+            삭제하기
+          </S.DeleteButton>
         </S.ButtonWrapper>
         <S.FeedContainer>
           <S.Info>

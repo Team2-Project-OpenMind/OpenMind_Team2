@@ -44,7 +44,7 @@ export default function Feedcard(question) {
 
   const handleChangeAnswer = (e) => {
     setAnswer(e.target.value);
-    answer.length >= 8 ? setIsCompleted(true) : setIsCompleted(false);
+    answer ? setIsCompleted(true) : setIsCompleted(false);
     if (e.target.value === '') return setIsCompleted(false);
   };
 
