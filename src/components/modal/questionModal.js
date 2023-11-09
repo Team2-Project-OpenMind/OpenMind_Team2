@@ -5,7 +5,7 @@ import { ReactComponent as MsgIcon } from 'assets/images/message.svg';
 import closeIcon from 'assets/images/CloseButton.svg';
 import modalProfile from 'assets/images/modal_profile.svg';
 
-function QuestionModal({ id, onClick }) {
+function QuestionModal({ id, onClose }) {
   const [textValue, setTextValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,6 +13,14 @@ function QuestionModal({ id, onClick }) {
   const questionsData = {
     content: textValue,
   };
+
+  const handleModalClose =(e)  => {
+    console.log(e.target);
+    console.log(e.currentTarget);
+    if(e.target === e.currentTarget) {
+      onClose();
+    }
+  }
 
   const handleTextChange = (e) => {
     const nextValue = e.target.value;
@@ -31,18 +39,18 @@ function QuestionModal({ id, onClick }) {
     }
     console.log(result);
     setTextValue('');
-    onClick();
+    onClose();
   };
 
   return (
-    <BG>
+    <BG onClick={handleModalClose}>
       <Container onSubmit={handleSubmit}>
         <TitleWrapper>
           <TitleContainer>
             <MessageIcon alt="메시지_아이콘" />
             <Title>질문을 작성하세요</Title>
           </TitleContainer>
-          <CloseIcon src={closeIcon} alt="닫는_아이콘" onClick={onClick}></CloseIcon>
+          <CloseIcon src={closeIcon} alt="닫는_아이콘" onClick={handleModalClose}></CloseIcon>
         </TitleWrapper>
         <ReceiverWrapper>
           <To>To.</To>

@@ -1,4 +1,4 @@
-import { breakPoints } from 'components/common/media';
+import { breakPoints } from 'components/common/Media';
 import styled from 'styled-components';
 
 export const ListPagination = styled.ul`
