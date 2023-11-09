@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
 import { timeForToday } from '../../date';
@@ -29,7 +29,7 @@ export default function Feedcard(question) {
     try {
       const result = await createAnswer(questionId, answerData);
       setAnswer(result.content);
-      setQAndAId({ ...qAndAId, [questionId]: result.id });
+      setQAndAId({ [`${questionId}`]: result.id, ...qAndAId });
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +61,7 @@ export default function Feedcard(question) {
   const handelUpdateEditAnswer = () => setEditAnswer(false);
 
   const handleSubmitEditAnswer = (answerId, text, boolean) => {
+    console.log(qAndAId);
     setEditAnswer(true);
     handlePatchAnswer(answerId, { content: text, isRejected: boolean });
   };
@@ -98,7 +99,7 @@ export default function Feedcard(question) {
         />
       )}
       <S.FcHeader>
-        {!question?.answer ? (
+        {!question?.answer && !isSubmit ? (
           <S.UnansweredMark>미답변</S.UnansweredMark>
         ) : (
           <S.AnswerMark>답변 완료</S.AnswerMark>
