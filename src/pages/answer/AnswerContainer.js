@@ -2,7 +2,6 @@ import * as S from '../post/PostStyle';
 
 import { useState, useEffect } from 'react';
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
-import QuestionModal from 'components/modal/QuestionModal';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion } from '../../api/api.questions';
@@ -12,7 +11,7 @@ import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
 export default function Answer({ userId }) {
-  const [questionList, setQusetionList] = useState([]);
+  const [questionList, setQuestionList] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
   const [answererProfile, setAnswerProfile] = useState({});
 
@@ -20,7 +19,7 @@ export default function Answer({ userId }) {
     try {
       const { results } = await getSubjectsOnQuestions(id);
 
-      setQusetionList(results);
+      setQuestionList(results);
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +49,7 @@ export default function Answer({ userId }) {
         await deleteQuestion(id);
       });
 
-      setQusetionList([]);
+      setQuestionList([]);
     } catch (error) {
       console.log(error);
     }
