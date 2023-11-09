@@ -5,11 +5,13 @@ import { updateAnswers } from 'api/api.answers';
 import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu({ id }) {
+export default function PopOverMenu({ id, answerId }) {
   // console.log(id);
+  console.log(answerId)
   const handleDeleteAnswer = async () => {
+    console.log(answerId)
     try {
-      const result = await deleteAnswers(id);
+      const result = await deleteAnswers(answerId);
       console.log(result);
     } catch (error) {
       console.log(error);
