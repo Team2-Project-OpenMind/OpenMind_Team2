@@ -13,6 +13,7 @@ import clickedDown from '../../assets/images/clicked_down.svg';
 import PopOverMenu from 'components/modal/PopOverMenu';
 
 export default function Feedcard(question) {
+  console.log(question);
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmit, setIsSubmited] = useState(false);
@@ -91,13 +92,7 @@ export default function Feedcard(question) {
 
   return (
     <S.FcContainer>
-      {isMenuOpen && (
-        <PopOverMenu
-          id={question?.id}
-          answerId={question?.answer?.id}
-          $rejectStatus={question?.answer?.isRejected}
-        />
-      )}
+      {isMenuOpen && <PopOverMenu id={question?.id} answerId={question?.answer?.id} />}
       <S.FcHeader>
         {!question?.answer && !isSubmit ? (
           <S.UnansweredMark>미답변</S.UnansweredMark>

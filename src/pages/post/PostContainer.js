@@ -38,7 +38,7 @@ export default function Post() {
 
   useEffect(() => {
     handleLoaded();
-  }, []);
+  }, [questionData]);
 
   return (
     <>
