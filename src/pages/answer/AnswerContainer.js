@@ -2,7 +2,6 @@ import * as S from '../post/PostStyle';
 
 import { useState, useEffect } from 'react';
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
-import QuestionModal from 'components/modal/QuestionModal';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import { getSubjectsOnQuestions } from '../../api/api.subjects.js';
 import { deleteQuestion } from '../../api/api.questions';
@@ -12,14 +11,14 @@ import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
 export default function Answer({ userId }) {
-  const [questionList, setQusetionList] = useState([]);
+  const [questionList, setQuestionList] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
 
-      setQusetionList(results);
+      setQuestionList(results);
     } catch (error) {
       console.log(error);
     }
@@ -39,17 +38,15 @@ export default function Answer({ userId }) {
         await deleteQuestion(id);
       });
 
-      setQusetionList([]);
+      setQuestionList([]);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-
     handleRenderSubjectsOnQ(userId);
   }, [userId]);
-
 
   return (
     <>
@@ -62,7 +59,9 @@ export default function Answer({ userId }) {
         </S.LinkContainer>
 
         <S.ButtonWrapper>
-          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>삭제하기</S.DeleteButton>
+          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>
+            삭제하기
+          </S.DeleteButton>
         </S.ButtonWrapper>
         <S.FeedContainer>
           <S.Info>

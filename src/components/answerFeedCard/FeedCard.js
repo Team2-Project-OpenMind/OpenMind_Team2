@@ -92,13 +92,7 @@ export default function Feedcard(question) {
 
   return (
     <S.FcContainer>
-      {isMenuOpen && (
-        <PopOverMenu
-          id={question?.id}
-          answerId={question?.answer?.id}
-          $rejectStatus={question?.answer?.isRejected}
-        />
-      )}
+      {isMenuOpen && <PopOverMenu id={question?.id} answerId={question?.answer?.id} />}
       <S.FcHeader>
         {!question?.answer && !isSubmit ? (
           <S.UnansweredMark>미답변</S.UnansweredMark>

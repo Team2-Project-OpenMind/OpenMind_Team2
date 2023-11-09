@@ -1,23 +1,12 @@
 import * as S from './FeedCardStyle';
 
 import AnswerStateTag from 'components/AnswerStateTag';
-import { deleteAnswers } from 'api/api.answers';
 
 export default function FeedCardItem({ questionData }) {
   const { content, createdAt, like, dislike, answer } = questionData;
 
   const isAnswerCompleted = answer !== null;
   const isAnswerRejected = isAnswerCompleted && answer.isRejected;
-  
-  const handleDeleteAnswer = async () => {
-    const id= questionData.answer.id
-    try {
-      const result = await deleteAnswers(id);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <S.Wrapper>
@@ -36,7 +25,6 @@ export default function FeedCardItem({ questionData }) {
               <S.InfoTitle>아초는고양이</S.InfoTitle>
               <S.InfoTimeDiff>2주전</S.InfoTimeDiff>
             </S.ContentInfo>
-            <button onClick={handleDeleteAnswer}>답변삭제</button>
             <S.ContentDescription $state={isAnswerRejected}>
               {isAnswerRejected ? '답변 거절' : answer.content}
             </S.ContentDescription>
