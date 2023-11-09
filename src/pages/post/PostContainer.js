@@ -3,9 +3,9 @@ import * as S from './PostStyle';
 
 import { getSubjectsOnQuestions } from 'api/api.subjects';
 
-import ClipBoardCopyMessage from 'components/clipBoardCopyMessage';
+import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
 import ModalPortal from 'components/ModalPortal';
-import QuestionModal from 'components/modal/questionModal';
+import QuestionModal from 'components/modal/QuestionModal';
 import FeedCardList from 'components/feed/FeedCardList';
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
@@ -35,7 +35,7 @@ export default function Post() {
   };
 
   //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
-  const handleClickButton = () => {
+  const handleModalShow = () => {
     setOpenModal(!isOpenModal);
   };
 
@@ -48,7 +48,7 @@ export default function Post() {
       <S.Wrapper>
         {isOpenModal && (
           <ModalPortal>
-            <QuestionModal onClick={handleClickButton} id={id} />
+            <QuestionModal onClose={handleModalShow} id={id} />
           </ModalPortal>
         )}
         <S.Title>아초는 고양이</S.Title>
@@ -66,7 +66,7 @@ export default function Post() {
           </S.Info>
           {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData} />}
         </S.FeedContainer>
-        <S.CreateQuestionButton onClick={handleClickButton}>질문 작성하기</S.CreateQuestionButton>
+        <S.CreateQuestionButton onClick={handleModalShow}>질문 작성하기</S.CreateQuestionButton>
         <ClipBoardCopyMessage />
       </S.Wrapper>
     </>

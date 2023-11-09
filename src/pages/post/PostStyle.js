@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { breakPoints } from 'components/common/media';
+import { breakPoints } from 'components/common/Media';
 import { ReactComponent as MessageIcon } from 'assets/images/message.svg';
 import { ReactComponent as emptyIcon } from 'assets/images/emptyIcon.svg';
 

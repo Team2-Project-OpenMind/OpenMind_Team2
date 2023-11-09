@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import arrowRight from '../assets/images/arrow-right.svg';
-import { breakPoints } from './common/media';
+import { breakPoints } from './common/Media';
 import { useNavigate } from 'react-router';
 
 export default function Header({ saveCookie }) {
