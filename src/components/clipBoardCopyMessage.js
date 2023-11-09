@@ -32,3 +32,5 @@ const Message = styled.div`
   font-weight: 500;
   line-height: 18px;
 `;
+
+//파일명 수정이 안되는 문제

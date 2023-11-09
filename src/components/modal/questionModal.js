@@ -188,3 +188,5 @@ const FormButton = styled.button`
   line-height: 22px;
   cursor: pointer;
 `;
+
+//파일명 수정이 안되는 문제
