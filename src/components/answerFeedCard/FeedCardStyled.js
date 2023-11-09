@@ -6,6 +6,7 @@ export const FcContainer = styled.div`
   position: relative;
   margin: 0 auto;
   width: 62rem;
+  height: 479px;
   padding: 3.2rem;
   flex-direction: column;
   align-items: flex-start;
@@ -65,6 +66,7 @@ export const FcQuestionWrapper = styled.div`
   align-items: flex-start;
   gap: 1rem;
   flex: 1 0 0;
+  height: 4.6rem;
 `;
 
 export const QuestionDate = styled.div`
