@@ -11,7 +11,7 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
     setNumberListState({
       numberBox: pageNumbers,
     });
-  }, [postsPerPage, currentPage]);
+  }, [postsPerPage]);
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     if (i === currentPage) {
