@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import CardItem from './CardItem';
 import * as S from './CardListStyle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from 'components/pagination/Pagination';
+
+const BROWSER_WIDTH = window.innerWidth;
 
 export default function CardList({ data, message, range }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostPerPage] = useState(8); //한페이지당 렌더링 되는 데이터 수
+  const [postsPerPage, setPostPerPage] = useState(BROWSER_WIDTH >= 865 ? 8 : 6); //한페이지당 렌더링 되는 데이터 수
 
   //페이지숫자 리스트 구현 계산
   const indexOfLast = currentPage * postsPerPage; //페이지 마지막수 1 * 8
@@ -17,9 +19,20 @@ export default function CardList({ data, message, range }) {
     return currentPosts;
   };
 
+  useEffect(() => {
+    window.addEventListener('resize', (e) => {
+      if (e.target.innerWidth >= 865) {
+        setPostPerPage(8);
+      } else {
+        setPostPerPage(6);
+      }
+    });
+  }, [currentPage, postsPerPage]);
+
   if (!data) return;
 
   const { results } = data;
+
   const sortData = results.sort((a, b) => {
     if (range === '이름순') {
       return a.name > b.name ? 1 : -1;
@@ -35,7 +48,7 @@ export default function CardList({ data, message, range }) {
         {!message ? (
           postLists.map((li) => {
             return (
-              <Link to={`/post/${li.id}`}>
+              <Link to={`/post/${li.id}`} key={li.id}>
                 <CardItem friends={li} />
               </Link>
             );

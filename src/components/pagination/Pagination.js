@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import * as S from './PaginationStyle';
 
 export default function Pagination({ postsPerPage, totalPosts, paginate, currentPage }) {
   const pageNumbers = []; //페이지 넘버 배열 설정
-  /*  const [pageState, setPageState] = useState(false); */
   const [numberList, setNumberListState] = useState({
     numberBox: pageNumbers,
   });
+
+  useEffect(() => {
+    setNumberListState({
+      numberBox: pageNumbers,
+    });
+  }, [postsPerPage]);
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     if (i === 1) {
@@ -17,7 +22,6 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
   }
 
   const onNumberToggle = (id) => {
-    console.log(id);
     const newNumberList = numberList.numberBox.map((num) =>
       num.id === id
         ? {
@@ -51,20 +55,20 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
     return num === 1 || num === numberList.numberBox.length;
   };
   /*  현재페이지 +1 보다 각 num값이 큰번호거나 현재페이지 -1 보다 num 작을 때 번호 활성화*/
-  //첫번째 조건 currentPage + 1 = 6일때 (5페이지일때임)
-  //1, 2, 3, 4, 5, 6, 7, 8 ,9
-  //f  f  f  f  f  f  t  t  t
-  //두번째 조건 currentPage - 1 = 4일때
-  //1, 2, 3, 4, 5, 6, 7, 8, 9
-  //t  t  t  f  f  f  f  f  f
-  //이 조건을 반대로 하면
-  //첫번째 조건 currentPage + 1 = 6일때 (5페이지일때임)
-  //1, 2, 3, 4, 5, 6, 7, 8 ,9
-  //t  t  t  t  t  t  f  f  f
-  //두번째 조건 currentPage - 1 = 4일때
-  //1, 2, 3, 4, 5, 6, 7, 8, 9
-  //f  f  f  t  t  t  t  t  t
-  //이 두 조건을 겹쳤을떄 t 인 부분만 활성화(범위 조절이 필요시 +- 뒤 번호 변경하고 isNoneNumChange 같이 +- 변경해야함)
+  /* 첫번째 조건 currentPage + 1 = 6일때 (5페이지일때임)
+  1, 2, 3, 4, 5, 6, 7, 8 ,9
+  f  f  f  f  f  f  t  t  t
+  두번째 조건 currentPage - 1 = 4일때
+  1, 2, 3, 4, 5, 6, 7, 8, 9
+  t  t  t  f  f  f  f  f  f
+  이 조건을 반대로 하면
+  첫번째 조건 currentPage + 1 = 6일때 (5페이지일때임)
+  1, 2, 3, 4, 5, 6, 7, 8 ,9
+  t  t  t  t  t  t  f  f  f
+  두번째 조건 currentPage - 1 = 4일때
+  1, 2, 3, 4, 5, 6, 7, 8, 9
+  f  f  f  t  t  t  t  t  t
+  이 두 조건을 겹쳤을떄 t 인 부분만 활성화(범위 조절이 필요시 숫자 변경하고 isNoneNumChange도 같이 숫자 변경해야함) */
   const isNoneNumber = (num) => {
     return currentPage + 1 < num || currentPage - 1 > num;
   };
@@ -83,11 +87,13 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
       <S.ListPagination>
         {numberList.numberBox.map((num, index) => {
           return (
-            <>
+            <Fragment key={index}>
               {num.id === numberList.numberBox.length && islastHellip() ? (
-                <li className="hellip">&hellip;</li>
+                <S.ListPaginationNumber className="hellip">&hellip;</S.ListPaginationNumber>
               ) : null}
-              {num.id === 2 && isFirstHellip() ? <li className="hellip">&hellip;</li> : null}
+              {num.id === 2 && isFirstHellip() ? (
+                <S.ListPaginationNumber className="hellip">&hellip;</S.ListPaginationNumber>
+              ) : null}
               <S.ListPaginationNumber
                 key={num.id}
                 style={{
@@ -104,7 +110,7 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
               >
                 {num.id}
               </S.ListPaginationNumber>
-            </>
+            </Fragment>
           );
         })}
       </S.ListPagination>
