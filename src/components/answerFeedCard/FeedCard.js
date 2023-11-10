@@ -60,7 +60,7 @@ export default function Feedcard({ question, answerer }) {
   // 제출된 답변을 답변 수정 상황으로 바꾸는 함수
   const handleUpdateAnswer = () => {
     setUpdate(!isUpdate);
-    setAnswer(question?.answer?.content);
+    setAnswer(`${question?.answer?.content || answer}`);
   };
 
   // 한 번 이상 답변 수정 이후  또 다시 수정 상황으로 돌아가는 함수
@@ -155,7 +155,7 @@ export default function Feedcard({ question, answerer }) {
               </>
             ) : (
               <>
-                <S.SubmitedAnswer $isUpdate={isUpdate}>
+                <S.SubmitedAnswer value={answer} $isUpdate={isUpdate}>
                   {question?.answer?.content || answer}
                 </S.SubmitedAnswer>
                 <S.EditorButton
@@ -177,7 +177,9 @@ export default function Feedcard({ question, answerer }) {
                   placeholder="답변을 입력해주세요"
                   $isCompleted={isCompleted}
                   $editAnswer={editAnswer}
-                ></S.FcAnswerInput>
+                >
+                  {answer}
+                </S.FcAnswerInput>
                 <S.FcAnswerButton
                   onClick={() => handleSubmitEditAnswer(question.id, answer, false)}
                   $isCompleted={isCompleted}
@@ -190,7 +192,7 @@ export default function Feedcard({ question, answerer }) {
 
             {editAnswer ? (
               <>
-                <S.SubmitedAnswer>{answer}</S.SubmitedAnswer>
+                <S.SubmitedAnswer value={answer}>{answer}</S.SubmitedAnswer>
                 <S.EditorButton
                   onClick={handelUpdateEditAnswer}
                   $editAnswer={editAnswer}
