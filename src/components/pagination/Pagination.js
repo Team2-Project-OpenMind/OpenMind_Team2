@@ -11,10 +11,10 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
     setNumberListState({
       numberBox: pageNumbers,
     });
-  }, [postsPerPage]);
+  }, [postsPerPage, currentPage]);
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    if (i === 1) {
+    if (i === currentPage) {
       pageNumbers.push({ id: i, isDone: true });
     } else {
       pageNumbers.push({ id: i, isDone: false });
@@ -89,10 +89,10 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
           return (
             <Fragment key={index}>
               {num.id === numberList.numberBox.length && islastHellip() ? (
-                <S.ListPaginationNumber className="hellip">&hellip;</S.ListPaginationNumber>
+                <S.ListPaginationHellip className="hellip">&hellip;</S.ListPaginationHellip>
               ) : null}
               {num.id === 2 && isFirstHellip() ? (
-                <S.ListPaginationNumber className="hellip">&hellip;</S.ListPaginationNumber>
+                <S.ListPaginationHellip className="hellip">&hellip;</S.ListPaginationHellip>
               ) : null}
               <S.ListPaginationNumber
                 key={num.id}
