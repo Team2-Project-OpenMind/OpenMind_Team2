@@ -24,7 +24,8 @@ export default function Feedcard({ question, answerer }) {
   const [dislikeCount, setDislikeCount] = useState(question.dislike);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const handleCreateAnswer = async (questionId, answerData) => {
+  //답변 생성하고 post 이후 되돌아온 값을 setter 에 넣어 input 태그의 밸류 값인 answer를 변경
+  const CreateAnswerForSubmit = async (questionId, answerData) => {
     try {
       const result = await createAnswer(questionId, answerData);
       setAnswer(result.content);
@@ -33,7 +34,8 @@ export default function Feedcard({ question, answerer }) {
     }
   };
 
-  const handlePatchAnswer = async (answerId, answerData) => {
+  // 답변 수정 이후  수정 결과를 setter에 넣어 제출된 답변 상태 변경
+  const PatchAnswerForSubmitEditAnswer = async (answerId, answerData) => {
     try {
       const result = await updateAnswersPartial(answerId, answerData);
       setAnswer(result.content);
@@ -41,35 +43,42 @@ export default function Feedcard({ question, answerer }) {
       console.log(error);
     }
   };
-
+  // input 태그에서 답변 입력을 하지 않거나 수정할 때 수정내용이 비었을 시 완료버튼 활성화 토글
   const handleChangeAnswer = (e) => {
     setAnswer(e.target.value);
     answer ? setIsCompleted(true) : setIsCompleted(false);
     if (e.target.value === '') return setIsCompleted(false);
   };
-
+  // 답변 제출 버튼  온클릭시
   const handleSubmitAnswer = (questionId, text, boolean) => {
     if (text) {
       setIsSubmited(true);
-      handleCreateAnswer(questionId, { content: text, isRejected: boolean });
+      CreateAnswerForSubmit(questionId, { content: text, isRejected: boolean });
     }
   };
+
+  // 제출된 답변을 답변 수정 상황으로 바꾸는 함수
   const handleUpdateAnswer = () => {
     setUpdate(!isUpdate);
     setAnswer(question?.answer?.content);
   };
+
+  // 한 번 이상 답변 수정 이후  또 다시 수정 상황으로 돌아가는 함수
   const handelUpdateEditAnswer = () => setEditAnswer(false);
 
+  // 수정완료 버튼! 이미 답변이 있는 질문이면 question 안에 answer.id가 있기 때문에 바로 사용 가능하지만,
+  // 아직 답변이 달리지 않은 질문에 답변하고 바로 수정할 경우에는 이미 렌더링 된 question엔 아직 답변이 null 값이기에 해당 질문을 가져와서 답변 아이디 이용
   const handleSubmitEditAnswer = async (questionId, text, boolean) => {
     if (!question.answer?.id) {
       const { answer } = await getQuestions(questionId);
       setEditAnswer(true);
-      handlePatchAnswer(answer.id, { content: text, isRejected: boolean });
+      PatchAnswerForSubmitEditAnswer(answer.id, { content: text, isRejected: boolean });
     } else {
       setEditAnswer(true);
-      handlePatchAnswer(question.answer.id, { content: text, isRejected: boolean });
+      PatchAnswerForSubmitEditAnswer(question.answer.id, { content: text, isRejected: boolean });
     }
   };
+
   const handletoggleLike = () => {
     if (liked === false) {
       setLiked(!liked);
@@ -120,7 +129,7 @@ export default function Feedcard({ question, answerer }) {
         <S.FcAnswerWrapper>
           <S.FcAnswerer>
             {answerer?.name}
-            {question?.answer ? (
+            {question?.answer && isSubmit ? (
               <S.DisplayTime>{timeForToday(question.answer?.createdAt)}</S.DisplayTime>
             ) : null}
           </S.FcAnswerer>
