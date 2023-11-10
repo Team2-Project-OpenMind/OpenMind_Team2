@@ -11,8 +11,17 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
     setNumberListState({
       numberBox: pageNumbers,
     });
-  }, [postsPerPage]);
+    if (currentPage > Math.ceil(totalPosts / postsPerPage)) {
+      handleReload();
+    }
+  }, [postsPerPage, currentPage]);
 
+  /* tablet사이즈에서 pc사이즈로 변경될때 마지막 페이지로 리로드 */
+  const handleReload = () => {
+    paginate(Math.ceil(totalPosts / postsPerPage));
+  };
+
+  /* 번호 생성 및 현재페이지 번호 활성화 */
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     if (i === currentPage) {
       pageNumbers.push({ id: i, isDone: true });
@@ -20,7 +29,7 @@ export default function Pagination({ postsPerPage, totalPosts, paginate, current
       pageNumbers.push({ id: i, isDone: false });
     }
   }
-
+  /* 번호 클릭시 현재페이지 번호 활성화 */
   const onNumberToggle = (id) => {
     const newNumberList = numberList.numberBox.map((num) =>
       num.id === id
