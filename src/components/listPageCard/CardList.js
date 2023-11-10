@@ -5,10 +5,24 @@ import { useEffect, useState } from 'react';
 import Pagination from 'components/pagination/Pagination';
 
 const BROWSER_WIDTH = window.innerWidth;
+const TABLET_SIZE = 865;
 
 export default function CardList({ data, message, range }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostPerPage] = useState(BROWSER_WIDTH >= 865 ? 8 : 6); //한페이지당 렌더링 되는 데이터 수
+  const [postsPerPage, setPostPerPage] = useState(BROWSER_WIDTH >= TABLET_SIZE ? 8 : 6); //한페이지당 렌더링 되는 데이터 수
+
+  useEffect(() => {
+    window.addEventListener('resize', (e) => {
+      if (e.target.innerWidth >= TABLET_SIZE) {
+        setPostPerPage(8);
+      } else {
+        setPostPerPage(6);
+      }
+      if (postsPerPage === 8 && e.target.innerWidth >= TABLET_SIZE) {
+        handleReload();
+      }
+    });
+  }, [postsPerPage]);
 
   //페이지숫자 리스트 구현 계산
   const indexOfLast = currentPage * postsPerPage; //페이지 마지막수 1 * 8
@@ -18,16 +32,6 @@ export default function CardList({ data, message, range }) {
     let currentPosts = datas.slice(indexOfFirst, indexOfLast); //데이터를 0~8번째까지 슬라이스함 인덱스7까지
     return currentPosts;
   };
-
-  useEffect(() => {
-    window.addEventListener('resize', (e) => {
-      if (e.target.innerWidth >= 865) {
-        setPostPerPage(8);
-      } else {
-        setPostPerPage(6);
-      }
-    });
-  }, [currentPage, postsPerPage]);
 
   if (!data) return;
 
@@ -42,6 +46,11 @@ export default function CardList({ data, message, range }) {
   });
 
   const postLists = currentPosts(sortData); //위 조건문 통과 후에 페이징 슬라이스
+
+  /* tablet사이즈에서 pc사이즈로 변경될때 마지막 페이지로 리로드 */
+  const handleReload = () => {
+    setCurrentPage(Math.ceil(data?.results?.length / postsPerPage));
+  };
   return (
     <>
       <S.ListCards>
