@@ -114,10 +114,18 @@ export const Option = styled.div`
 `;
 
 export const Text = styled.span`
-  color: var(--gray40);
+  color: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
   font: var(--caption1-regular);
 `;
 
-export const IconLike = styled(LikeIcon)``;
+export const IconLike = styled(LikeIcon)`
+  & path {
+    fill: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
+  }
+`;
 
-export const IconDisLike = styled(DisLikeIcon)``;
+export const IconDisLike = styled(DisLikeIcon)`
+  & path {
+    fill: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
+  }
+`;

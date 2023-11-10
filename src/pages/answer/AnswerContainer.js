@@ -80,8 +80,6 @@ export default function Answer({ userId }) {
             </>
           )}
         </S.FeedContainer>
-        <S.CreateQuestionButton onClick={handleClickButton}>질문 작성하기</S.CreateQuestionButton>
-        <ClipBoardCopyMessage />
       </S.Wrapper>
     </>
   );
