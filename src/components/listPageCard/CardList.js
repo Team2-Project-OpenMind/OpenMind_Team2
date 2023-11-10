@@ -18,9 +18,6 @@ export default function CardList({ data, message, range }) {
       } else {
         setPostPerPage(6);
       }
-      if (postsPerPage === 8 && e.target.innerWidth >= TABLET_SIZE) {
-        handleReload();
-      }
     });
   }, [postsPerPage]);
 
@@ -47,10 +44,6 @@ export default function CardList({ data, message, range }) {
 
   const postLists = currentPosts(sortData); //위 조건문 통과 후에 페이징 슬라이스
 
-  /* tablet사이즈에서 pc사이즈로 변경될때 마지막 페이지로 리로드 */
-  const handleReload = () => {
-    setCurrentPage(Math.ceil(data?.results?.length / postsPerPage));
-  };
   return (
     <>
       <S.ListCards>
