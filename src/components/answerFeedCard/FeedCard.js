@@ -104,6 +104,10 @@ export default function Feedcard({ question, answerer }) {
   };
 
   return (
+    // isUpdate로 조건부 스타일링 안하면 SubmitedAnswer 컴포넌트와 FcAnswerInput 컴포넌트가 중첩됨
+    // question?.answer는 이미 답변이 있는 피드카드를 답변완료상태로 렌더링 하기 위해서 사용
+    // isSubmit은 아직 답변이 달리지 않은 피드카드를 답변작성완료 했을 때, 답변완료상태로 렌더링하기 위해서 사용
+
     <S.FcContainer>
       {isMenuOpen && <PopOverMenu id={question?.id} answerId={question?.answer?.id} />}
 
