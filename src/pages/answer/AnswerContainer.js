@@ -1,5 +1,5 @@
 import * as S from '../post/PostStyle';
-
+import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
 import { useState, useEffect } from 'react';
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
@@ -12,8 +12,7 @@ import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
 export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
-  const [isOpenModal, setOpenModal] = useState(false);
-  const [answererProfile, setAnswerProfile] = useState({});
+  const [answererProfile, setAnswererProfile] = useState({});
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -28,15 +27,12 @@ export default function Answer({ userId }) {
   const handleRenderSubjectProfile = async (id) => {
     try {
       const result = await getSubject(id);
+      const { name, imageSource } = result;
 
-      setAnswerProfile(result);
+      setAnswererProfile({ ...answererProfile, name, imageSource });
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleClickButton = () => {
-    setOpenModal(!isOpenModal);
   };
 
   const handleAllDeleteQuestionList = async (id) => {
@@ -70,11 +66,9 @@ export default function Answer({ userId }) {
           <S.LinkIcon src={FACEBOOK} alt="페이스북링크_아이콘"></S.LinkIcon>
         </S.LinkContainer>
 
-        <S.ButtonWrapper>
-          <S.DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>
-            삭제하기
-          </S.DeleteButton>
-        </S.ButtonWrapper>
+        <ButtonWrapper>
+          <DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>삭제하기</DeleteButton>
+        </ButtonWrapper>
         <S.FeedContainer>
           <S.Info>
             <S.IconMessage />
@@ -87,7 +81,9 @@ export default function Answer({ userId }) {
           ) : (
             <>
               {questionList.map((question) => {
-                return <FeedCard key={question.id} {...question} {...answererProfile} />;
+                return (
+                  <FeedCard key={question.id} question={question} answerer={answererProfile} />
+                );
               })}
             </>
           )}

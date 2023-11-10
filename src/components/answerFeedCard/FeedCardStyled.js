@@ -243,6 +243,7 @@ export const SubmitedAnswer = styled.div`
   font: var(--body3-regular);
   line-height: 2.2rem;
   display: ${({ $isUpdate }) => ($isUpdate ? 'none' : 'block')};
+  flex-wrap: nowrap;
 `;
 
 export const DisplayTime = styled.span`
