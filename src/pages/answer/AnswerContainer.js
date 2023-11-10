@@ -13,7 +13,7 @@ import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
-  const [answererProfile, setAnswerProfile] = useState({});
+  const [answererProfile, setAnswererProfile] = useState({});
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -28,8 +28,9 @@ export default function Answer({ userId }) {
   const handleRenderSubjectProfile = async (id) => {
     try {
       const result = await getSubject(id);
+      const { name, imageSource } = result;
 
-      setAnswerProfile(result);
+      setAnswererProfile({ ...answererProfile, name, imageSource });
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +88,9 @@ export default function Answer({ userId }) {
           ) : (
             <>
               {questionList.map((question) => {
-                return <FeedCard key={question.id} {...question} {...answererProfile} />;
+                return (
+                  <FeedCard key={question.id} question={question} answerer={answererProfile} />
+                );
               })}
             </>
           )}

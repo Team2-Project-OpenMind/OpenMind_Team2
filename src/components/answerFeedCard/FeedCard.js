@@ -12,8 +12,7 @@ import clickedUp from '../../assets/images/clicked_up.svg';
 import clickedDown from '../../assets/images/clicked_down.svg';
 import PopOverMenu from 'components/modal/PopOverMenu';
 
-export default function Feedcard(question) {
-  console.log(question);
+export default function Feedcard({ question, answerer }) {
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmit, setIsSubmited] = useState(false);
@@ -62,9 +61,14 @@ export default function Feedcard(question) {
   const handelUpdateEditAnswer = () => setEditAnswer(false);
 
   const handleSubmitEditAnswer = async (questionId, text, boolean) => {
-    const { answer } = await getQuestions(questionId);
-    setEditAnswer(true);
-    handlePatchAnswer(answer.id, { content: text, isRejected: boolean });
+    if (!question.answer?.id) {
+      const { answer } = await getQuestions(questionId);
+      setEditAnswer(true);
+      handlePatchAnswer(answer.id, { content: text, isRejected: boolean });
+    } else {
+      setEditAnswer(true);
+      handlePatchAnswer(question.answer.id, { content: text, isRejected: boolean });
+    }
   };
   const handletoggleLike = () => {
     if (liked === false) {
@@ -91,7 +95,6 @@ export default function Feedcard(question) {
   };
 
   return (
-
     <S.FcContainer>
       {isMenuOpen && <PopOverMenu id={question?.id} answerId={question?.answer?.id} />}
 
@@ -112,11 +115,11 @@ export default function Feedcard(question) {
       </S.FcQuestionWrapper>
       <S.FcAnswerContainer>
         <S.FcProfileWrapper>
-          <S.FcProfile $url={question.imageSource} alt="프로필" />
+          <S.FcProfile $url={answerer.imageSource} alt="프로필" />
         </S.FcProfileWrapper>
         <S.FcAnswerWrapper>
           <S.FcAnswerer>
-            {question?.name}
+            {answerer?.name}
             {question?.answer ? (
               <S.DisplayTime>{timeForToday(question.answer?.createdAt)}</S.DisplayTime>
             ) : null}
