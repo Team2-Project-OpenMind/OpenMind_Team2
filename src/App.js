@@ -32,8 +32,8 @@ function App() {
           <Route path="post">
             <Route index element={<PostContainer />} />
             <Route path=":id" element={<PostContainer />} />
-            <Route path={`${localId}/answer`} element={<AnswerContainer userId={localId} />} />
           </Route>
+          <Route path={'post/:id/answer'} element={<AnswerContainer userId={localId} />} />
         </Route>
       </Routes>
     </Layout>

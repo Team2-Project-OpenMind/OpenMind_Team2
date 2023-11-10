@@ -6,6 +6,7 @@ export const FcContainer = styled.div`
   position: relative;
   margin: 0 auto;
   width: 62rem;
+
   padding: 3.2rem;
   flex-direction: column;
   align-items: flex-start;
@@ -65,6 +66,7 @@ export const FcQuestionWrapper = styled.div`
   align-items: flex-start;
   gap: 1rem;
   flex: 1 0 0;
+  height: 4.6rem;
 `;
 
 export const QuestionDate = styled.div`
@@ -94,6 +96,14 @@ export const FcAnswerContainer = styled.div`
 `;
 
 export const FcProfile = styled.div`
+  border-radius: 48px;
+  background-image: ${({ $url }) => ($url ? `url(${$url})` : '')};
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+`;
+
+export const FcProfileWrapper = styled.div`
   display: flex;
   width: 4.8rem;
   height: 4.8rem;

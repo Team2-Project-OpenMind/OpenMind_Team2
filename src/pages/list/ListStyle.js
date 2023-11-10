@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { breakPoints } from '../../components/common/media';
+import { breakPoints } from '../../components/common/Media';
 
 export const ListContainerBox = styled.div`
   width: 100%;

@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
 import { deleteAnswers } from 'api/api.answers';
-import { updateAnswers } from 'api/api.answers';
+import { updateAnswersPartial } from 'api/api.answers';
 import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu({ id }) {
+export default function PopOverMenu({ id, answerId }) {
   // console.log(id);
+  console.log(answerId);
   const handleDeleteAnswer = async () => {
+    console.log(answerId);
     try {
-      const result = await deleteAnswers(id);
+      const result = await deleteAnswers(answerId);
       console.log(result);
     } catch (error) {
       console.log(error);
@@ -25,10 +27,25 @@ export default function PopOverMenu({ id }) {
   };
 
   const handleRejectAnswer = async () => {
+    if (answerId) {
+      const DATA = {
+        isRejected: 'true',
+      };
+      try {
+        const res = await updateAnswersPartial(answerId, DATA);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+      return;
+    }
+
+    const content = prompt('거절사유입력');
     const POST_DATA = {
-      content: '답변을 거절하겠습니다~~',
+      content,
       isRejected: 'true',
     };
+    console.log(content);
     try {
       const answer = await createAnswer(id, POST_DATA);
       console.log(answer);
