@@ -11,7 +11,14 @@ export default function FeedCardItem({ questionData }) {
     dislike: false,
   });
 
-  const handleReactionChange = async (e) => {
+  const handleReactionChange = (name, value) => {
+    setReaction((preValues) => ({
+      ...preValues,
+      [name]: !value,
+    }));
+  };
+
+  const handleReactionToggle = async (e) => {
     const name = e.currentTarget.getAttribute('name');
     const value = JSON.parse(e.currentTarget.getAttribute('value'));
     if (value === false) {
@@ -22,10 +29,7 @@ export default function FeedCardItem({ questionData }) {
         console.log(error);
       }
     }
-    setReaction((preValues) => ({
-      ...preValues,
-      [name]: !value,
-    }));
+    handleReactionChange(name, value);
   };
 
   const isAnswerCompleted = answer !== null;
@@ -55,13 +59,25 @@ export default function FeedCardItem({ questionData }) {
         </S.Contents>
       )}
       <S.Reaction>
-        <S.Option onClick={handleReactionChange} name="like" value={reaction.like}>
+        <S.Option
+          onClick={handleReactionToggle}
+          name="like"
+          value={reaction.like}
+          disabled={reaction.dislike}
+        >
           <S.IconLike $isActive={reaction.like} />
-          <S.Text $isActive={reaction.like}>좋아요 {like === 0 ? '' : like}</S.Text>
+          <S.LikeText $isActive={reaction.like}>좋아요 {like === 0 ? '' : like}</S.LikeText>
         </S.Option>
-        <S.Option onClick={handleReactionChange} name="dislike" value={reaction.dislike}>
+        <S.Option
+          onClick={handleReactionToggle}
+          name="dislike"
+          value={reaction.dislike}
+          disabled={reaction.like}
+        >
           <S.IconDisLike $isActive={reaction.dislike} />
-          <S.Text $isActive={reaction.dislike}>싫어요 {dislike === 0 ? '' : dislike}</S.Text>
+          <S.DislikeText $isActive={reaction.dislike}>
+            싫어요 {dislike === 0 ? '' : dislike}
+          </S.DislikeText>
         </S.Option>
       </S.Reaction>
     </S.Wrapper>
