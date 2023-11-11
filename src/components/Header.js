@@ -127,7 +127,7 @@ const ListPageHeader = styled.header`
     max-width: 500px;
     padding: 0 2.4rem;
 
-    & GoAskButton {
+    & button {
       display: ${isHome ? 'none' : 'block'};
     }
   }

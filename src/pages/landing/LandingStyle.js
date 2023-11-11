@@ -40,6 +40,7 @@ export const GoAskButton = styled.a`
 `;
 
 export const MobileGoAskButton = styled(GoAskButton)`
+  position: static;
   display: none;
   @media screen and (${breakPoints.mobile}) {
     display: flex;
@@ -56,8 +57,7 @@ export const Logo = styled.img`
   content: ${(props) => props.theme.logoImage};
   @media screen and (${breakPoints.mobile}) {
     width: 100%;
-    margin-top: 8rem;
-    padding: 8rem 6.3rem 0;
+    padding: 0 6.3rem 0;
   }
 `;
 
