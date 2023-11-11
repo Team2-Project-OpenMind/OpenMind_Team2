@@ -22,8 +22,8 @@ export const GoAskButton = styled.a`
   width: 16.6rem;
   padding: 1.2rem 2.4rem;
 
-  color: ${(props) => props.theme.btnTxtColor};
-  background-color: ${(props) => props.theme.btnColor};
+  color: var(--brown40);
+  background-color: ${(props) => props.theme.elemBackgroundColor};
 
   border-radius: 0.8rem;
   border: 1px solid var(--brown40);
@@ -40,6 +40,7 @@ export const GoAskButton = styled.a`
 `;
 
 export const MobileGoAskButton = styled(GoAskButton)`
+  display: none;
   @media screen and (${breakPoints.mobile}) {
     display: flex;
     position: static;
@@ -47,17 +48,9 @@ export const MobileGoAskButton = styled(GoAskButton)`
   }
 `;
 
-export const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: fit-content;
-`;
-
 export const Logo = styled.img`
   width: 45.6rem;
   height: fit-content;
-  margin-top: 16rem;
   margin-bottom: 2.4rem;
 
   content: ${(props) => props.theme.logoImage};
