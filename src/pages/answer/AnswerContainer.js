@@ -13,11 +13,10 @@ export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
 
-
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
-      console.log(results)
+      console.log(results);
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -53,8 +52,8 @@ export default function Answer({ userId }) {
 
   const handleUpdateList = async () => {
     try {
-      const { results } = await getSubjectsOnQuestions(userId);
-      console.log(results)
+      const { results } = await getSubjectsOnQuestions(userId.users.user.id);
+      console.log(results);
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -63,9 +62,9 @@ export default function Answer({ userId }) {
   };
 
   useEffect(() => {
-    handleRenderSubjectsOnQ(userId);
-    handleRenderSubjectProfile(userId);
-  }, [userId]);
+    handleRenderSubjectsOnQ(userId.users.user.id);
+    handleRenderSubjectProfile(userId.users.user.id);
+  }, [userId.users.user.id]);
 
   return (
     <>
@@ -78,7 +77,9 @@ export default function Answer({ userId }) {
         </S.LinkContainer>
 
         <ButtonWrapper>
-          <DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>삭제하기</DeleteButton>
+          <DeleteButton onClick={() => handleAllDeleteQuestionList(userId.users.user.id)}>
+            삭제하기
+          </DeleteButton>
         </ButtonWrapper>
         <S.FeedContainer>
           <S.Info>
