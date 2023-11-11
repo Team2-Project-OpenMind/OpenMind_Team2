@@ -15,7 +15,7 @@ export const ListPaginationNumber = styled.li`
   align-items: center;
   width: 40px;
   height: 40px;
-  color: var(--gray40);
+  color: ${(props) => props.theme.paginationColor};
   font-size: 2rem;
   font-family: Actor;
   font-weight: 400;

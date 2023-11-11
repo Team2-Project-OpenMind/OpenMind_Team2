@@ -58,6 +58,7 @@ const HeaderWrap = styled.div`
     height: 57px;
     img {
       width: 100%;
+      content: ${(props) => props.theme.logoImage};
     }
   }
   @media screen and (${breakPoints.mobile}) {
@@ -73,8 +74,8 @@ export const GoAskButton = styled.button`
   border-radius: 0.8rem;
   border: 1px solid var(--brown40);
   padding: 1.2rem 2.4rem;
-  background-color: var(--brown10);
-  color: var(--brown40);
+  background-color: ${(props) => props.theme.btnColor};
+  color: ${(props) => props.theme.textColor};
   font-size: 1.6rem;
   font-weight: 400;
   font-family: Actor;

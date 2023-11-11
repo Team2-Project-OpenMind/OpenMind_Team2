@@ -34,7 +34,7 @@ export const ListUpper = styled.div`
 export const ListTitle = styled.h2`
   margin-bottom: 1.2rem;
   font-size: 4rem;
-  color: var(--gray60);
+  color: ${(props) => props.theme.textColor};
   text-align: center;
   @media screen and (${breakPoints.mobile}) {
     margin-bottom: 0px;
