@@ -1,23 +1,24 @@
 import * as S from '../post/PostStyle';
-import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
 import { useState, useEffect } from 'react';
-import FeedCard from 'components/answerFeedCard/FeedCard.js';
+
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
-import { deleteQuestion } from '../../api/api.questions';
+import { deleteQuestion, createAnswer } from '../../api/api.questions';
+import { updateAnswersPartial } from '../../api/api.answers';
 
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
+import FeedCard from 'components/answerFeedCard/FeedCard';
+import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
 
 export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
 
-
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
-      console.log(results)
+
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -51,10 +52,44 @@ export default function Answer({ userId }) {
     }
   };
 
+  const CreateReply = async (questionId, answerData) => {
+    try {
+      const result = await createAnswer(questionId, answerData);
+
+      const handle = (result) => {
+        const addAnswer = questionList.map((item) => ({
+          ...item,
+          answer: item.id === result.questionId ? result : item.answer,
+        }));
+        setQuestionList(addAnswer);
+      };
+      handle(result);
+      console.log(questionList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const PatchReply = async (answerId, answerData) => {
+    try {
+      const result = await updateAnswersPartial(answerId, answerData);
+      const handle = (result) => {
+        const EditAnswer = questionList.map((item) => ({
+          ...item,
+          answer: item.id === result.questionId ? result : item.answer,
+        }));
+        setQuestionList(EditAnswer);
+      };
+      handle(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleUpdateList = async () => {
     try {
       const { results } = await getSubjectsOnQuestions(userId);
-      console.log(results)
+      console.log(results);
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -66,7 +101,7 @@ export default function Answer({ userId }) {
     handleRenderSubjectsOnQ(userId);
     handleRenderSubjectProfile(userId);
   }, [userId]);
-
+  console.log(questionList);
   return (
     <>
       <S.Wrapper>
@@ -97,6 +132,8 @@ export default function Answer({ userId }) {
                     key={question.id}
                     question={question}
                     answerer={answererProfile}
+                    onCreate={CreateReply}
+                    onPatch={PatchReply}
                     onChange={handleUpdateList}
                   />
                 );

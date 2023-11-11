@@ -24,6 +24,9 @@ export const FcHeader = styled.div`
 `;
 
 export const AnswerMark = styled.div`
+  position: absolute;
+  top: 32px;
+  left: 32px;
   display: flex;
   padding: 0.4rem 1.2rem;
   justify-content: center;
@@ -40,6 +43,9 @@ export const AnswerMark = styled.div`
 `;
 
 export const UnansweredMark = styled.div`
+  position: absolute;
+  top: 32px;
+  left: 32px;
   display: flex;
   padding: 0.4rem 1.2rem;
   justify-content: center;
@@ -58,12 +64,16 @@ export const KebabButton = styled(Kebab)`
   width: 26px;
   height: 26px;
   cursor: pointer;
+  position: absolute;
+  top: 32px;
+  right: 32px;
 `;
 
 export const FcQuestionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 32px;
   gap: 1rem;
   flex: 1 0 0;
   height: 4.6rem;
@@ -73,6 +83,7 @@ export const QuestionDate = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  margin-top: 32px;
   color: var(--grayscale-40, #818181);
   font: var(--caption1-medium);
   line-height: 1.8rem;
@@ -89,6 +100,7 @@ export const QuestionContent = styled.div`
 `;
 
 export const FcAnswerContainer = styled.div`
+  margin-top: 32px;
   display: flex;
   align-items: flex-start;
   gap: 1.2rem;
@@ -160,6 +172,9 @@ export const FcAnswerInput = styled.textarea`
 
   border: ${({ $isCompleted }) => (!$isCompleted ? '1px solid var(--brown40)' : 'none')};
 
+  border: ${({ $isCompletedEdited }) =>
+    !$isCompletedEdited ? '1px solid var(--brown40)' : 'none'};
+
   display: ${({ $editAnswer }) => ($editAnswer ? 'none' : 'flex')};
 `;
 
@@ -179,6 +194,9 @@ export const FcAnswerButton = styled.button`
   border: none;
   background: ${({ $isCompleted }) => ($isCompleted ? 'var(--brown40)' : 'var(--brown30)')};
   display: ${({ $editAnswer }) => ($editAnswer ? 'none' : 'flex')};
+
+  background: ${({ $isCompletedEdited }) =>
+    $isCompletedEdited ? 'var(--brown40)' : 'var(--brown30)'};
 `;
 
 export const FcFooter = styled.div`
@@ -236,7 +254,7 @@ export const EditorButton = styled.button`
     }
   }};
 `;
-export const SubmitedAnswer = styled.div`
+export const SubmittedAnswer = styled.div`
   display: flex;
   justify-content: flex-start;
   color: var(--gray60);
