@@ -41,7 +41,7 @@ export default function Header({ localId }) {
         </a>
         <ListPageDiv>
           <GoAskButton type="button" onClick={handleNavigator}>
-            <span>답변리스트 보기</span>
+            <span>생성 리스트 보기</span>
             <img src={arrowDown} alt="화살표 이미지" />
           </GoAskButton>
           <ListPageListUl ref={ulRef} style={isOpenList ? { ...keepUlElement } : null}>
