@@ -1,7 +1,6 @@
 import * as S from '../post/PostStyle';
 
 import { useState, useEffect } from 'react';
-import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion } from '../../api/api.questions';
@@ -12,7 +11,6 @@ import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
 export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
-  const [isOpenModal, setOpenModal] = useState(false);
   const [answererProfile, setAnswerProfile] = useState({});
 
   const handleRenderSubjectsOnQ = async (id) => {
@@ -35,10 +33,6 @@ export default function Answer({ userId }) {
     }
   };
 
-  const handleClickButton = () => {
-    setOpenModal(!isOpenModal);
-  };
-
   const handleAllDeleteQuestionList = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
@@ -55,10 +49,14 @@ export default function Answer({ userId }) {
     }
   };
 
+  const handleUpdateList = () => {
+    setQuestionList((prevItems) => [...prevItems]);
+  };
+
   useEffect(() => {
     handleRenderSubjectsOnQ(userId);
     handleRenderSubjectProfile(userId);
-  }, [userId]);
+  }, [userId, questionList]);
 
   return (
     <>
@@ -87,7 +85,14 @@ export default function Answer({ userId }) {
           ) : (
             <>
               {questionList.map((question) => {
-                return <FeedCard key={question.id} {...question} {...answererProfile} />;
+                return (
+                  <FeedCard
+                    key={question.id}
+                    question={question}
+                    answerer={answererProfile}
+                    onChange={handleUpdateList}
+                  />
+                );
               })}
             </>
           )}

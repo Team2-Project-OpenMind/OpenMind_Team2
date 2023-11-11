@@ -12,8 +12,7 @@ import clickedUp from '../../assets/images/clicked_up.svg';
 import clickedDown from '../../assets/images/clicked_down.svg';
 import PopOverMenu from 'components/modal/PopOverMenu';
 
-export default function Feedcard(question) {
-  console.log(question);
+export default function Feedcard({ question, onChange }) {
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmit, setIsSubmited] = useState(false);
@@ -26,6 +25,7 @@ export default function Feedcard(question) {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleCreateAnswer = async (questionId, answerData) => {
+    console.log(answerData);
     try {
       const result = await createAnswer(questionId, answerData);
       setAnswer(result.content);
@@ -64,7 +64,7 @@ export default function Feedcard(question) {
   const handleSubmitEditAnswer = async (questionId, text, boolean) => {
     const { answer } = await getQuestions(questionId);
     setEditAnswer(true);
-    handlePatchAnswer(answer.id, { content: text, isRejected: boolean });
+    handlePatchAnswer(answer?.id, { content: text, isRejected: boolean });
   };
   const handletoggleLike = () => {
     if (liked === false) {
@@ -91,9 +91,10 @@ export default function Feedcard(question) {
   };
 
   return (
-
     <S.FcContainer>
-      {isMenuOpen && <PopOverMenu id={question?.id} answerId={question?.answer?.id} />}
+      {isMenuOpen && (
+        <PopOverMenu id={question?.id} answerId={question?.answer?.id} onChange={onChange} />
+      )}
 
       <S.FcHeader>
         {!question?.answer && !isSubmit ? (
