@@ -1,7 +1,6 @@
 import * as S from '../post/PostStyle';
 import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
 import { useState, useEffect } from 'react';
-import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
 import FeedCard from 'components/answerFeedCard/FeedCard.js';
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion } from '../../api/api.questions';
@@ -14,10 +13,11 @@ export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
 
+
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
-
+      console.log(results)
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -51,6 +51,17 @@ export default function Answer({ userId }) {
     }
   };
 
+  const handleUpdateList = async () => {
+    try {
+      const { results } = await getSubjectsOnQuestions(userId);
+      console.log(results)
+      setQuestionList(results);
+    } catch (error) {
+      console.log(error);
+    }
+    //리프레시 값을 트루 폴스로 관리
+  };
+
   useEffect(() => {
     handleRenderSubjectsOnQ(userId);
     handleRenderSubjectProfile(userId);
@@ -82,7 +93,12 @@ export default function Answer({ userId }) {
             <>
               {questionList.map((question) => {
                 return (
-                  <FeedCard key={question.id} question={question} answerer={answererProfile} />
+                  <FeedCard
+                    key={question.id}
+                    question={question}
+                    answerer={answererProfile}
+                    onChange={handleUpdateList}
+                  />
                 );
               })}
             </>

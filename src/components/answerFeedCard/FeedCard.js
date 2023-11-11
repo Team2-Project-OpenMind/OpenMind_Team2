@@ -12,10 +12,10 @@ import clickedUp from '../../assets/images/clicked_up.svg';
 import clickedDown from '../../assets/images/clicked_down.svg';
 import PopOverMenu from 'components/modal/PopOverMenu';
 
-export default function Feedcard({ question, answerer }) {
+export default function Feedcard({ question, onChange, answerer }) {
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
-  const [isSubmit, setIsSubmited] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
   const [editAnswer, setEditAnswer] = useState(false);
   const [likeCount, setLikeCount] = useState(question.like);
@@ -52,7 +52,7 @@ export default function Feedcard({ question, answerer }) {
   // 답변 제출 버튼  온클릭시
   const handleSubmitAnswer = (questionId, text, boolean) => {
     if (text) {
-      setIsSubmited(true);
+      setIsSubmit(true);
       CreateAnswerForSubmit(questionId, { content: text, isRejected: boolean });
     }
   };
@@ -109,7 +109,14 @@ export default function Feedcard({ question, answerer }) {
     // isSubmit은 아직 답변이 달리지 않은 피드카드를 답변작성완료 했을 때, 답변완료상태로 렌더링하기 위해서 사용
 
     <S.FcContainer>
-      {isMenuOpen && <PopOverMenu id={question?.id} answerId={question?.answer?.id} />}
+      {isMenuOpen && (
+        <PopOverMenu
+          id={question?.id}
+          answerId={question?.answer?.id}
+          onChange={onChange}
+          onClose={handleMenuToggle}
+        />
+      )}
 
       <S.FcHeader>
         {!question?.answer && !isSubmit ? (
