@@ -82,7 +82,7 @@ export const DropdownList = styled.ul`
   background: var(--gray10);
 `;
 
-export const DropdownListItme = styled.li`
+export const DropdownListItem = styled.li`
   padding: 5px;
   color: var(--gray50);
   font-family: Pretendard;
