@@ -111,13 +111,27 @@ export const Option = styled.div`
   align-items: center;
   gap: 0.6rem;
   cursor: pointer;
+  pointer-events: ${({ disabled }) => disabled === true && 'none'};
 `;
 
-export const Text = styled.span`
-  color: var(--gray40);
+export const LikeText = styled.span`
+  color: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
   font: var(--caption1-regular);
 `;
 
-export const IconLike = styled(LikeIcon)``;
+export const DislikeText = styled.span`
+  color: ${({ $isActive }) => ($isActive === true ? 'var(--gray60)' : 'var(--gray40)')};
+  font: var(--caption1-regular);
+`;
 
-export const IconDisLike = styled(DisLikeIcon)``;
+export const IconLike = styled(LikeIcon)`
+  & path {
+    fill: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
+  }
+`;
+
+export const IconDisLike = styled(DisLikeIcon)`
+  & path {
+    fill: ${({ $isActive }) => ($isActive === true ? 'var(--gray60)' : 'var(--gray40)')};
+  }
+`;
