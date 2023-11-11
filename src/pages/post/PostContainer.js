@@ -10,8 +10,6 @@ import QuestionModal from 'components/modal/QuestionModal';
 import FeedCardList from 'components/feed/FeedCardList';
 import SNSshare from 'components/SNSshare';
 
-const FEED_COUNT_TEMPORAL = 11;
-
 export default function Post() {
   const { id } = useParams();
   const [questionCount, setQuestionCount] = useState(0);
@@ -38,7 +36,7 @@ export default function Post() {
 
   useEffect(() => {
     handleLoaded();
-  }, [questionData]);
+  }, []);
 
   return (
     <>
