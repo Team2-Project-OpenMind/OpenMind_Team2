@@ -8,6 +8,7 @@ export const ListCard = styled.li`
   padding: 20px;
   border: 1px solid var(--gray40);
   border-radius: 16px;
+  background-color: ${(props) => props.theme.elemBackgroundColor};
 `;
 
 export const ProfileCard = styled.div``;
