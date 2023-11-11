@@ -12,7 +12,6 @@ import clickedUp from '../../assets/images/clicked_up.svg';
 import clickedDown from '../../assets/images/clicked_down.svg';
 import PopOverMenu from 'components/modal/PopOverMenu';
 
-
 export default function Feedcard({ question, onChange, answerer }) {
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
@@ -24,7 +23,6 @@ export default function Feedcard({ question, onChange, answerer }) {
   const [disliked, setDisliked] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(question.dislike);
   const [isMenuOpen, setMenuOpen] = useState(false);
-
 
   //답변 생성하고 post 이후 되돌아온 값을 setter 에 넣어 input 태그의 밸류 값인 answer를 변경
   const CreateAnswerForSubmit = async (questionId, answerData) => {
@@ -112,7 +110,12 @@ export default function Feedcard({ question, onChange, answerer }) {
 
     <S.FcContainer>
       {isMenuOpen && (
-        <PopOverMenu id={question?.id} answerId={question?.answer?.id} onChange={onChange} />
+        <PopOverMenu
+          id={question?.id}
+          answerId={question?.answer?.id}
+          onChange={onChange}
+          onClose={handleMenuToggle}
+        />
       )}
 
       <S.FcHeader>

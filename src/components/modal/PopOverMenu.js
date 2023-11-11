@@ -5,7 +5,7 @@ import { updateAnswersPartial } from 'api/api.answers';
 import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu({ id, answerId, onChange }) {
+export default function PopOverMenu({ id, answerId, onChange, onClose }) {
   // console.log(id);
   const handleDeleteAnswer = async () => {
     try {
@@ -15,6 +15,7 @@ export default function PopOverMenu({ id, answerId, onChange }) {
       console.log(error);
     }
     onChange();
+    onClose();
   };
 
   const handleDeleteQuestion = async () => {
@@ -24,6 +25,7 @@ export default function PopOverMenu({ id, answerId, onChange }) {
       console.log(error);
     }
     onChange();
+    onClose();
   };
 
   const handleRejectAnswer = async () => {
@@ -37,6 +39,8 @@ export default function PopOverMenu({ id, answerId, onChange }) {
       } catch (error) {
         console.log(error);
       }
+      onChange();
+      onClose();
       return;
     }
 
@@ -52,6 +56,8 @@ export default function PopOverMenu({ id, answerId, onChange }) {
     } catch (error) {
       console.log(error);
     }
+    onChange();
+    onClose();
   };
 
   return (
