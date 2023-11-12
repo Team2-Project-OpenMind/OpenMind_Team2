@@ -14,7 +14,7 @@ import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 
-const DEFAULT_LIMIT = 4;
+const DEFAULT_LIMIT = 0;
 const DEFAULT_OFFSET = 0;
 
 export default function Post() {
@@ -59,9 +59,7 @@ export default function Post() {
        */
 
       const nextSearchParams = new URLSearchParams(new URL(next).search);
-      const nextOffset = nextSearchParams.get('offset');
-
-      setPageOffset(nextOffset);
+      setPageOffset(nextSearchParams.get('offset'));
     } catch (error) {
       console.log(error);
     }
@@ -72,20 +70,17 @@ export default function Post() {
       const res = await getSubjectsOnQuestions(id, pageLimit, pageOffset);
       const { count, next, results } = res;
 
-      const nextSearchParams = new URLSearchParams(new URL(next).search);
-
-      if (next !== null) {
-        setHasNext(true);
-      }
-
-      const nextLimit = nextSearchParams.get('limit');
-      const nextOffset = nextSearchParams.get('offset');
-
-      setPageLimit(nextLimit);
-      setPageOffset(nextOffset);
-
       setQuestionCount(count);
       setQuestionData(results);
+
+      if (!next) return;
+
+      // 처음 보여지는 page 외 추가 page가 있는 경우 실행
+      const nextSearchParams = new URLSearchParams(new URL(next).search);
+
+      setHasNext(true);
+      setPageLimit(nextSearchParams.get('limit'));
+      setPageOffset(nextSearchParams.get('offset'));
     } catch (error) {
       console.log(error);
     }
