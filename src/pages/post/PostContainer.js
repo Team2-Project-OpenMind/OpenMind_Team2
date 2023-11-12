@@ -1,29 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import * as S from './PostStyle';
 
 import { getSubjectsOnQuestions } from 'api/api.subjects';
+import useIntersect from 'hooks/useIntersect';
 
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
 import ModalPortal from 'components/ModalPortal';
 import QuestionModal from 'components/modal/QuestionModal';
 import FeedCardList from 'components/feed/FeedCardList';
+
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
-import { useParams } from 'react-router-dom';
-
-const options = {
-  root: null,
-  rootMain: '0px',
-  threshold: 1, // 단계별 콜백함수 호출
-};
 
 const DEFAULT_LIMIT = 4;
 const DEFAULT_OFFSET = 0;
 
 export default function Post() {
   const { id } = useParams();
-  const target = useRef(null);
 
   const [questionCount, setQuestionCount] = useState(0);
   const [questionData, setQuestionData] = useState([]);
@@ -32,33 +27,13 @@ export default function Post() {
   const [pageLimit, setPageLimit] = useState(DEFAULT_LIMIT);
   const [pageOffset, setPageOffset] = useState(DEFAULT_OFFSET);
   const [hasNext, setHasNext] = useState(false);
-  // const [hasPrevious, setHasPrevious] = useState(true);
+
+  const target = useIntersect(handleIntersection, hasNext);
 
   const isEmptyQuestions = questionCount === 0;
 
-  useEffect(() => {
-    if (!target.current) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasNext) {
-        console.log('옵져버 실행중', hasNext); // 삭제예정
-        handleIntersection(entries[0]);
-      }
-    }, options);
-
-    if (target.current) {
-      observer.observe(target.current);
-    }
-
-    // clean up
-    return () => {
-      if (target.current) {
-        observer.unobserve(target.current);
-      }
-    };
-  }, [target, pageLimit, pageOffset, hasNext]);
-
-  const handleIntersection = async (entry) => {
+  // useIntersect로 전달할 callback 함수
+  async function handleIntersection(entry) {
     if (!target.current) return;
 
     try {
@@ -90,7 +65,7 @@ export default function Post() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   const handleLoaded = async () => {
     try {
