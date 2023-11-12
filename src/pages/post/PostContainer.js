@@ -148,13 +148,10 @@ export default function Post() {
           </S.Info>
           {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData} />}
         </S.FeedContainer>
-
         <S.CreateQuestionButton onClick={handleModalShow}>질문 작성하기</S.CreateQuestionButton>
         <ClipBoardCopyMessage />
       </S.Wrapper>
-      <div style={{ height: '1px' }} ref={target}>
-        관찰
-      </div>
+      <S.Target ref={target}></S.Target>
     </>
   );
 }

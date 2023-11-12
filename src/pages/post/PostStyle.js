@@ -142,3 +142,7 @@ export const ButtonWrapper = styled.div`
   max-width: 71.6rem;
   flex-direction: row-reverse;
 `;
+
+export const Target = styled.div`
+  height: 1px;
+`;
