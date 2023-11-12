@@ -14,6 +14,8 @@ import * as FC from 'components/answerFeedCard/FeedCardStyled';
 import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
 import { Reply } from 'components/answerFeedCard/Reply';
 import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
+import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
+import SNSshare from 'components/SNSshare.js';
 
 export default function Answer() {
   const [questionList, setQuestionList] = useState([]);
@@ -21,6 +23,7 @@ export default function Answer() {
   const [isOn, setIsOn] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [menuSelected, setMenuSelected] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
 
   console.log(questionList);
@@ -130,11 +133,7 @@ export default function Answer() {
     <>
       <S.Wrapper>
         <S.Title>{answererProfile.name}</S.Title>
-        <S.LinkContainer>
-          <S.LinkIcon src={ShareIcon} alt="링크공유_아이콘"></S.LinkIcon>
-          <S.LinkIcon src={KAKAO} alt="카카오링크_아이콘"></S.LinkIcon>
-          <S.LinkIcon src={FACEBOOK} alt="페이스북링크_아이콘"></S.LinkIcon>
-        </S.LinkContainer>
+        <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
 
         <ButtonWrapper>
           <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId.users.user.id)}>
@@ -215,6 +214,7 @@ export default function Answer() {
             </>
           )}
         </S.FeedContainer>
+        {isCopied && <ClipBoardCopyMessage />}
       </S.Wrapper>
     </>
   );
