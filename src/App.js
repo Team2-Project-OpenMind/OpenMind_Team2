@@ -12,6 +12,7 @@ import AnswerContainer from 'pages/answer';
 import Header from 'components/Header';
 const localId = JSON.parse(window.localStorage.getItem('userAccounts'));
 /* 위 객체 형태 userId.users.user */
+console.log(localId);
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
             <Route index element={<PostContainer />} />
             <Route path=":id" element={<PostContainer />} />
           </Route>
-          <Route path={'post/:id/answer'} element={<AnswerContainer userId={localId} />} />
+          <Route path={'post/:id/answer'} element={<AnswerContainer />} />
         </Route>
       </Routes>
     </Layout>

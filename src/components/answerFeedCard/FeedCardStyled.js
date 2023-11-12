@@ -151,6 +151,14 @@ export const AnswerContent = styled.div`
   align-self: stretch;
 `;
 
+export const AnswerRejected = styled.div`
+  color: var(--red50);
+  font-family: Pretendard;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.2rem;
+`;
+
 export const FcInput = styled.textarea`
   display: flex;
   height: 18.6rem;
