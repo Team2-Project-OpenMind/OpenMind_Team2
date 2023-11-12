@@ -18,7 +18,7 @@ const options = {
   threshold: 1, // 단계별 콜백함수 호출
 };
 
-const DEFAULT_LIMIT = 3;
+const DEFAULT_LIMIT = 4;
 const DEFAULT_OFFSET = 0;
 
 export default function Post() {
@@ -31,6 +31,8 @@ export default function Post() {
 
   const [pageLimit, setPageLimit] = useState(DEFAULT_LIMIT);
   const [pageOffset, setPageOffset] = useState(DEFAULT_OFFSET);
+  const [hasNext, setHasNext] = useState(true);
+  const [hasPrevious, setHasPrevious] = useState(true);
 
   const isEmptyQuestions = questionCount === 0;
 
@@ -56,17 +58,33 @@ export default function Post() {
     };
   }, [target, pageLimit, pageOffset]);
 
+  console.log(hasNext); // 삭제예정
+
   const handleIntersection = async (entry) => {
-    console.log(entry); // 삭제예정
-    if (!target.current) return;
-
-    const res = await getSubjectsOnQuestions(id, pageLimit, pageOffset);
-    const { next, previous, results } = res;
-
-    if (!next) return;
+    if (!target.current || !hasNext) return;
+    console.log(hasNext); // 삭제예정
 
     try {
-      const nextSearchParams = new URLSearchParams(new URL(next).search);
+      const res = await getSubjectsOnQuestions(id, pageLimit, pageOffset);
+      const { next, previous, results } = res;
+      console.log(res); // 삭제예정
+
+      if (next === null) {
+        setHasNext(false);
+      }
+
+      if (previous === null) return; // 초기 렌더링 2번 막기
+
+      setQuestionData((prev) => {
+        // console.log(prev); // 삭제예정
+        // console.log(...results); // 삭제예정
+        return [...prev, ...results];
+      });
+
+      const test = next === null ? previous : next; // 오류만 안나게하고 questionData 받게끔!!! *** 개선하기
+      const nextSearchParams = new URLSearchParams(new URL(test).search);
+
+      /** previous도 state를 저장 */
 
       const nextLimit = nextSearchParams.get('limit');
       const nextOffset = nextSearchParams.get('offset');
@@ -79,19 +97,15 @@ export default function Post() {
     } catch (error) {
       console.log(error);
     }
-    setQuestionData((prev) => {
-      console.log(prev); // 삭제예정
-      console.log(...results); // 삭제예정
-      return [...prev, ...results];
-    });
   };
 
   const handleLoaded = async () => {
     try {
       const res = await getSubjectsOnQuestions(id, pageLimit, pageOffset); // limit, offset(몇개 건너뛸건 지)
       const { count, next, previous, results } = res;
+      console.log(res);
 
-      if (!next) return;
+      // if (!next) return;
       const nextSearchParams = new URLSearchParams(new URL(next).search);
 
       const nextLimit = nextSearchParams.get('limit');
@@ -110,8 +124,8 @@ export default function Post() {
     }
   };
 
-  console.log('렌더링'); // 삭제예정
-  console.log(questionData); // 삭제예정
+  // console.log('렌더링'); // 삭제예정
+  // console.log(questionData); // 삭제예정
 
   //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
   const handleModalShow = () => {
