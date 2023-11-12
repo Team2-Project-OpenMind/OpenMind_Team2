@@ -49,7 +49,6 @@ export async function getSubject(userId) {
 
 // 특정 유저의 질문목록
 export async function getSubjectsOnQuestions(userId, pageLimit, pageOffset) {
-  console.log(pageLimit, pageOffset); // 삭제예정
   const QUERY_STIRNG = `?limit=${pageLimit}&offset=${pageOffset}`;
   const res = await fetch(`${BASE_URL}/subjects/${userId}/questions/${QUERY_STIRNG}`, {
     headers,
