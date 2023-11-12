@@ -12,7 +12,7 @@ import clickedUp from '../../assets/images/clicked_up.svg';
 import clickedDown from '../../assets/images/clicked_down.svg';
 import PopOverMenu from 'components/modal/PopOverMenu';
 
-export default function Feedcard({ question, onChange, answerer }) {
+export default function Feedcard({ question, onChange, answerer, updateList }) {
   const [answer, setAnswer] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -23,12 +23,17 @@ export default function Feedcard({ question, onChange, answerer }) {
   const [disliked, setDisliked] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(question.dislike);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isFreshed, setIsFreshed] = useState(false);
+
+  console.log(question?.answer?.id);
 
   //답변 생성하고 post 이후 되돌아온 값을 setter 에 넣어 input 태그의 밸류 값인 answer를 변경
   const CreateAnswerForSubmit = async (questionId, answerData) => {
     try {
       const result = await createAnswer(questionId, answerData);
       setAnswer(result.content);
+      console.log(result);
+      updateList(result);
     } catch (error) {
       console.log(error);
     }
@@ -55,12 +60,13 @@ export default function Feedcard({ question, onChange, answerer }) {
       setIsSubmit(true);
       CreateAnswerForSubmit(questionId, { content: text, isRejected: boolean });
     }
+    setIsFreshed(!isFreshed);
   };
 
   // 제출된 답변을 답변 수정 상황으로 바꾸는 함수
   const handleUpdateAnswer = () => {
-    setUpdate(!isUpdate);
     setAnswer(`${question?.answer?.content || answer}`);
+    setUpdate(!isUpdate);
   };
 
   // 한 번 이상 답변 수정 이후  또 다시 수정 상황으로 돌아가는 함수
@@ -101,6 +107,7 @@ export default function Feedcard({ question, onChange, answerer }) {
 
   const handleMenuToggle = () => {
     setMenuOpen((isMenuOpen) => !isMenuOpen);
+    setIsFreshed(!isFreshed);
   };
 
   return (
@@ -163,7 +170,7 @@ export default function Feedcard({ question, onChange, answerer }) {
             ) : (
               <>
                 <S.SubmitedAnswer value={answer} $isUpdate={isUpdate}>
-                  {question?.answer?.content || answer}
+                  {question?.answer?.content}
                 </S.SubmitedAnswer>
                 <S.EditorButton
                   onClick={() => handleUpdateAnswer(question?.answer?.content)}

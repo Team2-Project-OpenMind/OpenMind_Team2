@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 import { deleteAnswers } from 'api/api.answers';
 import { updateAnswersPartial } from 'api/api.answers';
@@ -6,14 +7,19 @@ import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
 export default function PopOverMenu({ id, answerId, onChange, onClose }) {
+  const [isFreshed, setIsFreshed] = useState(false);
+  console.log(answerId);
   // console.log(id);
   const handleDeleteAnswer = async () => {
+    console.log(answerId);
     try {
       const result = await deleteAnswers(answerId);
       console.log(result);
     } catch (error) {
       console.log(error);
     }
+    // setIsFreshed(!isFreshed);
+    console.log('작동완');
     onChange();
     onClose();
   };
@@ -24,6 +30,8 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
     } catch (error) {
       console.log(error);
     }
+    setIsFreshed(!isFreshed);
+    console.log('작동완');
     onChange();
     onClose();
   };
@@ -39,8 +47,10 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
       } catch (error) {
         console.log(error);
       }
+      setIsFreshed(!isFreshed);
       onChange();
       onClose();
+      console.log('작동완');
       return;
     }
 
@@ -56,6 +66,8 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
     } catch (error) {
       console.log(error);
     }
+    // setIsFreshed(!isFreshed);
+    console.log('작동완');
     onChange();
     onClose();
   };

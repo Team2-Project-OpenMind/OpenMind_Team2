@@ -13,11 +13,19 @@ export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
 
+  const handleTest = (result) => {
+    const addAnswer = questionList.map((item) => ({
+      ...item,
+      answer: item.id === result.questionId ? result : item.answer,
+    }));
+    setQuestionList(addAnswer);
+  };
 
+  console.log(questionList);
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
-      console.log(results)
+      console.log(results);
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -54,7 +62,7 @@ export default function Answer({ userId }) {
   const handleUpdateList = async () => {
     try {
       const { results } = await getSubjectsOnQuestions(userId);
-      console.log(results)
+      console.log(results);
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -98,6 +106,7 @@ export default function Answer({ userId }) {
                     question={question}
                     answerer={answererProfile}
                     onChange={handleUpdateList}
+                    updateList={handleTest}
                   />
                 );
               })}
