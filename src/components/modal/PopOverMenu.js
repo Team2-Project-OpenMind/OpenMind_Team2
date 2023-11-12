@@ -29,7 +29,7 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
       console.log(error);
     }
     console.log('작동완');
-    // onChange();
+    onChange();
     onClose();
   };
 
