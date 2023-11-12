@@ -7,7 +7,7 @@ export const Container = styled.div`
   align-items: center;
   height: 100vh;
 
-  background-color: var(--gray20);
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 export const GoAskButton = styled.a`
@@ -22,8 +22,8 @@ export const GoAskButton = styled.a`
   width: 16.6rem;
   padding: 1.2rem 2.4rem;
 
-  color: var(--brown40);
-  background-color: var(--brown10);
+  color: ${(props) => props.theme.btnTxtColor};
+  background-color: ${(props) => props.theme.btnColor};
 
   border-radius: 0.8rem;
   border: 1px solid var(--brown40);
@@ -52,11 +52,6 @@ export const Main = styled.div`
   flex-direction: column;
   align-items: center;
   height: fit-content;
-
-  background: url('/images/heroImage.svg');
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: bottom;
 `;
 
 export const Logo = styled.img`
@@ -64,6 +59,8 @@ export const Logo = styled.img`
   height: fit-content;
   margin-top: 16rem;
   margin-bottom: 2.4rem;
+
+  content: ${(props) => props.theme.logoImage};
   @media screen and (${breakPoints.mobile}) {
     width: 100%;
     margin-top: 8rem;
@@ -76,7 +73,7 @@ export const HeroImage = styled.div`
   max-width: 85vw;
   height: 100%;
 
-  background: url('/images/heroImage.svg');
+  background: ${(props) => props.theme.heroImage};
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center bottom;

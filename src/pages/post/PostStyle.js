@@ -19,6 +19,8 @@ export const Title = styled.h1`
   font-size: 3.2rem;
   font-weight: 400;
   line-height: 2.5rem;
+
+  color: ${(props) => props.theme.textColor};
 `;
 
 export const LinkContainer = styled.div`
