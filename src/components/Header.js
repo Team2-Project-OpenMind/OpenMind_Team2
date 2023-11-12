@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router';
 import { useLayoutEffect, useRef, useState } from 'react';
 import UserNameInHeader from './UserNameInHeader';
 
+const isHome = window.location.pathname === '/';
+
 export default function Header({ localId }) {
   const [userArray, setUserArray] = useState(null);
   const [isButtonStyle, setIsButtonStyle] = useState(false);
@@ -17,11 +19,7 @@ export default function Header({ localId }) {
     bottom: '-158%',
     opacity: '1',
   };
-}
 
-const isHome = window.location.pathname === '/';
-export default function Header({ saveCookie }) {
-  console.log(saveCookie);
   const navigate = useNavigate();
 
   const handleNavigator = (e) => {
@@ -57,24 +55,14 @@ export default function Header({ saveCookie }) {
         </a>
 
         <ListPageDiv>
-<<<<<<< HEAD
           <GoAskButton type="button" onClick={handleNavigator} onBlur={handleBlur}>
-            <span>대답하러 가기</span>
-            <img src={arrowDown} alt="화살표 이미지" />
+            <span>{isHome ? '질문하러가기' : '답변하러 가기'}</span>
+            <img src={isHome ? arrowRight : arrowDown} alt="화살표 이미지" />
           </GoAskButton>
-          <ListPageListUl ref={ulRef} style={isButtonStyle ? { ...keepUlElement } : null}>
-            {userArray ? <UserNameInHeader element={ulElement} user={userArray} /> : null}
-=======
-        <GoAskButton type="button" onClick={handleNavigator}>
-          <span>{isHome ? '질문하러가기' : '답변하러 가기'}</span>
-          <img src={isHome ? arrowRight : arrowDown } alt="화살표 이미지" />
-        </GoAskButton>
           <ListPageListUl ref={ulRef} style={isOpenList ? { ...keepUlElement } : null}>
             <UserNameInHeader element={ulElement} setIsOpenList={setIsOpenList} user={user} />
->>>>>>> a7f0ef8 (Feat(Header.js) : 랜딩, 리스트 페이지 헤더 공유)
           </ListPageListUl>
         </ListPageDiv>
-
       </HeaderWrap>
     </ListPageHeader>
   );
@@ -164,13 +152,8 @@ export const GoAskButton = styled.button`
   border-radius: 0.8rem;
   border: 1px solid var(--brown40);
   padding: 1.2rem 2.4rem;
-<<<<<<< HEAD
-  background-color: ${(props) => props.theme.btnColor};
-  color: var(--gray10);
-=======
   background-color: ${(props) => props.theme.elemBackgroundColor};
   color: var(--brown40);
->>>>>>> a7f0ef8 (Feat(Header.js) : 랜딩, 리스트 페이지 헤더 공유)
   font-size: 1.6rem;
   font-weight: 400;
   font-family: Actor;
