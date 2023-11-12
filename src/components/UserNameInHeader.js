@@ -1,7 +1,25 @@
+import { useContext, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { LocalIdContext } from 'context/LocalIdContext';
+
 export default function UserNameInHeader({ element, setIsOpenList, user }) {
+  const context = useContext(LocalIdContext);
+  const { setLocalId } = context;
+
+  const useLocalIdContext = useCallback(
+    (e) => {
+      const nextLocalId = e.currentTarget.getAttribute('value');
+      setLocalId(nextLocalId);
+      window.localStorage.setItem('id', nextLocalId);
+      console.log(nextLocalId);
+    },
+    [setLocalId],
+  );
+
+  const disablePointer = { pointerEvents: 'none' };
+
   element?.addEventListener('mouseover', () => {
     setIsOpenList(true);
   });
@@ -9,14 +27,15 @@ export default function UserNameInHeader({ element, setIsOpenList, user }) {
   element?.addEventListener('mouseout', () => {
     setIsOpenList(false);
   });
+
   return (
     <>
       {user.map((name) => {
         return (
-          <ListPageListLi key={name.id}>
-            <Link to={`/post/${name.id}/answer`}>
-              <h5>{name.name}</h5>
-              <span>받은질문 5개</span>
+          <ListPageListLi key={name.id} value={name.id} onClick={useLocalIdContext}>
+            <Link to={`/post/${name?.id}/answer`}>
+              <h5 style={disablePointer}>{name.name}</h5>
+              <span style={disablePointer}>받은질문 5개</span>
             </Link>
           </ListPageListLi>
         );

@@ -7,6 +7,7 @@ import { ThemeProvider } from 'context/ThemeProvider';
 import GlobalStyle from 'components/common/GlobalStyle';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { LocalIdContextProvider } from 'context/LocalIdContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +15,11 @@ root.render(
     <ThemeProvider>
       <GlobalStyle />
       <CookiesProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <LocalIdContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </LocalIdContextProvider>
       </CookiesProvider>
     </ThemeProvider>
   </React.StrictMode>,

@@ -14,19 +14,22 @@ import * as FC from 'components/answerFeedCard/FeedCardStyled';
 import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
 import { Reply } from 'components/answerFeedCard/Reply';
 import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
+import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
+import SNSshare from 'components/SNSshare.js';
 
-export default function Answer({ userId }) {
+export default function Answer() {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
-
   const [isOn, setIsOn] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [menuSelected, setMenuSelected] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+  const LocalId = window.localStorage.getItem('id');
 
-
+  console.log(questionList);
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
-
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -96,9 +99,7 @@ export default function Answer({ userId }) {
 
   const handleUpdateList = async () => {
     try {
-
-      const { results } = await getSubjectsOnQuestions(userId);
-
+      const { results } = await getSubjectsOnQuestions(LocalId);
       console.log(results);
       setQuestionList(results);
     } catch (error) {
@@ -107,33 +108,35 @@ export default function Answer({ userId }) {
     //리프레시 값을 트루 폴스로 관리
   };
 
+  //팝오버 관련 함수들
   const handleMenuToggle = () => {
     setMenuOpen((isMenuOpen) => !isMenuOpen);
+  };
+
+  const handleSelectPopOver = (e) => {
+    e.preventDefault();
+    const nextItem = e.currentTarget.getAttribute('id');
+    setMenuSelected(nextItem);
+    console.log(nextItem);
+    handleMenuToggle();
   };
 
   const toggleSubmittedReply = () => setIsOn(!isOn);
 
   useEffect(() => {
-
-    handleRenderSubjectsOnQ(userId);
-    handleRenderSubjectProfile(userId);
-  }, [userId]);
+    handleRenderSubjectsOnQ(LocalId);
+    handleRenderSubjectProfile(LocalId);
+  }, [LocalId]);
   console.log(questionList);
-
-
 
   return (
     <>
       <S.Wrapper>
         <S.Title>{answererProfile.name}</S.Title>
-        <S.LinkContainer>
-          <S.LinkIcon src={ShareIcon} alt="링크공유_아이콘"></S.LinkIcon>
-          <S.LinkIcon src={KAKAO} alt="카카오링크_아이콘"></S.LinkIcon>
-          <S.LinkIcon src={FACEBOOK} alt="페이스북링크_아이콘"></S.LinkIcon>
-        </S.LinkContainer>
+        <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
 
         <ButtonWrapper>
-          <DeleteButton onClick={() => handleAllDeleteQuestionList(userId.users.user.id)}>
+          <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId.users.user.id)}>
             삭제하기
           </DeleteButton>
         </ButtonWrapper>
@@ -150,9 +153,12 @@ export default function Answer({ userId }) {
             <>
               <>
                 {questionList.map((question) => {
+                  const isSelected = question?.id == menuSelected;
+                  const isRejected = question?.answer?.isRejected === true;
+
                   return (
                     <FC.Wrapper key={question.id}>
-                      {isMenuOpen && (
+                      {isMenuOpen && isSelected && (
                         <PopOverMenu
                           id={question?.id}
                           answerId={question?.answer?.id}
@@ -161,7 +167,12 @@ export default function Answer({ userId }) {
                         />
                       )}
 
-                      <FC.KebabButton alt="케밥버튼" onClick={handleMenuToggle} />
+                      <FC.KebabButton
+                        type="button"
+                        alt="케밥버튼"
+                        id={question?.id}
+                        onClick={handleSelectPopOver}
+                      />
 
                       <Layout.QuestionInfo question={question} />
                       <FC.AnswerContainer>
@@ -177,9 +188,13 @@ export default function Answer({ userId }) {
                                   onToggle={toggleSubmittedReply}
                                 />
                                 <FC.AnswerMark>답변 완료</FC.AnswerMark>
-                                <FC.SubmittedAnswer $isDisplay={isOn}>
-                                  {question.answer.content}
-                                </FC.SubmittedAnswer>
+                                {!isRejected ? (
+                                  <FC.SubmittedAnswer $isDisplay={isOn}>
+                                    {question.answer.content}
+                                  </FC.SubmittedAnswer>
+                                ) : (
+                                  <FC.AnswerRejected>답변 거절</FC.AnswerRejected>
+                                )}
                               </>
                             ) : (
                               <>
@@ -199,6 +214,7 @@ export default function Answer({ userId }) {
             </>
           )}
         </S.FeedContainer>
+        {isCopied && <ClipBoardCopyMessage />}
       </S.Wrapper>
     </>
   );

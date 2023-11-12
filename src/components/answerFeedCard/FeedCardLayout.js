@@ -39,11 +39,11 @@ export function AnswererInfo({ answerer, question }) {
   );
 }
 
-export function FeedCardFooter(question) {
-  const [likeCount, setLikeCount] = useState(question.like);
+export function FeedCardFooter({ question }) {
+  const [likeCount, setLikeCount] = useState(question?.like);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
-  const [dislikeCount, setDislikeCount] = useState(question.dislike);
+  const [dislikeCount, setDislikeCount] = useState(question?.dislike);
 
   const handletoggleLike = () => {
     if (liked === false) {
@@ -71,7 +71,7 @@ export function FeedCardFooter(question) {
       <S.FcReactionMarkWrapper>
         <S.Reaction onClick={handletoggleLike} $liked={liked}>
           {liked ? <img src={clickedUp} alt="활성화 된 좋아요" /> : <img src={up} alt="좋아요" />}
-          <span>좋아요 {likeCount}</span>
+          <span>좋아요 {question?.like !== 0 && question?.like}</span>
         </S.Reaction>
 
         <S.Reaction onClick={handletoggleDislike} $disliked={disliked}>
@@ -80,7 +80,7 @@ export function FeedCardFooter(question) {
           ) : (
             <img src={down} alt="싫어요" />
           )}
-          <span>싫어요 {dislikeCount} </span>
+          <span>싫어요 {question?.dislike !== 0 && question?.dislike} </span>
         </S.Reaction>
       </S.FcReactionMarkWrapper>
     </S.FcFooter>
