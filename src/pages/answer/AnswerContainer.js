@@ -1,22 +1,32 @@
-import * as S from '../post/PostStyle';
-import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
 import { useState, useEffect } from 'react';
-import FeedCard from 'components/answerFeedCard/FeedCard.js';
-import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
-import { deleteQuestion } from '../../api/api.questions';
 
+import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
+import { deleteQuestion, createAnswer } from '../../api/api.questions';
+import { updateAnswersPartial } from '../../api/api.answers';
+
+import PopOverMenu from 'components/modal/PopOverMenu';
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
+import * as S from '../post/PostStyle';
+import * as Layout from 'components/answerFeedCard/FeedCardLayout';
+import * as FC from 'components/answerFeedCard/FeedCardStyled';
+import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
+import { Reply } from 'components/answerFeedCard/Reply';
+import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
 
 export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
 
+  const [isOn, setIsOn] = useState(true);
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
-      console.log(results);
+
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -50,9 +60,45 @@ export default function Answer({ userId }) {
     }
   };
 
+  const CreateReply = async (questionId, answerData) => {
+    try {
+      const result = await createAnswer(questionId, answerData);
+
+      const handle = (result) => {
+        const addAnswer = questionList.map((item) => ({
+          ...item,
+          answer: item.id === result.questionId ? result : item.answer,
+        }));
+        setQuestionList(addAnswer);
+      };
+      handle(result);
+      console.log(questionList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const PatchReply = async (answerId, answerData) => {
+    try {
+      const result = await updateAnswersPartial(answerId, answerData);
+      const handle = (result) => {
+        const EditAnswer = questionList.map((item) => ({
+          ...item,
+          answer: item.id === result.questionId ? result : item.answer,
+        }));
+        setQuestionList(EditAnswer);
+      };
+      handle(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleUpdateList = async () => {
     try {
-      const { results } = await getSubjectsOnQuestions(userId.users.user.id);
+
+      const { results } = await getSubjectsOnQuestions(userId);
+
       console.log(results);
       setQuestionList(results);
     } catch (error) {
@@ -61,10 +107,20 @@ export default function Answer({ userId }) {
     //리프레시 값을 트루 폴스로 관리
   };
 
+  const handleMenuToggle = () => {
+    setMenuOpen((isMenuOpen) => !isMenuOpen);
+  };
+
+  const toggleSubmittedReply = () => setIsOn(!isOn);
+
   useEffect(() => {
-    handleRenderSubjectsOnQ(userId.users.user.id);
-    handleRenderSubjectProfile(userId.users.user.id);
-  }, [userId.users.user.id]);
+
+    handleRenderSubjectsOnQ(userId);
+    handleRenderSubjectProfile(userId);
+  }, [userId]);
+  console.log(questionList);
+
+
 
   return (
     <>
@@ -92,16 +148,54 @@ export default function Answer({ userId }) {
             <S.EmptyBoxImg />
           ) : (
             <>
-              {questionList.map((question) => {
-                return (
-                  <FeedCard
-                    key={question.id}
-                    question={question}
-                    answerer={answererProfile}
-                    onChange={handleUpdateList}
-                  />
-                );
-              })}
+              <>
+                {questionList.map((question) => {
+                  return (
+                    <FC.Wrapper key={question.id}>
+                      {isMenuOpen && (
+                        <PopOverMenu
+                          id={question?.id}
+                          answerId={question?.answer?.id}
+                          onChange={handleUpdateList}
+                          onClose={handleMenuToggle}
+                        />
+                      )}
+
+                      <FC.KebabButton alt="케밥버튼" onClick={handleMenuToggle} />
+
+                      <Layout.QuestionInfo question={question} />
+                      <FC.AnswerContainer>
+                        <Layout.AnswererImage answerer={answererProfile} />
+                        <FC.AnswerWrapper>
+                          <Layout.AnswererInfo question={question} answerer={answererProfile} />
+                          <FC.AnswerContent>
+                            {question?.answer ? (
+                              <>
+                                <ButtonForEditorUI
+                                  question={question}
+                                  onPatch={PatchReply}
+                                  onToggle={toggleSubmittedReply}
+                                />
+                                <FC.AnswerMark>답변 완료</FC.AnswerMark>
+                                <FC.SubmittedAnswer $isDisplay={isOn}>
+                                  {question.answer.content}
+                                </FC.SubmittedAnswer>
+                              </>
+                            ) : (
+                              <>
+                                <FC.UnansweredMark>미답변</FC.UnansweredMark>
+                                <Reply onCreate={CreateReply} question={question} />
+                              </>
+                            )}
+                          </FC.AnswerContent>
+                        </FC.AnswerWrapper>
+                      </FC.AnswerContainer>
+
+                      <Layout.FeedCardFooter question={question} />
+                    </FC.Wrapper>
+                  );
+                })}
+              </>
             </>
           )}
         </S.FeedContainer>
