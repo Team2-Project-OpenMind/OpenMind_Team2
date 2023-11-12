@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as Kebab } from 'assets/images/More.svg';
 
-export const FeedCardWrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   position: relative;
   margin: 0 auto;
@@ -99,7 +99,7 @@ export const QuestionContent = styled.div`
   align-self: stretch;
 `;
 
-export const FcAnswerContainer = styled.div`
+export const AnswerContainer = styled.div`
   margin-top: 32px;
   display: flex;
   align-items: flex-start;
@@ -123,7 +123,7 @@ export const FcProfileWrapper = styled.div`
   align-items: center;
 `;
 
-export const FcAnswerWrapper = styled.div`
+export const AnswerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -143,7 +143,7 @@ export const FcAnswerer = styled.div`
   line-height: 2.4rem;
 `;
 
-export const FcAnswerContent = styled.div`
+export const AnswerContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -151,7 +151,7 @@ export const FcAnswerContent = styled.div`
   align-self: stretch;
 `;
 
-export const FcInout = styled.textarea`
+export const FcInput = styled.textarea`
   display: flex;
   height: 18.6rem;
   padding: 1.6rem;
@@ -171,11 +171,11 @@ export const FcInout = styled.textarea`
   resize: none;
 `;
 
-export const FcAnswerInput = styled(FcInout)`
+export const FcAnswerInput = styled(FcInput)`
   border: ${({ $isCompleted }) => (!$isCompleted ? '1px solid var(--brown40)' : 'none')};
 `;
 
-export const FcEditInout = styled(FcInout)`
+export const FcEditInput = styled(FcInput)`
   border: ${({ $isCompletedEdited }) =>
     !$isCompletedEdited ? '1px solid var(--brown40)' : 'none'};
 `;

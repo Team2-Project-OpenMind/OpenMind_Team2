@@ -1,39 +1,26 @@
-import * as S from '../post/PostStyle';
 import { useState, useEffect } from 'react';
 
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
+
 import PopOverMenu from 'components/modal/PopOverMenu';
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
-import {
-  QuestionInfo,
-  FeedCardFooter,
-  AnswererInfo,
-  AnswererImage,
-} from 'components/answerFeedCard/FeedCardLayout';
+import * as S from '../post/PostStyle';
+import * as Layout from 'components/answerFeedCard/FeedCardLayout';
+import * as FC from 'components/answerFeedCard/FeedCardStyled';
 import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
-import {
-  KebabButton,
-  AnswerMark,
-  UnansweredMark,
-  FeedCardWrapper,
-  FcAnswerContent,
-  FcAnswerContainer,
-  FcAnswerWrapper,
-  SubmittedAnswer,
-} from 'components/answerFeedCard/FeedCardStyled';
 import { Reply } from 'components/answerFeedCard/Reply';
-import UpdateReply from 'components/answerFeedCard/UpdateReply';
+import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
 
 export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
   const [isOn, setIsOn] = useState(true);
-
   const [isMenuOpen, setMenuOpen] = useState(false);
+
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
@@ -155,7 +142,7 @@ export default function Answer({ userId }) {
               <>
                 {questionList.map((question) => {
                   return (
-                    <FeedCardWrapper key={question.id}>
+                    <FC.Wrapper key={question.id}>
                       {isMenuOpen && (
                         <PopOverMenu
                           id={question?.id}
@@ -165,38 +152,38 @@ export default function Answer({ userId }) {
                         />
                       )}
 
-                      <KebabButton alt="케밥버튼" onClick={handleMenuToggle} />
+                      <FC.KebabButton alt="케밥버튼" onClick={handleMenuToggle} />
 
-                      <QuestionInfo question={question} />
-                      <FcAnswerContainer>
-                        <AnswererImage answerer={answererProfile} />
-                        <FcAnswerWrapper>
-                          <AnswererInfo question={question} answerer={answererProfile} />
-                          <FcAnswerContent>
+                      <Layout.QuestionInfo question={question} />
+                      <FC.AnswerContainer>
+                        <Layout.AnswererImage answerer={answererProfile} />
+                        <FC.AnswerWrapper>
+                          <Layout.AnswererInfo question={question} answerer={answererProfile} />
+                          <FC.AnswerContent>
                             {question?.answer ? (
                               <>
-                                <UpdateReply
+                                <ButtonForEditorUI
                                   question={question}
                                   onPatch={PatchReply}
                                   onToggle={toggleSubmittedReply}
                                 />
-                                <AnswerMark>답변 완료</AnswerMark>
-                                <SubmittedAnswer $isDisplay={isOn}>
+                                <FC.AnswerMark>답변 완료</FC.AnswerMark>
+                                <FC.SubmittedAnswer $isDisplay={isOn}>
                                   {question.answer.content}
-                                </SubmittedAnswer>
+                                </FC.SubmittedAnswer>
                               </>
                             ) : (
                               <>
-                                <UnansweredMark>미답변</UnansweredMark>
+                                <FC.UnansweredMark>미답변</FC.UnansweredMark>
                                 <Reply onCreate={CreateReply} question={question} />
                               </>
                             )}
-                          </FcAnswerContent>
-                        </FcAnswerWrapper>
-                      </FcAnswerContainer>
+                          </FC.AnswerContent>
+                        </FC.AnswerWrapper>
+                      </FC.AnswerContainer>
 
-                      <FeedCardFooter question={question} />
-                    </FeedCardWrapper>
+                      <Layout.FeedCardFooter question={question} />
+                    </FC.Wrapper>
                   );
                 })}
               </>

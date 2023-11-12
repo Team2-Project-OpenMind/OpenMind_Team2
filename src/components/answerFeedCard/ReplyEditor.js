@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { FcEditInout, FcEditButton } from './FeedCardStyled';
+import { FcEditInput, FcEditButton } from './FeedCardStyled';
 
-export default function EditReply({ onPatch, question, onClose }) {
+export default function ReplyEditor({ onPatch, question, onClose }) {
   const [editedReply, setEditedReply] = useState(question?.answer?.content);
   const [isCompletedEdited, setIsCompletedEdited] = useState(false);
   const handleSubmitEditedReply = (answerId, answerData) => {
@@ -19,7 +19,7 @@ export default function EditReply({ onPatch, question, onClose }) {
   };
   return (
     <>
-      <FcEditInout
+      <FcEditInput
         name="answer"
         value={editedReply}
         onChange={(e) => handleChangeEditReply(e)}
@@ -27,7 +27,7 @@ export default function EditReply({ onPatch, question, onClose }) {
         $isCompletedEdited={isCompletedEdited}
       >
         {editedReply}
-      </FcEditInout>
+      </FcEditInput>
       <FcEditButton
         $isCompletedEdited={isCompletedEdited}
         onClick={() =>

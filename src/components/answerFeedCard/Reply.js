@@ -1,4 +1,4 @@
-import { FcAnswerInput, FcAnswerButton, SubmittedAnswer } from './FeedCardStyled';
+import { FcAnswerInput, FcAnswerButton } from './FeedCardStyled';
 
 import { useState } from 'react';
 
@@ -36,8 +36,4 @@ export function Reply({ onCreate, question }) {
       </FcAnswerButton>
     </>
   );
-}
-
-export function SubmittedReply({ children }) {
-  return <SubmittedAnswer>{children}</SubmittedAnswer>;
 }
