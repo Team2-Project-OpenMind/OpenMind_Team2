@@ -18,8 +18,10 @@ import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
 export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
+
   const [isOn, setIsOn] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
+
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -94,7 +96,9 @@ export default function Answer({ userId }) {
 
   const handleUpdateList = async () => {
     try {
+
       const { results } = await getSubjectsOnQuestions(userId);
+
       console.log(results);
       setQuestionList(results);
     } catch (error) {
@@ -110,10 +114,13 @@ export default function Answer({ userId }) {
   const toggleSubmittedReply = () => setIsOn(!isOn);
 
   useEffect(() => {
+
     handleRenderSubjectsOnQ(userId);
     handleRenderSubjectProfile(userId);
   }, [userId]);
   console.log(questionList);
+
+
 
   return (
     <>
@@ -126,7 +133,9 @@ export default function Answer({ userId }) {
         </S.LinkContainer>
 
         <ButtonWrapper>
-          <DeleteButton onClick={() => handleAllDeleteQuestionList(userId)}>삭제하기</DeleteButton>
+          <DeleteButton onClick={() => handleAllDeleteQuestionList(userId.users.user.id)}>
+            삭제하기
+          </DeleteButton>
         </ButtonWrapper>
         <S.FeedContainer>
           <S.Info>
