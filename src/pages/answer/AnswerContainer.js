@@ -4,17 +4,36 @@ import { useState, useEffect } from 'react';
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
-
+import PopOverMenu from 'components/modal/PopOverMenu';
 import ShareIcon from 'assets/images/ShareIcon.svg';
 import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
 import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
-import FeedCard from 'components/answerFeedCard/FeedCard';
+import {
+  QuestionInfo,
+  FeedCardFooter,
+  AnswererInfo,
+  AnswererImage,
+} from 'components/answerFeedCard/FeedCardLayout';
 import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
+import {
+  KebabButton,
+  AnswerMark,
+  UnansweredMark,
+  FeedCardWrapper,
+  FcAnswerContent,
+  FcAnswerContainer,
+  FcAnswerWrapper,
+  SubmittedAnswer,
+} from 'components/answerFeedCard/FeedCardStyled';
+import { Reply } from 'components/answerFeedCard/Reply';
+import UpdateReply from 'components/answerFeedCard/UpdateReply';
 
 export default function Answer({ userId }) {
   const [questionList, setQuestionList] = useState([]);
   const [answererProfile, setAnswererProfile] = useState({});
+  const [isOn, setIsOn] = useState(true);
 
+  const [isMenuOpen, setMenuOpen] = useState(false);
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
@@ -97,11 +116,18 @@ export default function Answer({ userId }) {
     //리프레시 값을 트루 폴스로 관리
   };
 
+  const handleMenuToggle = () => {
+    setMenuOpen((isMenuOpen) => !isMenuOpen);
+  };
+
+  const toggleSubmittedReply = () => setIsOn(!isOn);
+
   useEffect(() => {
     handleRenderSubjectsOnQ(userId);
     handleRenderSubjectProfile(userId);
   }, [userId]);
   console.log(questionList);
+
   return (
     <>
       <S.Wrapper>
@@ -126,18 +152,54 @@ export default function Answer({ userId }) {
             <S.EmptyBoxImg />
           ) : (
             <>
-              {questionList.map((question) => {
-                return (
-                  <FeedCard
-                    key={question.id}
-                    question={question}
-                    answerer={answererProfile}
-                    onCreate={CreateReply}
-                    onPatch={PatchReply}
-                    onChange={handleUpdateList}
-                  />
-                );
-              })}
+              <>
+                {questionList.map((question) => {
+                  return (
+                    <FeedCardWrapper key={question.id}>
+                      {isMenuOpen && (
+                        <PopOverMenu
+                          id={question?.id}
+                          answerId={question?.answer?.id}
+                          onChange={handleUpdateList}
+                          onClose={handleMenuToggle}
+                        />
+                      )}
+
+                      <KebabButton alt="케밥버튼" onClick={handleMenuToggle} />
+
+                      <QuestionInfo question={question} />
+                      <FcAnswerContainer>
+                        <AnswererImage answerer={answererProfile} />
+                        <FcAnswerWrapper>
+                          <AnswererInfo question={question} answerer={answererProfile} />
+                          <FcAnswerContent>
+                            {question?.answer ? (
+                              <>
+                                <UpdateReply
+                                  question={question}
+                                  onPatch={PatchReply}
+                                  onToggle={toggleSubmittedReply}
+                                />
+                                <AnswerMark>답변 완료</AnswerMark>
+                                <SubmittedAnswer $isDisplay={isOn}>
+                                  {question.answer.content}
+                                </SubmittedAnswer>
+                              </>
+                            ) : (
+                              <>
+                                <UnansweredMark>미답변</UnansweredMark>
+                                <Reply onCreate={CreateReply} question={question} />
+                              </>
+                            )}
+                          </FcAnswerContent>
+                        </FcAnswerWrapper>
+                      </FcAnswerContainer>
+
+                      <FeedCardFooter question={question} />
+                    </FeedCardWrapper>
+                  );
+                })}
+              </>
             </>
           )}
         </S.FeedContainer>

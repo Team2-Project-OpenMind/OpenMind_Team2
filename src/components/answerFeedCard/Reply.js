@@ -13,7 +13,9 @@ export function Reply({ onCreate, question }) {
   const handleChangeAnswer = (e) => {
     setReply(e.target.value);
     reply ? setIsCompleted(true) : setIsCompleted(false);
-    if (e.target.value === '') return setIsCompleted(false);
+    if (e.target.value === '') {
+      setIsCompleted(false);
+    }
   };
   return (
     <>
@@ -22,6 +24,7 @@ export function Reply({ onCreate, question }) {
         value={reply}
         placeholder="답변을 입력해주세요"
         onChange={(e) => handleChangeAnswer(e)}
+        $isCompleted={isCompleted}
       >
         {reply}
       </FcAnswerInput>

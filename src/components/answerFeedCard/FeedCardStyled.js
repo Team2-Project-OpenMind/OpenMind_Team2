@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as Kebab } from 'assets/images/More.svg';
 
-export const FcContainer = styled.div`
+export const FeedCardWrapper = styled.div`
   display: flex;
   position: relative;
   margin: 0 auto;
@@ -151,7 +151,7 @@ export const FcAnswerContent = styled.div`
   align-self: stretch;
 `;
 
-export const FcAnswerInput = styled.textarea`
+export const FcInout = styled.textarea`
   display: flex;
   height: 18.6rem;
   padding: 1.6rem;
@@ -169,16 +169,18 @@ export const FcAnswerInput = styled.textarea`
     outline: none;
   }
   resize: none;
-
-  border: ${({ $isCompleted }) => (!$isCompleted ? '1px solid var(--brown40)' : 'none')};
-
-  border: ${({ $isCompletedEdited }) =>
-    !$isCompletedEdited ? '1px solid var(--brown40)' : 'none'};
-
-  display: ${({ $editAnswer }) => ($editAnswer ? 'none' : 'flex')};
 `;
 
-export const FcAnswerButton = styled.button`
+export const FcAnswerInput = styled(FcInout)`
+  border: ${({ $isCompleted }) => (!$isCompleted ? '1px solid var(--brown40)' : 'none')};
+`;
+
+export const FcEditInout = styled(FcInout)`
+  border: ${({ $isCompletedEdited }) =>
+    !$isCompletedEdited ? '1px solid var(--brown40)' : 'none'};
+`;
+
+export const FcButton = styled.button`
   display: flex;
   height: 4.6rem;
   padding: 1.2rem 2.4rem;
@@ -192,13 +194,16 @@ export const FcAnswerButton = styled.button`
   font: var(--body3-regular);
   line-height: 2.2rem;
   border: none;
-  background: ${({ $isCompleted }) => ($isCompleted ? 'var(--brown40)' : 'var(--brown30)')};
-  display: ${({ $editAnswer }) => ($editAnswer ? 'none' : 'flex')};
+`;
 
+export const FcAnswerButton = styled(FcButton)`
+  background: ${({ $isCompleted }) => ($isCompleted ? 'var(--brown40)' : 'var(--brown30)')};
+`;
+
+export const FcEditButton = styled(FcButton)`
   background: ${({ $isCompletedEdited }) =>
     $isCompletedEdited ? 'var(--brown40)' : 'var(--brown30)'};
 `;
-
 export const FcFooter = styled.div`
   display: flex;
   flex-direction: column;
@@ -260,7 +265,7 @@ export const SubmittedAnswer = styled.div`
   color: var(--gray60);
   font: var(--body3-regular);
   line-height: 2.2rem;
-  display: ${({ $isUpdate }) => ($isUpdate ? 'none' : 'block')};
+  display: ${({ $isDisplay }) => ($isDisplay ? 'block' : 'none')};
   flex-wrap: nowrap;
 `;
 

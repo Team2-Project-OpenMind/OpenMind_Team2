@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FcAnswerInput, FcAnswerButton } from './FeedCardStyled';
+import { FcEditInout, FcEditButton } from './FeedCardStyled';
 
 export default function EditReply({ onPatch, question, onClose }) {
   const [editedReply, setEditedReply] = useState(question?.answer?.content);
@@ -14,12 +14,12 @@ export default function EditReply({ onPatch, question, onClose }) {
 
     editedReply ? setIsCompletedEdited(true) : setIsCompletedEdited(false);
     if (e.target.value === '') {
-      isCompletedEdited = false;
+      setIsCompletedEdited(false);
     }
   };
   return (
     <>
-      <FcAnswerInput
+      <FcEditInout
         name="answer"
         value={editedReply}
         onChange={(e) => handleChangeEditReply(e)}
@@ -27,15 +27,15 @@ export default function EditReply({ onPatch, question, onClose }) {
         $isCompletedEdited={isCompletedEdited}
       >
         {editedReply}
-      </FcAnswerInput>
-      <FcAnswerButton
+      </FcEditInout>
+      <FcEditButton
         $isCompletedEdited={isCompletedEdited}
         onClick={() =>
           handleSubmitEditedReply(question?.answer?.id, { content: editedReply, isRejected: false })
         }
       >
         수정 완료
-      </FcAnswerButton>
+      </FcEditButton>
     </>
   );
 }
