@@ -144,7 +144,6 @@ export default function Answer() {
       <S.Wrapper>
         <S.Title>{answererProfile.name}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
-
         <ButtonWrapper>
           <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId)}>삭제하기</DeleteButton>
         </ButtonWrapper>
