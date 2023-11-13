@@ -3,7 +3,7 @@ import arrowRight from '../assets/images/arrow-right.svg';
 import arrowDown from '../assets/images/arrow-down.svg';
 import { breakPoints } from './common/Media';
 import { useNavigate } from 'react-router';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import UserNameInHeader from './UserNameInHeader';
 
 export default function Header({ localId }) {
@@ -11,6 +11,7 @@ export default function Header({ localId }) {
   const [isButtonStyle, setIsButtonStyle] = useState(false);
   const [ulElement, setUlElement] = useState(null);
   const ulRef = useRef(null);
+  const [isHome, setIsHome] = useState(window.location.pathname === '/');
 
   const keepUlElement = {
     zIndex: '1',
@@ -26,6 +27,10 @@ export default function Header({ localId }) {
       alert('아이디를 만들어 주세요');
       navigate('/');
     } else {
+      if (isHome) {
+        navigate('/list');
+        return;
+      }
       setIsButtonStyle(!isButtonStyle);
       const { user } = localId.users && localId.users;
       setUserArray(user);
@@ -43,22 +48,30 @@ export default function Header({ localId }) {
     const { current } = ulRef;
     setUlElement(current);
   }, []);
+
+  useEffect(() => {
+    setIsHome(window.location.pathname === '/' ? true : false);
+  }, [isHome]);
+
   return (
-    <ListPageHeader>
+    <ListPageHeader isHome={isHome}>
       <HeaderWrap>
         <a href="/">
           <h1>
-            <img src="images/logo.svg" alt="로고이미지" />
+            <img src="images/logo.svg" alt="로고이미지" style={isHome ? { display: 'none' } : {}} />
           </h1>
         </a>
+
         <ListPageDiv>
           <GoAskButton type="button" onClick={handleNavigator} onBlur={handleBlur}>
-            <span>대답하러 가기</span>
-            <img src={arrowDown} alt="화살표 이미지" />
+            <span>{isHome ? '질문하러가기' : '답변하러 가기'}</span>
+            <img src={isHome ? arrowRight : arrowDown} alt="화살표 이미지" />
           </GoAskButton>
-          <ListPageListUl ref={ulRef} style={isButtonStyle ? { ...keepUlElement } : null}>
-            {userArray ? <UserNameInHeader element={ulElement} user={userArray} /> : null}
-          </ListPageListUl>
+          {!isHome && (
+            <ListPageListUl ref={ulRef} style={isButtonStyle ? { ...keepUlElement } : null}>
+              {userArray ? <UserNameInHeader element={ulElement} user={userArray} /> : null}
+            </ListPageListUl>
+          )}
         </ListPageDiv>
       </HeaderWrap>
     </ListPageHeader>
@@ -111,6 +124,10 @@ const ListPageHeader = styled.header`
   @media screen and (${breakPoints.mobile}) {
     max-width: 500px;
     padding: 0 2.4rem;
+
+    & button {
+      display: ${(props) => (props.isHome ? 'none' : 'block')};
+    }
   }
 `;
 
@@ -145,8 +162,8 @@ export const GoAskButton = styled.button`
   border-radius: 0.8rem;
   border: 1px solid var(--brown40);
   padding: 1.2rem 2.4rem;
-  background-color: ${(props) => props.theme.btnColor};
-  color: var(--gray10);
+  background-color: ${(props) => props.theme.elemBackgroundColor};
+  color: var(--brown40);
   font-size: 1.6rem;
   font-weight: 400;
   font-family: Actor;
