@@ -3,16 +3,15 @@ import arrowRight from '../assets/images/arrow-right.svg';
 import arrowDown from '../assets/images/arrow-down.svg';
 import { breakPoints } from './common/Media';
 import { useNavigate } from 'react-router';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import UserNameInHeader from './UserNameInHeader';
-
-const isHome = window.location.pathname === '/';
 
 export default function Header({ localId }) {
   const [userArray, setUserArray] = useState(null);
   const [isButtonStyle, setIsButtonStyle] = useState(false);
   const [ulElement, setUlElement] = useState(null);
   const ulRef = useRef(null);
+  const [isHome, setIsHome] = useState(window.location.pathname === '/');
 
   const keepUlElement = {
     zIndex: '1',
@@ -28,6 +27,10 @@ export default function Header({ localId }) {
       alert('아이디를 만들어 주세요');
       navigate('/');
     } else {
+      if (isHome) {
+        navigate('/list');
+        return;
+      }
       setIsButtonStyle(!isButtonStyle);
       const { user } = localId.users && localId.users;
       setUserArray(user);
@@ -45,8 +48,13 @@ export default function Header({ localId }) {
     const { current } = ulRef;
     setUlElement(current);
   }, []);
+
+  useEffect(() => {
+    setIsHome(window.location.pathname === '/' ? true : false);
+  }, [isHome]);
+
   return (
-    <ListPageHeader>
+    <ListPageHeader isHome={isHome}>
       <HeaderWrap>
         <a href="/">
           <h1>
@@ -59,9 +67,11 @@ export default function Header({ localId }) {
             <span>{isHome ? '질문하러가기' : '답변하러 가기'}</span>
             <img src={isHome ? arrowRight : arrowDown} alt="화살표 이미지" />
           </GoAskButton>
-          <ListPageListUl ref={ulRef} style={isOpenList ? { ...keepUlElement } : null}>
-            <UserNameInHeader element={ulElement} setIsOpenList={setIsOpenList} user={user} />
-          </ListPageListUl>
+          {!isHome && (
+            <ListPageListUl ref={ulRef} style={isButtonStyle ? { ...keepUlElement } : null}>
+              {userArray ? <UserNameInHeader element={ulElement} user={userArray} /> : null}
+            </ListPageListUl>
+          )}
         </ListPageDiv>
       </HeaderWrap>
     </ListPageHeader>
@@ -116,7 +126,7 @@ const ListPageHeader = styled.header`
     padding: 0 2.4rem;
 
     & button {
-      display: ${isHome ? 'none' : 'block'};
+      display: ${(props) => (props.isHome ? 'none' : 'block')};
     }
   }
 `;
