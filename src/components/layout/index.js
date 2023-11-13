@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 import Banner from './Banner';
 import ThemeToggleButton from 'components/ThemeToggleButton';
-
-const HIDDEN_BANNER = ['/', '/list'];
+import { PagePath } from 'context/PathContext';
+import { useState } from 'react';
 
 export default function Layout({ children }) {
-  const pathName = window.location.pathname;
-  const isHidden = HIDDEN_BANNER.includes(pathName);
+  const [isPath, setIsPath] = useState(false);
 
   return (
-    <Container>
-      {!isHidden && <Banner />}
-      <Body>{children}</Body>
-      <ThemeToggleButton></ThemeToggleButton>
-    </Container>
+    <PagePath.Provider value={{ setIsPath }}>
+      <Container>
+        {isPath ? <Banner /> : null}
+        <Body>{children}</Body>
+        <ThemeToggleButton></ThemeToggleButton>
+      </Container>
+    </PagePath.Provider>
   );
 }
 
