@@ -117,3 +117,7 @@ export const CreateQuestionButton = styled.button`
   line-height: 25px;
   cursor: pointer;
 `;
+
+export const Target = styled.div`
+  height: 1px;
+`;

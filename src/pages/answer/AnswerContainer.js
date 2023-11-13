@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
@@ -13,6 +13,8 @@ import { Reply } from 'components/answerFeedCard/Reply';
 import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
+import { pathState } from 'components/common/pathState.js';
+import { PagePath } from 'context/PathContext.js';
 
 export default function Answer() {
   const [questionList, setQuestionList] = useState([]);
@@ -22,6 +24,7 @@ export default function Answer() {
   const [menuSelected, setMenuSelected] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
+  const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -32,7 +35,7 @@ export default function Answer() {
     }
   };
 
-  const handleRenderSubjectProfile = async (id) => {
+  /* const handleRenderSubjectProfile = async (id) => {
     try {
       const result = await getSubject(id);
       const { name, imageSource } = result;
@@ -41,7 +44,7 @@ export default function Answer() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; */
 
   const handleAllDeleteQuestionList = async (id) => {
     try {
@@ -124,16 +127,21 @@ export default function Answer() {
   };
 
   useEffect(() => {
+    setSelectUserId(LocalId);
     handleRenderSubjectsOnQ(LocalId);
-    handleRenderSubjectProfile(LocalId);
+    /*   handleRenderSubjectProfile(LocalId); */
+    if (pathState()) {
+      setIsPath(true);
+    } else {
+      setIsPath(false);
+    }
   }, [LocalId]);
 
   return (
     <>
       <S.Wrapper>
-        <S.Title>{answererProfile.name}</S.Title>
+        <S.Title>{userTitleData.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
-
         <ButtonWrapper>
           <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId)}>삭제하기</DeleteButton>
         </ButtonWrapper>
@@ -174,9 +182,9 @@ export default function Answer() {
 
                       <Layout.QuestionInfo question={question} />
                       <FC.AnswerContainer>
-                        <Layout.AnswererImage answerer={answererProfile} />
+                        <Layout.AnswererImage answerer={userTitleData} />
                         <FC.AnswerWrapper>
-                          <Layout.AnswererInfo question={question} answerer={answererProfile} />
+                          <Layout.AnswererInfo question={question} answerer={userTitleData} />
                           <FC.AnswerContent>
                             {question?.answer ? (
                               <>
