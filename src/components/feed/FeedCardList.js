@@ -6,7 +6,7 @@ export default function FeedCardList({ questionData, onClick }) {
     <>
       {questionData?.map((question) => (
         <S.FeedContainer key={question.id}>
-          <FeedCardItem questionData={question} onClick={onClick} />
+          <FeedCardItem questionData={question} />
         </S.FeedContainer>
       ))}
     </>

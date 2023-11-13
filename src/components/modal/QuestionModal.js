@@ -1,18 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { createQuestions } from 'api/api.subjects';
+
+import { createQuestions, getSubject } from 'api/api.subjects';
 import { ReactComponent as MsgIcon } from 'assets/images/message.svg';
 import closeIcon from 'assets/images/CloseButton.svg';
-import modalProfile from 'assets/images/modal_profile.svg';
 
 function QuestionModal({ id, onClose }) {
   const [textValue, setTextValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState(null)
+  const [profileImage, setProfileImage] = useState(null);
 
   const USER_ID = id;
   const questionsData = {
     content: textValue,
   };
+
+  const handleLoadSubject = async (id) => {
+    try{
+      const res = await getSubject(id);
+      const {name , imageSource } = res;
+      setName(name);
+      setProfileImage(imageSource);
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   const handleModalClose =(e)  => {
     console.log(e.target);
@@ -42,6 +55,10 @@ function QuestionModal({ id, onClose }) {
     onClose();
   };
 
+  useEffect(() => {
+    handleLoadSubject(id);
+  },[])
+
   return (
     <BG onClick={handleModalClose}>
       <Container onSubmit={handleSubmit}>
@@ -54,8 +71,8 @@ function QuestionModal({ id, onClose }) {
         </TitleWrapper>
         <ReceiverWrapper>
           <To>To.</To>
-          <ReceiverProfileImg src={modalProfile} alt="프로필_이미지"></ReceiverProfileImg>
-          아초는고양이
+          <ReceiverProfileImg src={profileImage} alt="프로필_이미지"></ReceiverProfileImg>
+          {name}
         </ReceiverWrapper>
         <TextArea placeholder="질문을 입력해주세요" value={textValue} onChange={handleTextChange} />
         <FormButton disabled={isLoading}>질문 보내기</FormButton>
@@ -144,6 +161,7 @@ const To = styled.span`
 const ReceiverProfileImg = styled.img`
   width: 28px;
   height: 28px;
+  border-radius: 50%;
 `;
 
 const TextArea = styled.textarea`

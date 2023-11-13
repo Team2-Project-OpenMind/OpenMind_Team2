@@ -30,7 +30,7 @@ export default function FeedCardItem({ questionData, onClick }) {
       }
     }
     handleReactionChange(name, value);
-    onClick();
+    // onClick();
   };
 
   const isAnswerCompleted = answer !== null;
