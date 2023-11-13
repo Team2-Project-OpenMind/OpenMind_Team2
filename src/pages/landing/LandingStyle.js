@@ -5,9 +5,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 137px);
 
   background-color: ${(props) => props.theme.backgroundColor};
+  background: ${(props) => props.theme.heroImage};
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
 `;
 
 export const GoAskButton = styled.a`
@@ -22,8 +26,8 @@ export const GoAskButton = styled.a`
   width: 16.6rem;
   padding: 1.2rem 2.4rem;
 
-  color: ${(props) => props.theme.btnTxtColor};
-  background-color: ${(props) => props.theme.btnColor};
+  color: var(--brown40);
+  background-color: ${(props) => props.theme.elemBackgroundColor};
 
   border-radius: 0.8rem;
   border: 1px solid var(--brown40);
@@ -40,6 +44,8 @@ export const GoAskButton = styled.a`
 `;
 
 export const MobileGoAskButton = styled(GoAskButton)`
+  position: static;
+  display: none;
   @media screen and (${breakPoints.mobile}) {
     display: flex;
     position: static;
@@ -47,24 +53,15 @@ export const MobileGoAskButton = styled(GoAskButton)`
   }
 `;
 
-export const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: fit-content;
-`;
-
 export const Logo = styled.img`
   width: 45.6rem;
   height: fit-content;
-  margin-top: 16rem;
   margin-bottom: 2.4rem;
 
   content: ${(props) => props.theme.logoImage};
   @media screen and (${breakPoints.mobile}) {
     width: 100%;
-    margin-top: 8rem;
-    padding: 8rem 6.3rem 0;
+    padding: 0 6.3rem 0;
   }
 `;
 
@@ -72,11 +69,6 @@ export const HeroImage = styled.div`
   width: 100%;
   max-width: 85vw;
   height: 100%;
-
-  background: ${(props) => props.theme.heroImage};
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center bottom;
 
   @media screen and (${breakPoints.mobile}) {
     max-width: 100vw;

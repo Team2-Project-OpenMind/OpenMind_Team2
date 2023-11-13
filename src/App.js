@@ -18,16 +18,26 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/">
-          <Route index element={<LandingContainer saveCookie={localId} />}></Route>
           <Route
-            path="list"
+            index
             element={
               <>
                 <Header localId={localId} />
-                <ListContainer />
+                <LandingContainer saveCookie={localId} />
               </>
             }
           ></Route>
+          <Route path="list">
+            <Route
+              index
+              element={
+                <>
+                  <Header localId={localId} />
+                  <ListContainer />
+                </>
+              }
+            ></Route>
+          </Route>
           <Route path="post">
             <Route index element={<PostContainer />} />
             <Route path=":id" element={<PostContainer />} />
