@@ -23,7 +23,6 @@ export default function Answer() {
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
 
-  console.log(questionList);
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
@@ -72,7 +71,6 @@ export default function Answer() {
         setQuestionList(addAnswer);
       };
       handle(result);
-      console.log(questionList);
     } catch (error) {
       console.log(error);
     }
@@ -94,10 +92,13 @@ export default function Answer() {
     }
   };
 
+  const toggleSubmittedReply = () => setIsOn(!isOn);
+
+  // 이하 팝오버
   const handleUpdateList = async () => {
     try {
       const { results } = await getSubjectsOnQuestions(LocalId);
-      console.log(results);
+
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -119,17 +120,13 @@ export default function Answer() {
     } else {
       setMenuSelected(nextItem);
       setMenuOpen(true);
-      console.log(nextItem);
     }
   };
-
-  const toggleSubmittedReply = () => setIsOn(!isOn);
 
   useEffect(() => {
     handleRenderSubjectsOnQ(LocalId);
     handleRenderSubjectProfile(LocalId);
   }, [LocalId]);
-  console.log(questionList);
 
   return (
     <>
