@@ -2,20 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
+import { ThemeProvider } from 'context/ThemeProvider';
 
 import GlobalStyle from 'components/common/GlobalStyle';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { LocalIdContextProvider } from 'context/LocalIdContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <CookiesProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </CookiesProvider>
+    <ThemeProvider>
+      <GlobalStyle />
+      <CookiesProvider>
+        <LocalIdContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </LocalIdContextProvider>
+      </CookiesProvider>
+    </ThemeProvider>
   </React.StrictMode>,
 );
 

@@ -34,7 +34,7 @@ export default function CardList({ data, message, range }) {
 
   const { results } = data;
 
-  const sortData = results.sort((a, b) => {
+  const sortData = results?.sort((a, b) => {
     if (range === '이름순') {
       return a.name > b.name ? 1 : -1;
     } else {
