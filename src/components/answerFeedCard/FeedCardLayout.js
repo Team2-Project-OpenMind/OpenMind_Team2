@@ -1,11 +1,10 @@
 import * as S from './FeedCardStyled';
 
 import { useState } from 'react';
-import down from '../../assets/images/down.svg';
-import up from '../../assets/images/thumbs-up.svg';
+import * as s from '../feed/FeedCardStyle';
 
-import clickedUp from '../../assets/images/clicked_up.svg';
-import clickedDown from '../../assets/images/clicked_down.svg';
+import { createReaction } from 'api/api.questions';
+
 import { timeForToday } from '../../date';
 
 export function QuestionInfo({ question }) {
@@ -45,47 +44,57 @@ export function AnswererInfo({ answerer, question }) {
 }
 
 export function FeedCardFooter({ question }) {
-  const [likeCount, setLikeCount] = useState(question?.like);
-  const [liked, setLiked] = useState(false);
-  const [disliked, setDisliked] = useState(false);
-  const [dislikeCount, setDislikeCount] = useState(question?.dislike);
+  const { like, dislike } = question;
+  const [reaction, setReaction] = useState({
+    like: false,
+    dislike: false,
+  });
 
-  const handletoggleLike = () => {
-    if (liked === false) {
-      setLiked(!liked);
-      setLikeCount((likeCount) => likeCount + 1);
-    } else if (liked === true) {
-      setLiked(!liked);
-      setLikeCount((likeCount) => likeCount - 1);
-    }
+  const handleReactionChange = (name, value) => {
+    setReaction((preValues) => ({
+      ...preValues,
+      [name]: !value,
+    }));
   };
 
-  const handletoggleDislike = () => {
-    if (disliked === false) {
-      setDisliked(!disliked);
-      setDislikeCount((dislikeCount) => dislikeCount + 1);
-    } else if (disliked === true) {
-      setDisliked(!disliked);
-      setDislikeCount((dislikeCount) => dislikeCount - 1);
+  const handleReactionToggle = async (e) => {
+    const name = e.currentTarget.getAttribute('name');
+    const value = JSON.parse(e.currentTarget.getAttribute('value'));
+    if (value === false) {
+      try {
+        const result = await createReaction(question.id, name);
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
     }
+    handleReactionChange(name, value);
   };
 
   return (
     <S.FcFooter>
       <S.FcFooterLine />
       <S.FcReactionMarkWrapper>
-        <S.Reaction onClick={handletoggleLike} $liked={liked}>
-          {liked ? <img src={clickedUp} alt="활성화 된 좋아요" /> : <img src={up} alt="좋아요" />}
-          <span>좋아요 {question?.like !== 0 && question?.like}</span>
+        <S.Reaction
+          onClick={handleReactionToggle}
+          name="like"
+          value={reaction.like}
+          disabled={reaction.dislike}
+        >
+          <s.IconLike $isActive={reaction.like} />
+          <s.LikeText $isActive={reaction.like}>좋아요 {like === 0 ? '' : like}</s.LikeText>
         </S.Reaction>
 
-        <S.Reaction onClick={handletoggleDislike} $disliked={disliked}>
-          {disliked ? (
-            <img src={clickedDown} alt="활성화 된 싫어요" />
-          ) : (
-            <img src={down} alt="싫어요" />
-          )}
-          <span>싫어요 {question?.dislike !== 0 && question?.dislike} </span>
+        <S.Reaction
+          onClick={handleReactionToggle}
+          name="dislike"
+          value={reaction.dislike}
+          disabled={reaction.like}
+        >
+          <s.IconDisLike $isActive={reaction.dislike} />
+          <s.DislikeText $isActive={reaction.dislike}>
+            싫어요 {dislike === 0 ? '' : dislike}
+          </s.DislikeText>
         </S.Reaction>
       </S.FcReactionMarkWrapper>
     </S.FcFooter>
