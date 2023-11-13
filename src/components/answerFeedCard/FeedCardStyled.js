@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as Kebab } from 'assets/images/More.svg';
-
+import { ReactComponent as LikeIcon } from 'assets/images/thumbs-up.svg';
+import { ReactComponent as DisLikeIcon } from 'assets/images/thumbs-down.svg';
 export const Wrapper = styled.div`
   display: flex;
   position: relative;
@@ -244,6 +245,7 @@ export const Reaction = styled.div`
   line-height: 1.8rem;
   color: ${({ $liked }) => ($liked ? 'var( --blue50)' : 'var(--gray40)')};
   color: ${({ $disliked }) => ($disliked ? 'var(--gray60)' : '')};
+  pointer-events: ${({ disabled }) => disabled === true && 'none'};
 `;
 export const EditorButton = styled.button`
   display: flex;
@@ -286,4 +288,25 @@ export const DisplayTime = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 18px;
+`;
+export const LikeText = styled.span`
+  color: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
+  font: var(--caption1-regular);
+`;
+
+export const DislikeText = styled.span`
+  color: ${({ $isActive }) => ($isActive === true ? 'var(--gray60)' : 'var(--gray40)')};
+  font: var(--caption1-regular);
+`;
+
+export const IconLike = styled(LikeIcon)`
+  & path {
+    fill: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
+  }
+`;
+
+export const IconDisLike = styled(DisLikeIcon)`
+  & path {
+    fill: ${({ $isActive }) => ($isActive === true ? 'var(--gray60)' : 'var(--gray40)')};
+  }
 `;

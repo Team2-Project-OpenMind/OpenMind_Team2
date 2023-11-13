@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import * as s from '../feed/FeedCardStyle';
 import * as S from './FeedCardStyled';
 
 import { createReaction, getQuestions } from 'api/api.questions';
@@ -67,7 +66,7 @@ export function FeedCardFooter({ question }) {
         const data = await getQuestions(question.id);
         setReactionCount({
           ...reactionCount,
-          ['reactionCount.like']: data.like,
+          like: data.like,
         });
       } catch (error) {
         console.log(error);
@@ -86,10 +85,10 @@ export function FeedCardFooter({ question }) {
           value={reaction.like}
           disabled={reaction.dislike}
         >
-          <s.IconLike $isActive={reaction.like} />
-          <s.LikeText $isActive={reaction.like}>
+          <S.IconLike $isActive={reaction.like} />
+          <S.LikeText $isActive={reaction.like}>
             좋아요 {reactionCount.like === 0 ? '' : reactionCount.like}
-          </s.LikeText>
+          </S.LikeText>
         </S.Reaction>
 
         <S.Reaction
@@ -98,10 +97,10 @@ export function FeedCardFooter({ question }) {
           value={reaction.dislike}
           disabled={reaction.like}
         >
-          <s.IconDisLike $isActive={reaction.dislike} />
-          <s.DislikeText $isActive={reaction.dislike}>
+          <S.IconDisLike $isActive={reaction.dislike} />
+          <S.DislikeText $isActive={reaction.dislike}>
             싫어요 {reactionCount.dislike === 0 ? '' : reactionCount.dislike}
-          </s.DislikeText>
+          </S.DislikeText>
         </S.Reaction>
       </S.FcReactionMarkWrapper>
     </S.FcFooter>
