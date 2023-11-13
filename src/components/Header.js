@@ -7,10 +7,10 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import UserNameInHeader from './UserNameInHeader';
 
 export default function Header({ localId }) {
-  const [isOpenList, setIsOpenList] = useState(false);
+  const [userArray, setUserArray] = useState(null);
+  const [isButtonStyle, setIsButtonStyle] = useState(false);
   const [ulElement, setUlElement] = useState(null);
   const ulRef = useRef(null);
-  const { user } = localId.users;
 
   const keepUlElement = {
     zIndex: '1',
@@ -19,13 +19,25 @@ export default function Header({ localId }) {
   };
 
   const navigate = useNavigate();
+
   const handleNavigator = (e) => {
     e.preventDefault();
     if (!localId) {
       alert('아이디를 만들어 주세요');
       navigate('/');
+    } else {
+      setIsButtonStyle(!isButtonStyle);
+      const { user } = localId.users && localId.users;
+      setUserArray(user);
     }
   };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setIsButtonStyle(false);
+    }, 200);
+  };
+
   /* useRef 사용시 초기값 null 해결방법 useLayoutEffect()는 동기적으로 실행됨 */
   useLayoutEffect(() => {
     const { current } = ulRef;
@@ -40,12 +52,12 @@ export default function Header({ localId }) {
           </h1>
         </a>
         <ListPageDiv>
-          <GoAskButton type="button" onClick={handleNavigator}>
-            <span>생성 리스트 보기</span>
+          <GoAskButton type="button" onClick={handleNavigator} onBlur={handleBlur}>
+            <span>대답하러 가기</span>
             <img src={arrowDown} alt="화살표 이미지" />
           </GoAskButton>
-          <ListPageListUl ref={ulRef} style={isOpenList ? { ...keepUlElement } : null}>
-            <UserNameInHeader element={ulElement} setIsOpenList={setIsOpenList} user={user} />
+          <ListPageListUl ref={ulRef} style={isButtonStyle ? { ...keepUlElement } : null}>
+            {userArray ? <UserNameInHeader element={ulElement} user={userArray} /> : null}
           </ListPageListUl>
         </ListPageDiv>
       </HeaderWrap>
@@ -65,17 +77,31 @@ const ListPageListUl = styled.ul`
   right: 50%;
   transform: translate(50%, 50%);
   transition: 0.8s;
-  width: 190px;
+  width: 177px;
   text-align: center;
   border: 1px solid #ccc;
   z-index: -1;
-  opacity: 0;
   background-color: #fff;
   border-radius: 5px;
   height: 130px;
   overflow: auto;
   cursor: pointer;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: var(--gray30); /* 스크롤바의 색상 */
+
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, 0.1);
+  }
 `;
+/* ::-webkit-scrollbar : 스크롤바 영역에 대한 설정
+::-webkit-scrollbar-thumb : 스크롤바 막대에 대한 설정
+::-webkit-scrollbar-track  : 스크롤바 뒷 배경에 대한 설정 */
 
 const ListPageHeader = styled.header`
   width: 100%;
@@ -120,12 +146,13 @@ export const GoAskButton = styled.button`
   border: 1px solid var(--brown40);
   padding: 1.2rem 2.4rem;
   background-color: ${(props) => props.theme.btnColor};
-  color: ${(props) => props.theme.textColor};
+  color: var(--gray10);
   font-size: 1.6rem;
   font-weight: 400;
   font-family: Actor;
   text-decoration: none;
   overflow: hidden;
+  cursor: pointer;
   span {
     line-height: 1px;
   }
@@ -135,11 +162,6 @@ export const GoAskButton = styled.button`
   }
   &:hover {
     overflow: none;
-  }
-  &:hover + ${ListPageListUl} {
-    z-index: 1;
-    bottom: -158%;
-    opacity: 1;
   }
 
   @media screen and (${breakPoints.mobile}) {

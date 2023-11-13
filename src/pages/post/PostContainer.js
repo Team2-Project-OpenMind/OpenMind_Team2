@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from './PostStyle';
 
@@ -9,6 +9,8 @@ import ModalPortal from 'components/ModalPortal';
 import QuestionModal from 'components/modal/QuestionModal';
 import FeedCardList from 'components/feed/FeedCardList';
 import SNSshare from 'components/SNSshare';
+import { pathState } from 'components/common/pathState';
+import { PagePath } from 'context/PathContext';
 
 export default function Post() {
   const { id } = useParams();
@@ -16,6 +18,7 @@ export default function Post() {
   const [questionData, setQuestionData] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const { setIsPath } = useContext(PagePath);
 
   const isEmptyQuestions = questionCount === 0;
 
@@ -36,8 +39,12 @@ export default function Post() {
 
   useEffect(() => {
     handleLoaded();
-  }, [questionData]);
-
+    if (pathState()) {
+      setIsPath(true);
+    } else {
+      setIsPath(false);
+    }
+  }, []);
   return (
     <>
       <S.Wrapper>
