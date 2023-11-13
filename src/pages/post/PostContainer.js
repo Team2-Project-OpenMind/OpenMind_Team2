@@ -127,7 +127,6 @@ export default function Post() {
             </S.QuestionCount>
           </S.Info>
           {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData}/>}
-          {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData} />}
           {isLoading && <div>스켈레톤</div>}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleModalShow}>질문 작성하기</S.CreateQuestionButton>

@@ -15,6 +15,8 @@ import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
 import { pathState } from 'components/common/pathState.js';
 import { PagePath } from 'context/PathContext.js';
+import YoutubePlayer from 'components/Youtube';
+import handleExtractVideoId from 'utils/ExtractYoutubeId.js';
 
 export default function Answer() {
   const [questionList, setQuestionList] = useState([]);
@@ -27,6 +29,9 @@ export default function Answer() {
   const { setIsPath } = useContext(PagePath);
   console.log(pathState());
   console.log(questionList);
+
+  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
+
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
@@ -163,6 +168,7 @@ export default function Answer() {
                 {questionList.map((question) => {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
+                  const key = handleExtractVideoId(question?.answer?.content)
 
                   return (
                     <FC.Wrapper key={question.id}>
@@ -200,9 +206,13 @@ export default function Answer() {
                                 />
                                 <FC.AnswerMark>답변 완료</FC.AnswerMark>
                                 {!isRejected ? (
+                                  
                                   <FC.SubmittedAnswer $isDisplay={isOn}>
                                     {question.answer.content}
+                                    { question.answer.content.includes(YOUTUBE_BASE) && <YoutubePlayer videoId={key}/>}
                                   </FC.SubmittedAnswer>
+                                  
+                                  
                                 ) : (
                                   <FC.AnswerRejected>답변 거절</FC.AnswerRejected>
                                 )}
