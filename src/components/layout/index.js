@@ -4,6 +4,7 @@ import ThemeToggleButton from 'components/ThemeToggleButton';
 import { PagePath } from 'context/PathContext';
 import { useEffect, useState } from 'react';
 import { getSubject } from 'api/api.subjects';
+import BGM from 'assets/music/bgm.mp3';
 
 export default function Layout({ children }) {
   const [isPath, setIsPath] = useState(false);
@@ -43,6 +44,7 @@ export default function Layout({ children }) {
         {isPath ? <Banner errorMessage={errorMessage} /> : null}
         <Body>{children}</Body>
         <ThemeToggleButton></ThemeToggleButton>
+        <Audio autoPlay={true} loop type="audio/mp3" src={BGM}></Audio>
       </Container>
     </PagePath.Provider>
   );
@@ -57,4 +59,11 @@ const Container = styled.div`
 
 const Body = styled.section`
   flex-grow: 1;
+`;
+
+const Audio = styled.audio`
+  position: fixed;
+  z-index: 2;
+  bottom: 2%;
+  left: 6%;
 `;
