@@ -36,7 +36,7 @@ export default function Post() {
 
   useEffect(() => {
     handleLoaded();
-  }, [questionData]);
+  }, []);
 
   return (
     <>
@@ -55,7 +55,7 @@ export default function Post() {
               {isEmptyQuestions ? '아직 질문이 없습니다' : `${questionCount}개의 질문이 있습니다`}
             </S.QuestionCount>
           </S.Info>
-          {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData} />}
+          {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData} onClick={handleLoaded}/>}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleModalShow}>질문 작성하기</S.CreateQuestionButton>
         {isCopied && <ClipBoardCopyMessage />}

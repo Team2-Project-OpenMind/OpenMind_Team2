@@ -4,7 +4,7 @@ import { createReaction } from 'api/api.questions';
 
 import AnswerStateTag from 'components/AnswerStateTag';
 
-export default function FeedCardItem({ questionData }) {
+export default function FeedCardItem({ questionData, onClick }) {
   const { content, createdAt, like, dislike, answer } = questionData;
   const [reaction, setReaction] = useState({
     like: false,
@@ -30,6 +30,7 @@ export default function FeedCardItem({ questionData }) {
       }
     }
     handleReactionChange(name, value);
+    onClick();
   };
 
   const isAnswerCompleted = answer !== null;
