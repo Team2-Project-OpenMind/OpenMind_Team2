@@ -15,6 +15,8 @@ import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
 import { pathState } from 'components/common/pathState.js';
 import { PagePath } from 'context/PathContext.js';
+import YoutubePlayer from 'components/Youtube';
+import handleExtractVideoId from 'utils/ExtractYoutubeId.js';
 
 export default function Answer() {
   const [questionList, setQuestionList] = useState([]);
@@ -24,7 +26,14 @@ export default function Answer() {
   const [menuSelected, setMenuSelected] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
+
+
+
+
+  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
+
   const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
+
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -117,11 +126,11 @@ export default function Answer() {
     const nextItem = e.currentTarget.getAttribute('id');
     const isSame = nextItem === menuSelected;
     if (isSame) {
+      setMenuSelected(null);
       handleMenuToggle();
     } else {
       setMenuSelected(nextItem);
       setMenuOpen(true);
-      console.log(nextItem);
     }
   };
 
@@ -161,6 +170,7 @@ export default function Answer() {
                 {questionList.map((question) => {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
+                  const key = handleExtractVideoId(question?.answer?.content)
 
                   return (
                     <FC.Wrapper key={question.id}>
@@ -171,6 +181,8 @@ export default function Answer() {
                           onChange={handleUpdateList}
                           onClose={handleMenuToggle}
                           onClick={setMenuOpen}
+                          onSelect={handleSelectPopOver}
+                          $isOpen={isMenuOpen}
                         />
                       )}
 
@@ -196,9 +208,13 @@ export default function Answer() {
                                 />
                                 <FC.AnswerMark>답변 완료</FC.AnswerMark>
                                 {!isRejected ? (
+                                  
                                   <FC.SubmittedAnswer $isDisplay={isOn}>
                                     {question.answer.content}
+                                    { question.answer.content.includes(YOUTUBE_BASE) && <YoutubePlayer videoId={key}/>}
                                   </FC.SubmittedAnswer>
+                                  
+                                  
                                 ) : (
                                   <FC.AnswerRejected>답변 거절</FC.AnswerRejected>
                                 )}

@@ -3,13 +3,18 @@ import * as S from './FeedCardStyle';
 import { createReaction } from 'api/api.questions';
 
 import AnswerStateTag from 'components/AnswerStateTag';
+import handleExtractVideoId from 'utils/ExtractYoutubeId';
+import YoutubePlayer from 'components/Youtube';
 
-export default function FeedCardItem({ questionData }) {
+export default function FeedCardItem({ questionData, onClick }) {
   const { content, createdAt, like, dislike, answer } = questionData;
   const [reaction, setReaction] = useState({
     like: false,
     dislike: false,
   });
+
+  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
+  const key = handleExtractVideoId(answer?.content)
 
   const handleReactionChange = (name, value) => {
     setReaction((preValues) => ({
@@ -30,6 +35,7 @@ export default function FeedCardItem({ questionData }) {
       }
     }
     handleReactionChange(name, value);
+    // onClick();
   };
 
   const isAnswerCompleted = answer !== null;
@@ -54,6 +60,7 @@ export default function FeedCardItem({ questionData }) {
             </S.ContentInfo>
             <S.ContentDescription $state={isAnswerRejected}>
               {isAnswerRejected ? '답변 거절' : answer.content}
+              {!isAnswerRejected && answer.content.includes(YOUTUBE_BASE) && <YoutubePlayer videoId={key}/>}
             </S.ContentDescription>
           </S.Content>
         </S.Contents>

@@ -1,3 +1,4 @@
+import YoutubePlayer from 'components/Youtube';
 import { FcAnswerInput, FcAnswerButton } from './FeedCardStyled';
 
 import { useState } from 'react';
@@ -5,6 +6,14 @@ import { useState } from 'react';
 export function Reply({ onCreate, question }) {
   const [reply, setReply] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
+
+  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
+
+  const handleExtractVideoId = () => {
+    const YoutubeURL = reply.substring(reply.indexOf('YOUTUBE_BASE'), 12);
+    console.log(YoutubeURL)
+    return YoutubeURL
+  }
 
   const handleSubmitReply = (questionId, answerData) => {
     onCreate(questionId, answerData);
@@ -26,7 +35,8 @@ export function Reply({ onCreate, question }) {
         onChange={(e) => handleChangeAnswer(e)}
         $isCompleted={isCompleted}
       >
-        {reply}
+      {reply}
+        
       </FcAnswerInput>
       <FcAnswerButton
         onClick={() => handleSubmitReply(question.id, { content: reply, isRejected: false })}
