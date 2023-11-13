@@ -138,9 +138,7 @@ export default function Answer() {
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
 
         <ButtonWrapper>
-          <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId.users.user.id)}>
-            삭제하기
-          </DeleteButton>
+          <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId)}>삭제하기</DeleteButton>
         </ButtonWrapper>
         <S.FeedContainer>
           <S.Info>
@@ -166,6 +164,7 @@ export default function Answer() {
                           answerId={question?.answer?.id}
                           onChange={handleUpdateList}
                           onClose={handleMenuToggle}
+                          onClick={setMenuOpen}
                         />
                       )}
 
