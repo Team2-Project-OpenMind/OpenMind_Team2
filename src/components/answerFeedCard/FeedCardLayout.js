@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as s from '../feed/FeedCardStyle';
 import * as S from './FeedCardStyled';
 
-import { createReaction } from 'api/api.questions';
+import { createReaction, getQuestions } from 'api/api.questions';
 import { timeForToday } from '../../date';
 
 export function QuestionInfo({ question }) {
@@ -42,7 +42,10 @@ export function AnswererInfo({ answerer, question }) {
 }
 
 export function FeedCardFooter({ question }) {
-  const { like, dislike } = question;
+  const [reactionCount, setReactionCount] = useState({
+    like: question.like,
+    dislike: question.dislike,
+  });
   const [reaction, setReaction] = useState({
     like: false,
     dislike: false,
@@ -61,7 +64,11 @@ export function FeedCardFooter({ question }) {
     if (value === false) {
       try {
         const result = await createReaction(question.id, name);
-        console.log(result);
+        const data = await getQuestions(question.id);
+        setReactionCount({
+          ...reactionCount,
+          ['reactionCount.like']: data.like,
+        });
       } catch (error) {
         console.log(error);
       }
@@ -80,7 +87,9 @@ export function FeedCardFooter({ question }) {
           disabled={reaction.dislike}
         >
           <s.IconLike $isActive={reaction.like} />
-          <s.LikeText $isActive={reaction.like}>좋아요 {like === 0 ? '' : like}</s.LikeText>
+          <s.LikeText $isActive={reaction.like}>
+            좋아요 {reactionCount.like === 0 ? '' : reactionCount.like}
+          </s.LikeText>
         </S.Reaction>
 
         <S.Reaction
@@ -91,7 +100,7 @@ export function FeedCardFooter({ question }) {
         >
           <s.IconDisLike $isActive={reaction.dislike} />
           <s.DislikeText $isActive={reaction.dislike}>
-            싫어요 {dislike === 0 ? '' : dislike}
+            싫어요 {reactionCount.dislike === 0 ? '' : reactionCount.dislike}
           </s.DislikeText>
         </S.Reaction>
       </S.FcReactionMarkWrapper>
