@@ -8,6 +8,10 @@ import YoutubePlayer from 'components/Youtube';
 
 export default function FeedCardItem({ questionData, onClick }) {
   const { content, createdAt, like, dislike, answer } = questionData;
+
+  const [likeCount, setLikeCount] = useState(like);
+  const [disLikeCount, setDisLikeCount] = useState(dislike);
+
   const [reaction, setReaction] = useState({
     like: false,
     dislike: false,
@@ -26,10 +30,11 @@ export default function FeedCardItem({ questionData, onClick }) {
   const handleReactionToggle = async (e) => {
     const name = e.currentTarget.getAttribute('name');
     const value = JSON.parse(e.currentTarget.getAttribute('value'));
+
     if (value === false) {
       try {
         const result = await createReaction(questionData.id, name);
-        console.log(result);
+        name === 'like' ? setLikeCount(result.like) : setDisLikeCount(result.dislike);
       } catch (error) {
         console.log(error);
       }
@@ -73,7 +78,7 @@ export default function FeedCardItem({ questionData, onClick }) {
           disabled={reaction.dislike}
         >
           <S.IconLike $isActive={reaction.like} />
-          <S.LikeText $isActive={reaction.like}>좋아요 {like === 0 ? '' : like}</S.LikeText>
+          <S.LikeText $isActive={reaction.like}>좋아요 {like === 0 ? '' : likeCount}</S.LikeText>
         </S.Option>
         <S.Option
           onClick={handleReactionToggle}
@@ -83,7 +88,7 @@ export default function FeedCardItem({ questionData, onClick }) {
         >
           <S.IconDisLike $isActive={reaction.dislike} />
           <S.DislikeText $isActive={reaction.dislike}>
-            싫어요 {dislike === 0 ? '' : dislike}
+            싫어요 {dislike === 0 ? '' : disLikeCount}
           </S.DislikeText>
         </S.Option>
       </S.Reaction>
