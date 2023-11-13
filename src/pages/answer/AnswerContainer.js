@@ -5,9 +5,6 @@ import { deleteQuestion, createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
 
 import PopOverMenu from 'components/modal/PopOverMenu';
-import ShareIcon from 'assets/images/ShareIcon.svg';
-import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
-import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
 import * as S from '../post/PostStyle';
 import * as Layout from 'components/answerFeedCard/FeedCardLayout';
 import * as FC from 'components/answerFeedCard/FeedCardStyled';
@@ -116,9 +113,14 @@ export default function Answer() {
   const handleSelectPopOver = (e) => {
     e.preventDefault();
     const nextItem = e.currentTarget.getAttribute('id');
-    setMenuSelected(nextItem);
-    console.log(nextItem);
-    handleMenuToggle();
+    const isSame = nextItem === menuSelected;
+    if (isSame) {
+      handleMenuToggle();
+    } else {
+      setMenuSelected(nextItem);
+      setMenuOpen(true);
+      console.log(nextItem);
+    }
   };
 
   const toggleSubmittedReply = () => setIsOn(!isOn);
