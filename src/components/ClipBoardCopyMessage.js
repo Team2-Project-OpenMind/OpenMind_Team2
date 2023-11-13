@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   padding: 12px 20px;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   transform: translateX(-50%);
   bottom: 60px;
   left: 50%;

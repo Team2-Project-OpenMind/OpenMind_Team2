@@ -2,14 +2,17 @@ import CardList from 'components/listPageCard/CardList';
 import arrowUp from '../../assets/images/arrow-up.svg';
 import arrowDown from '../../assets/images/arrow-down.svg';
 import * as S from './ListStyle';
-import { useEffect, useState } from 'react';
-import { getAllDataSubjects, getAllSubjects } from 'api/api.subjects';
+import { useContext, useEffect, useState } from 'react';
+import { getAllDataSubjects } from 'api/api.subjects';
+import { pathState } from 'components/common/pathState';
+import { PagePath } from 'context/PathContext';
 
 export default function ListContainer() {
   const [isDropdownView, setDropdownView] = useState(false);
   const [range, setRange] = useState('');
   const [friends, setFriends] = useState(null);
   const [dataErrorMessage, setDataErrorMessage] = useState('');
+  const { setIsPath } = useContext(PagePath);
 
   const handleSubjectsData = async () => {
     try {
@@ -22,6 +25,11 @@ export default function ListContainer() {
 
   useEffect(() => {
     handleSubjectsData();
+    if (pathState()) {
+      setIsPath(true);
+    } else {
+      setIsPath(false);
+    }
   }, []);
 
   const handleClickSelect = () => {
@@ -54,8 +62,8 @@ export default function ListContainer() {
             </label>
             {isDropdownView && (
               <S.DropdownList>
-                <S.DropdownListItme onClick={handleClickList}>이름순</S.DropdownListItme>
-                <S.DropdownListItme onClick={handleClickList}>최신순</S.DropdownListItme>
+                <S.DropdownListItem onClick={handleClickList}>이름순</S.DropdownListItem>
+                <S.DropdownListItem onClick={handleClickList}>최신순</S.DropdownListItem>
               </S.DropdownList>
             )}
           </S.Dropdown>

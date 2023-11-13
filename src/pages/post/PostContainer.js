@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from './PostStyle';
 
@@ -9,10 +9,10 @@ import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
 import ModalPortal from 'components/ModalPortal';
 import QuestionModal from 'components/modal/QuestionModal';
 import FeedCardList from 'components/feed/FeedCardList';
+import SNSshare from 'components/SNSshare';
 
-import ShareIcon from 'assets/images/ShareIcon.svg';
-import KAKAO from 'assets/images/ShareIcon_KAKAO.svg';
-import FACEBOOK from 'assets/images/ShareIcon_FACEBOOK.svg';
+import { pathState } from 'components/common/pathState';
+import { PagePath } from 'context/PathContext';
 
 const DEFAULT_LIMIT = 0;
 const DEFAULT_OFFSET = 0;
@@ -23,6 +23,8 @@ export default function Post() {
   const [questionCount, setQuestionCount] = useState(0);
   const [questionData, setQuestionData] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+  const { setIsPath } = useContext(PagePath);
 
   const [pageLimit, setPageLimit] = useState(DEFAULT_LIMIT);
   const [pageOffset, setPageOffset] = useState(DEFAULT_OFFSET);
@@ -99,8 +101,12 @@ export default function Post() {
 
   useEffect(() => {
     handleLoaded();
+    if (pathState()) {
+      setIsPath(true);
+    } else {
+      setIsPath(false);
+    }
   }, []);
-
   return (
     <>
       <S.Wrapper>
@@ -110,11 +116,7 @@ export default function Post() {
           </ModalPortal>
         )}
         <S.Title>아초는 고양이</S.Title>
-        <S.LinkContainer>
-          <S.LinkIcon src={ShareIcon} alt="링크공유_아이콘"></S.LinkIcon>
-          <S.LinkIcon src={KAKAO} alt="카카오링크_아이콘"></S.LinkIcon>
-          <S.LinkIcon src={FACEBOOK} alt="페이스북링크_아이콘"></S.LinkIcon>
-        </S.LinkContainer>
+        <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
         <S.FeedContainer $isEmpty={isEmptyQuestions}>
           <S.Info>
             <S.IconMessage />
@@ -126,7 +128,7 @@ export default function Post() {
           {isLoading && <div>스켈레톤</div>}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleModalShow}>질문 작성하기</S.CreateQuestionButton>
-        <ClipBoardCopyMessage />
+        {isCopied && <ClipBoardCopyMessage />}
       </S.Wrapper>
       <S.Target ref={target}></S.Target>
     </>

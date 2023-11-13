@@ -34,7 +34,7 @@ export const ListUpper = styled.div`
 export const ListTitle = styled.h2`
   margin-bottom: 1.2rem;
   font-size: 4rem;
-  color: var(--gray60);
+  color: ${(props) => props.theme.textColor};
   text-align: center;
   @media screen and (${breakPoints.mobile}) {
     margin-bottom: 0px;
@@ -82,7 +82,7 @@ export const DropdownList = styled.ul`
   background: var(--gray10);
 `;
 
-export const DropdownListItme = styled.li`
+export const DropdownListItem = styled.li`
   padding: 5px;
   color: var(--gray50);
   font-family: Pretendard;

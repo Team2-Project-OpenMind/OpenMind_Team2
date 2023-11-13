@@ -1,43 +1,32 @@
 import { styled } from 'styled-components';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { createSubject } from 'api/api.subjects';
 import personImg from '../assets/images/Person.svg';
-import { useRef, useState } from 'react';
-
-const userAccounts = { user: [] };
+import { useRef } from 'react';
 
 export default function LogIn() {
-  const [accountState, setAccountState] = useState({ users: userAccounts });
   const formRef = useRef();
   /* const [cookies, setCookies] = useCookies(['id']); */
   const navigate = useNavigate();
 
   const handleLogInFormSubmit = async (e) => {
     e.preventDefault();
-
-    // TODO
-    // 1. getAllSubjects로 유저 이름 유효성 검사 getAllSubjects
-    // 2. 존재한다면 id 리턴
-    // 3. 존재하지 않는다면 createSubject
-    const userName = formRef.current.username.value;
-    console.log(userName);
-    const data = await createSubject({ name: userName });
-    console.log(data);
-    const dataObject = { id: data?.id, name: data?.name };
-
-    if (!window.localStorage.getItem('userAccounts')) {
-      userAccounts.user.push(dataObject);
-      setAccountState({ ...accountState, users: userAccounts });
-      console.log(accountState);
-      /* 값을 object object로 저장되기 때문에 JSON.stringify 감싸줘야함 */
-      window.localStorage.setItem('userAccounts', JSON.stringify(accountState));
+    if (!window.localStorage.getItem('id')) {
+      // TODO
+      // 1. getAllSubjects로 유저 이름 유효성 검사 getAllSubjects
+      // 2. 존재한다면 id 리턴
+      // 3. 존재하지 않는다면 createSubject
+      const userName = formRef.current.username.value;
+      console.log(userName);
+      const data = await createSubject({ name: userName });
+      console.log(data);
+      window.localStorage.setItem('id', data?.id);
+      navigate(`/post/${data?.id}/answer`);
     } else {
-      /* 로컬에 저장된 객체를 읽기위해서 JSON.parse을 감싸줘야함 */
-      const alreadyHaveAccount = JSON.parse(window.localStorage.getItem('userAccounts'));
-      alreadyHaveAccount.users.user.push(dataObject);
-      window.localStorage.setItem('userAccounts', JSON.stringify(alreadyHaveAccount));
+      alert('이미 가입하셨습니다.');
+      navigate('/list');
     }
-    navigate(`/post/${data?.id}`);
   };
 
   return (

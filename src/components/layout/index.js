@@ -1,18 +1,20 @@
 import styled from 'styled-components';
-
 import Banner from './Banner';
-
-const HIDDEN_BANNER = ['/', '/list'];
+import ThemeToggleButton from 'components/ThemeToggleButton';
+import { PagePath } from 'context/PathContext';
+import { useState } from 'react';
 
 export default function Layout({ children }) {
-  const pathName = window.location.pathname;
-  const isHidden = HIDDEN_BANNER.includes(pathName);
+  const [isPath, setIsPath] = useState(false);
 
   return (
-    <Container>
-      {!isHidden && <Banner />}
-      <Body>{children}</Body>
-    </Container>
+    <PagePath.Provider value={{ setIsPath }}>
+      <Container>
+        {isPath ? <Banner /> : null}
+        <Body>{children}</Body>
+        <ThemeToggleButton></ThemeToggleButton>
+      </Container>
+    </PagePath.Provider>
   );
 }
 
@@ -20,7 +22,7 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   overflow-x: hidden;
-  background: var(--gray20);
+  background: ${(props) => props.theme.backgroundColor};
 `;
 
 const Body = styled.section`

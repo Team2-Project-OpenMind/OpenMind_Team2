@@ -8,6 +8,7 @@ export const ListCard = styled.li`
   padding: 20px;
   border: 1px solid var(--gray40);
   border-radius: 16px;
+  background-color: ${(props) => props.theme.elemBackgroundColor};
 `;
 
 export const ProfileCard = styled.div``;
@@ -23,6 +24,7 @@ export const ProfileCardName = styled.h4`
   font-family: Actor;
   font-size: 2rem;
   font-weight: 400;
+  line-height: 25px;
 `;
 
 export const CardText = styled.div`

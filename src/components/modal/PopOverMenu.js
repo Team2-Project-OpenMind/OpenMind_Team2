@@ -1,19 +1,25 @@
 import styled from 'styled-components';
+import { useRef, useEffect, useState } from 'react';
 
 import { deleteAnswers } from 'api/api.answers';
-import { updateAnswers } from 'api/api.answers';
+import { updateAnswersPartial } from 'api/api.answers';
 import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu({ id }) {
+export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }) {
+  console.log(answerId);
   // console.log(id);
   const handleDeleteAnswer = async () => {
+    console.log(answerId);
     try {
-      const result = await deleteAnswers(id);
+      const result = await deleteAnswers(answerId);
       console.log(result);
     } catch (error) {
       console.log(error);
     }
+    console.log('작동완');
+    onChange();
+    onClose();
   };
 
   const handleDeleteQuestion = async () => {
@@ -22,11 +28,29 @@ export default function PopOverMenu({ id }) {
     } catch (error) {
       console.log(error);
     }
+    console.log('작동완');
+    onChange();
+    onClose();
   };
 
   const handleRejectAnswer = async () => {
+    if (answerId) {
+      const DATA = {
+        isRejected: 'true',
+      };
+      try {
+        const res = await updateAnswersPartial(answerId, DATA);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+      onChange();
+      onClose();
+      console.log('작동완');
+      return;
+    }
 
-    const content = prompt('거절사유입력')
+    const content = prompt('거절사유입력');
     const POST_DATA = {
       content,
       isRejected: 'true',
@@ -38,10 +62,29 @@ export default function PopOverMenu({ id }) {
     } catch (error) {
       console.log(error);
     }
+    console.log('작동완');
+    onChange();
+    onClose();
+  };
+
+  const wrapperRef = useRef();
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
+  const handleClickOutside = (event) => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      onClick(false);
+    } else {
+      onClick(true);
+    }
   };
 
   return (
-    <Container>
+    <Container ref={wrapperRef}>
       <MenuItem onClick={handleDeleteAnswer}>답변 삭제</MenuItem>
       <MenuItem onClick={handleDeleteQuestion}>질문 삭제</MenuItem>
       <MenuItem onClick={handleRejectAnswer}>답변 거절</MenuItem>
