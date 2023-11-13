@@ -16,8 +16,8 @@ export const Button = styled.button`
 
   position: fixed;
   z-index: 1;
-  bottom: 3%;
-  left: 3%;
+  bottom: 2%;
+  left: 2%;
 
   font-size: 2rem;
 
