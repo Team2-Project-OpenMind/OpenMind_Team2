@@ -5,9 +5,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 137px);
 
   background-color: ${(props) => props.theme.backgroundColor};
+  background: ${(props) => props.theme.heroImage};
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
 `;
 
 export const GoAskButton = styled.a`
@@ -65,11 +69,6 @@ export const HeroImage = styled.div`
   width: 100%;
   max-width: 85vw;
   height: 100%;
-
-  background: ${(props) => props.theme.heroImage};
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center bottom;
 
   @media screen and (${breakPoints.mobile}) {
     max-width: 100vw;
