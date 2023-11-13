@@ -4,8 +4,8 @@ import { createReaction } from 'api/api.questions';
 
 import AnswerStateTag from 'components/AnswerStateTag';
 
-export default function FeedCardItem({ question }) {
-  const { content, createdAt, like, dislike, answer } = question;
+export default function FeedCardItem({ questionData }) {
+  const { content, createdAt, like, dislike, answer } = questionData;
   const [reaction, setReaction] = useState({
     like: false,
     dislike: false,
