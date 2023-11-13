@@ -115,11 +115,11 @@ export default function Answer() {
     const nextItem = e.currentTarget.getAttribute('id');
     const isSame = nextItem === menuSelected;
     if (isSame) {
+      setMenuSelected(null);
       handleMenuToggle();
     } else {
       setMenuSelected(nextItem);
       setMenuOpen(true);
-      console.log(nextItem);
     }
   };
 
@@ -165,6 +165,8 @@ export default function Answer() {
                           onChange={handleUpdateList}
                           onClose={handleMenuToggle}
                           onClick={setMenuOpen}
+                          onSelect={handleSelectPopOver}
+                          $isOpen={isMenuOpen}
                         />
                       )}
 

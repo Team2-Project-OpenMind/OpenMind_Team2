@@ -7,6 +7,7 @@ import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
 export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }) {
+  const wrapperRef = useRef();
   console.log(answerId);
   // console.log(id);
   const handleDeleteAnswer = async () => {
@@ -17,7 +18,6 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }
     } catch (error) {
       console.log(error);
     }
-    console.log('작동완');
     onChange();
     onClose();
   };
@@ -28,7 +28,6 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }
     } catch (error) {
       console.log(error);
     }
-    console.log('작동완');
     onChange();
     onClose();
   };
@@ -46,7 +45,6 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }
       }
       onChange();
       onClose();
-      console.log('작동완');
       return;
     }
 
@@ -62,12 +60,10 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }
     } catch (error) {
       console.log(error);
     }
-    console.log('작동완');
     onChange();
     onClose();
   };
 
-  const wrapperRef = useRef();
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -78,8 +74,6 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }
   const handleClickOutside = (event) => {
     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
       onClick(false);
-    } else {
-      onClick(true);
     }
   };
 
