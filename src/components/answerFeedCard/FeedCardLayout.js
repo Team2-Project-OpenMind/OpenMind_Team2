@@ -21,17 +21,22 @@ export function QuestionInfo({ question }) {
 }
 
 export function AnswererImage({ answerer }) {
+  if (!answerer) return;
+  const { imageSource } = answerer;
   return (
     <S.FcProfileWrapper>
-      <S.FcProfile $url={answerer.imageSource} alt="프로필" />
+      <S.FcProfile $url={imageSource} alt="프로필" />
     </S.FcProfileWrapper>
   );
 }
 
 export function AnswererInfo({ answerer, question }) {
+  if (!answerer) return;
+  const { title } = answerer;
+
   return (
     <S.FcAnswerer>
-      {answerer?.name}
+      {title}
       {question?.answer ? (
         <S.DisplayTime>{timeForToday(question.answer?.createdAt)}</S.DisplayTime>
       ) : null}
