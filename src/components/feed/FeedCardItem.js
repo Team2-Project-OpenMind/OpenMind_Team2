@@ -7,9 +7,9 @@ import AnswerStateTag from 'components/AnswerStateTag';
 import handleExtractVideoId from 'utils/ExtractYoutubeId';
 import YoutubePlayer from 'components/Youtube';
 
-export default function FeedCardItem({ questionData, onClick }) {
+export default function FeedCardItem({ questionData }) {
   const { content, createdAt, like, dislike, answer } = questionData;
-  console.log(answer);
+  console.log(answer); // 삭제예정
 
   const [likeCount, setLikeCount] = useState(like);
   const [disLikeCount, setDisLikeCount] = useState(dislike);
@@ -42,7 +42,6 @@ export default function FeedCardItem({ questionData, onClick }) {
       }
     }
     handleReactionChange(name, value);
-    // onClick();
   };
 
   const isAnswerCompleted = answer !== null;
