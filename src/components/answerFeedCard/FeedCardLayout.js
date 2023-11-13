@@ -1,10 +1,8 @@
-import * as S from './FeedCardStyled';
-
 import { useState } from 'react';
 import * as s from '../feed/FeedCardStyle';
+import * as S from './FeedCardStyled';
 
 import { createReaction } from 'api/api.questions';
-
 import { timeForToday } from '../../date';
 
 export function QuestionInfo({ question }) {
