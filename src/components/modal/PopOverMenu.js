@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import { deleteAnswers } from 'api/api.answers';
 import { updateAnswersPartial } from 'api/api.answers';
 import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu({ id, answerId, onChange, onClose }) {
+export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }) {
   console.log(answerId);
   // console.log(id);
   const handleDeleteAnswer = async () => {
@@ -67,8 +67,24 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
     onClose();
   };
 
+  const wrapperRef = useRef();
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
+  const handleClickOutside = (event) => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      onClick(false);
+    } else {
+      onClick(true);
+    }
+  };
+
   return (
-    <Container>
+    <Container ref={wrapperRef}>
       <MenuItem onClick={handleDeleteAnswer}>답변 삭제</MenuItem>
       <MenuItem onClick={handleDeleteQuestion}>질문 삭제</MenuItem>
       <MenuItem onClick={handleRejectAnswer}>답변 거절</MenuItem>
