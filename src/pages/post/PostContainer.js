@@ -18,26 +18,28 @@ export default function Post() {
   const [questionData, setQuestionData] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const { setIsPath } = useContext(PagePath);
+  const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
 
   const isEmptyQuestions = questionCount === 0;
 
   const handleLoaded = async () => {
     try {
       const res = await getSubjectsOnQuestions(id);
+      console.log(res);
       setQuestionCount(res.count);
       setQuestionData(res.results);
     } catch (error) {
       console.log(error);
     }
   };
-
+  console.log(questionData);
   //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
   const handleModalShow = () => {
     setOpenModal(!isOpenModal);
   };
 
   useEffect(() => {
+    setSelectUserId(id);
     handleLoaded();
     if (pathState()) {
       setIsPath(true);
@@ -53,7 +55,7 @@ export default function Post() {
             <QuestionModal onClose={handleModalShow} id={id} />
           </ModalPortal>
         )}
-        <S.Title>아초는 고양이</S.Title>
+        <S.Title>{userTitleData?.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
         <S.FeedContainer $isEmpty={isEmptyQuestions}>
           <S.Info>
