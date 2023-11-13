@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as S from './FeedCardStyled';
 
-import { createReaction, getQuestions } from 'api/api.questions';
+import { createReaction } from 'api/api.questions';
 import { timeForToday } from '../../date';
 
 export function QuestionInfo({ question }) {
@@ -41,13 +41,11 @@ export function AnswererInfo({ answerer, question }) {
 }
 
 export function FeedCardFooter({ question }) {
-  const [reactionCount, setReactionCount] = useState({
-    like: question.like,
-    dislike: question.dislike,
-  });
   const [reaction, setReaction] = useState({
     like: false,
     dislike: false,
+    likeCount: question.like,
+    dislikeCount: question.dislike,
   });
 
   const handleReactionChange = (name, value) => {
@@ -62,12 +60,16 @@ export function FeedCardFooter({ question }) {
     const value = JSON.parse(e.currentTarget.getAttribute('value'));
     if (value === false) {
       try {
-        const result = await createReaction(question.id, name);
-        const data = await getQuestions(question.id);
-        setReactionCount({
-          ...reactionCount,
-          like: data.like,
-        });
+        const data = await createReaction(question.id, name);
+        name === `like`
+          ? setReaction({
+              ...reaction,
+              likeCount: data.like,
+            })
+          : setReaction({
+              ...reaction,
+              dislikeCount: data.dislike,
+            });
       } catch (error) {
         console.log(error);
       }
@@ -87,7 +89,7 @@ export function FeedCardFooter({ question }) {
         >
           <S.IconLike $isActive={reaction.like} />
           <S.LikeText $isActive={reaction.like}>
-            좋아요 {reactionCount.like === 0 ? '' : reactionCount.like}
+            좋아요 {reaction.likeCount === 0 ? '' : reaction.likeCount}
           </S.LikeText>
         </S.Reaction>
 
@@ -99,7 +101,7 @@ export function FeedCardFooter({ question }) {
         >
           <S.IconDisLike $isActive={reaction.dislike} />
           <S.DislikeText $isActive={reaction.dislike}>
-            싫어요 {reactionCount.dislike === 0 ? '' : reactionCount.dislike}
+            싫어요 {reaction.dislikeCount === 0 ? '' : reaction.dislikeCount}
           </S.DislikeText>
         </S.Reaction>
       </S.FcReactionMarkWrapper>

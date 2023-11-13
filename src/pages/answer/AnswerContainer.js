@@ -136,7 +136,7 @@ export default function Answer() {
       setIsPath(false);
     }
   }, [LocalId]);
-
+  console.log(questionList);
   return (
     <>
       <S.Wrapper>
