@@ -110,6 +110,7 @@ export const AnswerContainer = styled.div`
 export const FcProfile = styled.div`
   border-radius: 48px;
   background-image: ${({ $url }) => ($url ? `url(${$url})` : '')};
+  background-size: cover;
   width: 48px;
   height: 48px;
   flex-shrink: 0;

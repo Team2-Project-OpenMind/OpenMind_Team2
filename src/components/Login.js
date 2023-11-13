@@ -8,18 +8,22 @@ const userAccounts = { user: [] };
 
 export default function LogIn() {
   const [accountState, setAccountState] = useState({ users: userAccounts });
+  const [isEmpty, setIsEmpty] = useState(false);
   const formRef = useRef();
-  /* const [cookies, setCookies] = useCookies(['id']); */
   const navigate = useNavigate();
 
   const handleLogInFormSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO
-    // 1. getAllSubjects로 유저 이름 유효성 검사 getAllSubjects
-    // 2. 존재한다면 id 리턴
-    // 3. 존재하지 않는다면 createSubject
     const userName = formRef.current.username.value;
+    if (!userName) {
+      setIsEmpty(true);
+      setTimeout(() => {
+        setIsEmpty(false);
+      }, 3000);
+      return;
+    }
+
     console.log(userName);
     const data = await createSubject({ name: userName });
     console.log(data);
@@ -46,6 +50,7 @@ export default function LogIn() {
         <img src={personImg} alt="" />
         <input name="username" type="text" placeholder="이름을 입력하세요"></input>
       </Input>
+      {isEmpty && <EmptyMsg>이름을 입력해주세요</EmptyMsg>}
       <Button type="submit">질문받기</Button>
     </Form>
   );
@@ -105,4 +110,11 @@ const Button = styled.button`
   font: var(--body3-regular);
   border-radius: 8px;
   border: none;
+`;
+
+const EmptyMsg = styled.div`
+  margin-left: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--red50);
+  font: var(--body3-regular);
 `;
