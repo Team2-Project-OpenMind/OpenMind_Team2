@@ -27,6 +27,7 @@ export default function Post() {
   const [pageLimit, setPageLimit] = useState(DEFAULT_LIMIT);
   const [pageOffset, setPageOffset] = useState(DEFAULT_OFFSET);
   const [hasNext, setHasNext] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const target = useIntersect(handleIntersection, hasNext);
 
@@ -34,9 +35,10 @@ export default function Post() {
 
   // useIntersect로 전달할 callback 함수
   async function handleIntersection(entry) {
-    if (!target.current) return;
+    if (!target.current || isLoading) return;
 
     try {
+      setIsLoading(true);
       const res = await getSubjectsOnQuestions(id, pageLimit, pageOffset);
       const { next, previous, results } = res;
 
@@ -62,6 +64,8 @@ export default function Post() {
       setPageOffset(nextSearchParams.get('offset'));
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -83,6 +87,8 @@ export default function Post() {
       setPageOffset(nextSearchParams.get('offset'));
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -117,6 +123,7 @@ export default function Post() {
             </S.QuestionCount>
           </S.Info>
           {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData} />}
+          {isLoading && <div>스켈레톤</div>}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleModalShow}>질문 작성하기</S.CreateQuestionButton>
         <ClipBoardCopyMessage />
