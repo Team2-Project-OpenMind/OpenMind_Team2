@@ -116,11 +116,15 @@ export default function Answer() {
   };
 
   const handleSelectPopOver = (e) => {
+    //id값을 받는다.
     const nextItem = e.currentTarget.getAttribute('id');
+    console.log(nextItem);
+    //id값을 menuSelected에 저장한다.
     setMenuSelected(nextItem);
+    console.log(menuSelected);
     const isSame = nextItem === menuSelected;
     if (isSame === true) {
-      // setMenuSelected(null);
+      setMenuSelected(null);
       setMenuOpen(false);
     } else {
       setMenuSelected(nextItem);

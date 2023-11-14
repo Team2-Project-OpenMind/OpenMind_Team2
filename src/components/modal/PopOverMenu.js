@@ -68,6 +68,7 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onMouseDo
   const handleClickOutside = (event) => {
     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
       onMouseDown(false);
+      // onSelect(null);
     }
   };
 
