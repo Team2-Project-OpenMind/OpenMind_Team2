@@ -1,5 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
+
 import ReactPlayer from 'react-player';
+
+import { useNavigate } from 'react-router-dom';
 
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
@@ -9,14 +12,13 @@ import PopOverMenu from 'components/modal/PopOverMenu';
 import * as S from '../post/PostStyle';
 import * as Layout from 'components/answerFeedCard/FeedCardLayout';
 import * as FC from 'components/answerFeedCard/FeedCardStyled';
-import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
-import { Reply } from 'components/answerFeedCard/Reply';
+import { DeleteButton, ButtonWrapper, PreviousButton } from './AnswerStyle.js';
+import AnswerUI from 'components/answerFeedCard/AnswerUI';
 import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
 import { pathState } from 'components/common/pathState.js';
 import { PagePath } from 'context/PathContext.js';
-import YoutubePlayer from 'components/Youtube';
 import handleExtractVideoId from 'utils/ExtractYoutubeId.js';
 
 export default function Answer() {
@@ -31,6 +33,8 @@ export default function Answer() {
   const YOUTUBE_BASE = 'https://www.youtube.com/watch?v=';
 
   const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
+
+  const navigate = useNavigate();
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -101,9 +105,17 @@ export default function Answer() {
     }
   };
 
+  const toggleSubmittedReply = () => setIsOn(!isOn);
+
+  const handleMovePage = () => {
+    navigate(`/list`);
+  };
+
+  // 이하 팝오버
   const handleUpdateList = async () => {
     try {
       const { results } = await getSubjectsOnQuestions(LocalId);
+
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -133,8 +145,6 @@ export default function Answer() {
     }
   };
 
-  const toggleSubmittedReply = () => setIsOn(!isOn);
-
   useEffect(() => {
     setSelectUserId(LocalId);
     handleRenderSubjectsOnQ(LocalId);
@@ -145,13 +155,14 @@ export default function Answer() {
       setIsPath(false);
     }
   }, [LocalId]);
-
+  console.log(questionList);
   return (
     <>
       <S.Wrapper>
         <S.Title>{userTitleData.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
         <ButtonWrapper>
+          <PreviousButton onClick={() => handleMovePage()}>질문하러가기</PreviousButton>
           <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId)}>삭제하기</DeleteButton>
         </ButtonWrapper>
         <S.FeedContainer>
@@ -169,6 +180,7 @@ export default function Answer() {
                 {questionList.map((question) => {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
+
                   const key = handleExtractVideoId(question?.answer?.content);
                   const youtubeURL = YOUTUBE_BASE + key;
 
@@ -180,8 +192,8 @@ export default function Answer() {
                           answerId={question?.answer?.id}
                           onChange={handleUpdateList}
                           onClose={handleMenuToggle}
-                          onMouseDown={setMenuOpen}
                           onSelect={setMenuSelected}
+                          onClick={setMenuOpen}
                         />
                       )}
 
@@ -193,11 +205,11 @@ export default function Answer() {
                       />
 
                       <Layout.QuestionInfo question={question} />
-                      <FC.AnswerContainer>
+                      <FC.ContainerForAnswer>
                         <Layout.AnswererImage answerer={userTitleData} />
-                        <FC.AnswerWrapper>
+                        <FC.WrapperForAnswer>
                           <Layout.AnswererInfo question={question} answerer={userTitleData} />
-                          <FC.AnswerContent>
+                          <FC.ContentAboutAnswer>
                             {question?.answer ? (
                               <>
                                 <ButtonForEditorUI
@@ -209,6 +221,7 @@ export default function Answer() {
                                 {!isRejected ? (
                                   <FC.SubmittedAnswer $isDisplay={isOn}>
                                     {question.answer.content}
+
                                     {question.answer.content.includes(YOUTUBE_BASE) && (
                                       <ReactPlayer
                                         url={youtubeURL}
@@ -225,13 +238,13 @@ export default function Answer() {
                               </>
                             ) : (
                               <>
-                                <FC.UnansweredMark>미답변</FC.UnansweredMark>
-                                <Reply onCreate={CreateReply} question={question} />
+                                <FC.UnAnswerMark>미답변</FC.UnAnswerMark>
+                                <AnswerUI onCreate={CreateReply} question={question} />
                               </>
                             )}
-                          </FC.AnswerContent>
-                        </FC.AnswerWrapper>
-                      </FC.AnswerContainer>
+                          </FC.ContentAboutAnswer>
+                        </FC.WrapperForAnswer>
+                      </FC.ContainerForAnswer>
 
                       <Layout.FeedCardFooter question={question} />
                     </FC.Wrapper>

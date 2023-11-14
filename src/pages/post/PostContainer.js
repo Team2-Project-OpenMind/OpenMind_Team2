@@ -99,7 +99,6 @@ export default function Post() {
     setOpenModal(!isOpenModal);
   };
 
-
   useEffect(() => {
     setSelectUserId(id);
     handleLoaded();
@@ -127,7 +126,11 @@ export default function Post() {
               {isEmptyQuestions ? '아직 질문이 없습니다' : `${questionCount}개의 질문이 있습니다`}
             </S.QuestionCount>
           </S.Info>
-          {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData}/>}
+          {isEmptyQuestions ? (
+            <S.EmptyBoxImg />
+          ) : (
+            <FeedCardList questionData={questionData} userTitleData={userTitleData} />
+          )}
           {isLoading && <div>스켈레톤</div>}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleModalShow}>질문 작성하기</S.CreateQuestionButton>
