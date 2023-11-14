@@ -7,7 +7,7 @@ import AnswerStateTag from 'components/AnswerStateTag';
 import handleExtractVideoId from 'utils/ExtractYoutubeId';
 import YoutubePlayer from 'components/Youtube';
 
-export default function FeedCardItem({ questionData }) {
+export default function FeedCardItem({ questionData, userTitleData }) {
   const { content, createdAt, like, dislike, answer } = questionData;
   console.log(answer); // 삭제예정
 
@@ -58,10 +58,10 @@ export default function FeedCardItem({ questionData }) {
       </S.Description>
       {answer && (
         <S.Contents>
-          <S.Profile />
+          <S.Profile src={userTitleData?.imageSource} />
           <S.Content>
             <S.ContentInfo>
-              <S.InfoTitle>아초는고양이</S.InfoTitle>
+              <S.InfoTitle>{userTitleData?.title}</S.InfoTitle>
               <S.InfoTimeDiff>{timeForToday(answer.createdAt)}</S.InfoTimeDiff>
             </S.ContentInfo>
             <S.ContentDescription $state={isAnswerRejected}>
