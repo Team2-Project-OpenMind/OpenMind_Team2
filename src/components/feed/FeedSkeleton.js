@@ -21,6 +21,36 @@ export default function FeedSkeleton() {
   );
 }
 
+const SkeletonItem = styled.div`
+  width: 100%;
+  background-color: #f2f2f2;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+
+  @keyframes skeleton-gradient {
+    0% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+    50% {
+      background-color: rgba(165, 165, 165, 0.3);
+    }
+    100% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: skeleton-gradient 1.5s infinite ease-in-out;
+  }
+`;
+
 const FeedSkeletonWrapper = styled.li`
   width: 100%;
   padding: 3.2rem;
@@ -39,23 +69,20 @@ const Card = styled.div`
   width: 100%;
   flex-direction: column;
   gap: 2.4rem;
-  word-break: break-all;
 
   @media screen and (${breakPoints.mobile}) {
     gap: 2.4rem;
   }
 `;
 
-const Tag = styled.span`
+const Tag = styled(SkeletonItem)`
   width: 8rem;
   height: 2.6rem;
-  background: #f2f2f2;
 `;
 
-const Description = styled.div`
+const Description = styled(SkeletonItem)`
   width: 50%;
   height: 4.4rem;
-  background: #f2f2f2;
 `;
 
 const Contents = styled.div`
@@ -64,23 +91,17 @@ const Contents = styled.div`
   gap: 1.2rem;
 `;
 
-const Profile = styled.div`
+const Profile = styled(SkeletonItem)`
   width: 4.8rem;
   height: 4.8rem;
   border-radius: 100%;
-  background: #f2f2f2;
 `;
 
-const Content = styled.div`
-  width: 100%;
+const Content = styled(SkeletonItem)`
+  width: 90%;
   height: 15rem;
-  display: flex;
-  flex-direction: column;
-  background: #f2f2f2;
 `;
 
-const Reaction = styled.div`
-  width: 100%;
+const Reaction = styled(SkeletonItem)`
   height: 2.6rem;
-  background: #f2f2f2;
 `;
