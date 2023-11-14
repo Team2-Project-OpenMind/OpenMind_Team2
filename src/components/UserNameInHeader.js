@@ -14,7 +14,6 @@ export default function UserNameInHeader({ user, count }) {
       const nextLocalId = e.currentTarget.getAttribute('value');
       setLocalId(nextLocalId);
       window.localStorage.setItem('id', nextLocalId);
-      console.log(nextLocalId);
     },
     [setLocalId],
   );

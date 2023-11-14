@@ -8,7 +8,7 @@ import closeIcon from 'assets/images/CloseButton.svg';
 function QuestionModal({ id, onClose }) {
   const [textValue, setTextValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState(null)
+  const [name, setName] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
 
   const USER_ID = id;
@@ -17,23 +17,21 @@ function QuestionModal({ id, onClose }) {
   };
 
   const handleLoadSubject = async (id) => {
-    try{
+    try {
       const res = await getSubject(id);
-      const {name , imageSource } = res;
+      const { name, imageSource } = res;
       setName(name);
       setProfileImage(imageSource);
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
-  const handleModalClose =(e)  => {
-    console.log(e.target);
-    console.log(e.currentTarget);
-    if(e.target === e.currentTarget) {
+  const handleModalClose = (e) => {
+    if (e.target === e.currentTarget) {
       onClose();
     }
-  }
+  };
 
   const handleTextChange = (e) => {
     const nextValue = e.target.value;
@@ -44,20 +42,19 @@ function QuestionModal({ id, onClose }) {
     let result;
     try {
       setIsLoading(true);
-      result = await createQuestions(USER_ID, questionsData);
+      await createQuestions(USER_ID, questionsData);
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
-    console.log(result);
     setTextValue('');
     onClose();
   };
 
   useEffect(() => {
     handleLoadSubject(id);
-  },[])
+  }, []);
 
   return (
     <BG onClick={handleModalClose}>

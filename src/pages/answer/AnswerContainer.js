@@ -1,5 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
+
+import ReactPlayer from 'react-player';
+
 import { useNavigate } from 'react-router-dom';
+
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
@@ -15,6 +19,7 @@ import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
 import { pathState } from 'components/common/pathState.js';
 import { PagePath } from 'context/PathContext.js';
+import handleExtractVideoId from 'utils/ExtractYoutubeId.js';
 
 export default function Answer() {
   const [questionList, setQuestionList] = useState([]);
@@ -24,7 +29,11 @@ export default function Answer() {
   const [menuSelected, setMenuSelected] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
+
+  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v=';
+
   const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
+
   const navigate = useNavigate();
 
   const handleRenderSubjectsOnQ = async (id) => {
@@ -120,11 +129,16 @@ export default function Answer() {
   };
 
   const handleSelectPopOver = (e) => {
-    e.preventDefault();
+    //id값을 받는다.
     const nextItem = e.currentTarget.getAttribute('id');
+    console.log(nextItem);
+    //id값을 menuSelected에 저장한다.
+    setMenuSelected(nextItem);
+    console.log(menuSelected);
     const isSame = nextItem === menuSelected;
-    if (isSame) {
-      handleMenuToggle();
+    if (isSame === true) {
+      setMenuSelected(null);
+      setMenuOpen(false);
     } else {
       setMenuSelected(nextItem);
       setMenuOpen(true);
@@ -167,6 +181,12 @@ export default function Answer() {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
 
+
+
+                  const key = handleExtractVideoId(question?.answer?.content);
+                  const youtubeURL = YOUTUBE_BASE + key;
+
+
                   return (
                     <FC.Wrapper key={question.id}>
                       {isMenuOpen && isSelected && (
@@ -175,6 +195,7 @@ export default function Answer() {
                           answerId={question?.answer?.id}
                           onChange={handleUpdateList}
                           onClose={handleMenuToggle}
+                          onSelect={setMenuSelected}
                           onClick={setMenuOpen}
                         />
                       )}
@@ -202,6 +223,16 @@ export default function Answer() {
                                 {!isRejected ? (
                                   <FC.SubmittedAnswer $isDisplay={isOn}>
                                     {question.answer.content}
+
+                                    {question.answer.content.includes(YOUTUBE_BASE) && (
+                                      <ReactPlayer
+                                        url={youtubeURL}
+                                        muted
+                                        controls
+                                        width={'400px'}
+                                        height={'240px'}
+                                      />
+                                    )}
                                   </FC.SubmittedAnswer>
                                 ) : (
                                   <FC.AnswerRejected>답변 거절</FC.AnswerRejected>
