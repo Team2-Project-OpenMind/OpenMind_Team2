@@ -1,12 +1,13 @@
 import styled from 'styled-components';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import { deleteAnswers } from 'api/api.answers';
 import { updateAnswersPartial } from 'api/api.answers';
 import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu({ id, answerId, onChange, onClose }) {
+export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }) {
+  const wrapperRef = useRef();
   console.log(answerId);
   // console.log(id);
   const handleDeleteAnswer = async () => {
@@ -17,7 +18,6 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
     } catch (error) {
       console.log(error);
     }
-    console.log('작동완');
     onChange();
     onClose();
   };
@@ -28,7 +28,6 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
     } catch (error) {
       console.log(error);
     }
-    console.log('작동완');
     onChange();
     onClose();
   };
@@ -46,7 +45,6 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
       }
       onChange();
       onClose();
-      console.log('작동완');
       return;
     }
 
@@ -62,13 +60,25 @@ export default function PopOverMenu({ id, answerId, onChange, onClose }) {
     } catch (error) {
       console.log(error);
     }
-    console.log('작동완');
     onChange();
     onClose();
   };
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
+  const handleClickOutside = (event) => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      onClick(false);
+    }
+  };
+
   return (
-    <Container>
+    <Container ref={wrapperRef}>
       <MenuItem onClick={handleDeleteAnswer}>답변 삭제</MenuItem>
       <MenuItem onClick={handleDeleteQuestion}>질문 삭제</MenuItem>
       <MenuItem onClick={handleRejectAnswer}>답변 거절</MenuItem>

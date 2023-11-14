@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   gap: 1.2rem;
   position: relative;
   height: 100%;
-  padding-bottom: 13.6rem;
+  padding: 0 2.4rem 13.6rem 2.4rem;
 `;
 
 export const Title = styled.h1`
@@ -19,8 +19,13 @@ export const Title = styled.h1`
   font-size: 3.2rem;
   font-weight: 400;
   line-height: 2.5rem;
+  transition: font-size 300ms linear;
 
   color: ${(props) => props.theme.textColor};
+
+  @media screen and (${breakPoints.mobile}) {
+    font-size: 2.4rem;
+  }
 `;
 
 export const LinkContainer = styled.div`
@@ -47,20 +52,10 @@ export const FeedContainer = styled.div`
   max-width: 71.6rem;
   height: 100%;
   min-height: 33rem;
-  /* height: ${($isEmpty) => ($isEmpty ? '330px' : '100%')}; */
   padding: 1.6rem;
   border-radius: 1.6rem;
   border: 1px solid var(--brown30);
   background: var(--brown10);
-
-  @media screen and (${breakPoints.tablet}) {
-    width: 70.4rem;
-    max-width: none;
-  }
-  @media screen and (${breakPoints.mobile}) {
-    width: 32.7rem;
-    max-width: none;
-  }
 `;
 
 export const Info = styled.div`
@@ -84,6 +79,10 @@ export const QuestionCount = styled.p`
   font-family: Actor;
   font-size: 2rem;
   font-weight: 400;
+
+  @media screen and (${breakPoints.mobile}) {
+    font: var(--body2-bold);
+  }
 `;
 
 export const IconMessage = styled(MessageIcon)`
@@ -116,4 +115,8 @@ export const CreateQuestionButton = styled.button`
   font-weight: 400;
   line-height: 25px;
   cursor: pointer;
+`;
+
+export const Target = styled.div`
+  height: 1px;
 `;

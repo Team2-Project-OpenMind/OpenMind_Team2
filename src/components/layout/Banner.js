@@ -1,14 +1,22 @@
 import styled from 'styled-components';
 import { breakPoints } from '../../components/common/Media';
+import { useContext } from 'react';
+import { PagePath } from 'context/PathContext';
 
-import ProfileImage from 'assets/images/profile.svg';
+export default function Banner({ errorMessage }) {
+  const { userTitleData } = useContext(PagePath);
+  if (!userTitleData) return;
+  const { imageSource } = userTitleData;
 
-export default function Banner() {
   return (
     <>
       <Wrapper>
         <Logo href="/"></Logo>
-        <Profile src={ProfileImage} />
+        {!errorMessage ? (
+          <Profile src={imageSource} />
+        ) : (
+          <div style={{ marginTop: '180px', fontSize: '20px' }}>{errorMessage}</div>
+        )}
       </Wrapper>
     </>
   );
@@ -25,6 +33,7 @@ const Wrapper = styled.div`
   background-repeat: no-repeat;
   background-position: top;
   background-color: ${(props) => props.theme.backgroundColor};
+  transition: height 300ms linear;
 
   @media screen and (${breakPoints.mobile}) {
     height: 17.7rem;
@@ -51,6 +60,8 @@ const Profile = styled.img`
   width: 13.6rem;
   position: absolute;
   top: 12.9rem;
+  border-radius: 50%;
+  transition: all 300ms linear;
 
   @media screen and (${breakPoints.mobile}) {
     width: 10.4rem;

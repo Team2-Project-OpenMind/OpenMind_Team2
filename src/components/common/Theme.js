@@ -5,7 +5,7 @@ export const lightTheme = {
   btnColor: 'var(--brown40)',
   btnTxtColor: 'var(--gray10)',
 
-  elemBackgroundColor: 'var(--gray20)',
+  elemBackgroundColor: 'var(--brown10)',
 
   paginationDoneColor: 'var(--brown40)',
   paginationColor: 'var(--gray40)',
