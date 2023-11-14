@@ -166,7 +166,7 @@ export default function Answer() {
                 {questionList.map((question) => {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
-
+                  console.log(`${question.id} 질문 업데이트`);
                   return (
                     <FC.Wrapper key={question.id}>
                       {isMenuOpen && isSelected && (
