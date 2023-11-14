@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import ReactPlayer from 'react-player';
 
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
@@ -169,6 +170,7 @@ export default function Answer() {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
                   const key = handleExtractVideoId(question?.answer?.content);
+                  const youtubeURL = YOUTUBE_BASE + key;
 
                   return (
                     <FC.Wrapper key={question.id}>
@@ -208,7 +210,13 @@ export default function Answer() {
                                   <FC.SubmittedAnswer $isDisplay={isOn}>
                                     {question.answer.content}
                                     {question.answer.content.includes(YOUTUBE_BASE) && (
-                                      <YoutubePlayer videoId={key} />
+                                      <ReactPlayer
+                                        url={youtubeURL}
+                                        muted
+                                        controls
+                                        width={'400px'}
+                                        height={'240px'}
+                                      />
                                     )}
                                   </FC.SubmittedAnswer>
                                 ) : (
