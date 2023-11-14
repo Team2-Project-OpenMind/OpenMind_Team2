@@ -155,7 +155,7 @@ export default function Answer() {
       setIsPath(false);
     }
   }, [LocalId]);
-  console.log(questionList);
+
   return (
     <>
       <S.Wrapper>
@@ -181,8 +181,11 @@ export default function Answer() {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
 
+
+
                   const key = handleExtractVideoId(question?.answer?.content);
                   const youtubeURL = YOUTUBE_BASE + key;
+
 
                   return (
                     <FC.Wrapper key={question.id}>
@@ -203,7 +206,6 @@ export default function Answer() {
                         id={question?.id}
                         onClick={handleSelectPopOver}
                       />
-
                       <Layout.QuestionInfo question={question} />
                       <FC.ContainerForAnswer>
                         <Layout.AnswererImage answerer={userTitleData} />
@@ -245,7 +247,6 @@ export default function Answer() {
                           </FC.ContentAboutAnswer>
                         </FC.WrapperForAnswer>
                       </FC.ContainerForAnswer>
-
                       <Layout.FeedCardFooter question={question} />
                     </FC.Wrapper>
                   );

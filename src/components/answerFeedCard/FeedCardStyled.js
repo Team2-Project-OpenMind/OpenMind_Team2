@@ -2,17 +2,18 @@ import styled from 'styled-components';
 import { ReactComponent as Kebab } from 'assets/images/More.svg';
 import { ReactComponent as LikeIcon } from 'assets/images/thumbs-up.svg';
 import { ReactComponent as DisLikeIcon } from 'assets/images/thumbs-down.svg';
+import { breakPoints } from 'components/common/Media';
 export const Wrapper = styled.div`
   display: flex;
   position: relative;
   margin: 0 auto;
-  width: 62rem;
-
+  width: 100%;
   padding: 3.2rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 3.2rem;
   align-self: stretch;
+  word-break: break-all;
   border-radius: 1.6rem;
   background: var(--gray10);
   box-shadow: var(--shadow1pt);
@@ -184,13 +185,11 @@ export const CardInput = styled.textarea`
 
 export const AnswerInput = styled(CardInput)`
   border: ${({ $isCompleted }) => (!$isCompleted ? '1px solid var(--brown40)' : 'none')};
-  flex-wrap: nowrap;
 `;
 
 export const EditInput = styled(CardInput)`
   border: ${({ $isCompletedEdited }) =>
     !$isCompletedEdited ? '1px solid var(--brown40)' : 'none'};
-  flex-wrap: nowrap;
 `;
 
 export const CardButton = styled.button`
@@ -252,6 +251,8 @@ export const Reaction = styled.div`
 `;
 export const EditorButton = styled.button`
   display: flex;
+  width: 10.3rem;
+  height: 3rem;
   padding: 0.6rem 1.6rem;
   justify-content: center;
   align-items: center;
@@ -272,10 +273,28 @@ export const EditorButton = styled.button`
       return 'block';
     }
   }};
+
+  @media (max-width: 600px) {
+    display: flex;
+    padding: 0.4rem 1.2rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 0.8rem;
+    border: 1px solid var(--brown40);
+    background: var(--gray10);
+    color: var(--brown40);
+    font-family: Pretendard;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.8rem;
+    top: 3.2rem;
+    right: 7rem;
+    margin: 0 auto;
+  }
 `;
 export const SubmittedAnswer = styled.div`
-  width: 50rem;
-  word-break: break-all;
+  width: 100%;
   justify-content: flex-start;
   color: var(--gray60);
   font: var(--body3-regular);
