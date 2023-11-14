@@ -141,7 +141,7 @@ export default function Answer() {
       setIsPath(false);
     }
   }, [LocalId]);
-  console.log(questionList);
+
   return (
     <>
       <S.Wrapper>
@@ -166,7 +166,7 @@ export default function Answer() {
                 {questionList.map((question) => {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
-                  console.log(`${question.id} 질문 업데이트`);
+
                   return (
                     <FC.Wrapper key={question.id}>
                       {isMenuOpen && isSelected && (
@@ -185,7 +185,6 @@ export default function Answer() {
                         id={question?.id}
                         onClick={handleSelectPopOver}
                       />
-
                       <Layout.QuestionInfo question={question} />
                       <FC.ContainerForAnswer>
                         <Layout.AnswererImage answerer={userTitleData} />
@@ -217,7 +216,6 @@ export default function Answer() {
                           </FC.ContentAboutAnswer>
                         </FC.WrapperForAnswer>
                       </FC.ContainerForAnswer>
-
                       <Layout.FeedCardFooter question={question} />
                     </FC.Wrapper>
                   );
