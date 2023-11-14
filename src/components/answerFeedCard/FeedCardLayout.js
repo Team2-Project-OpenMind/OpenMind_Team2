@@ -1,18 +1,19 @@
 import { useState } from 'react';
+
 import * as S from './FeedCardStyled';
-import { PreButton } from '../../pages/answer/AnswerStyle';
+
 import { createReaction } from 'api/api.questions';
 import { timeForToday } from '../../date';
 
 export function QuestionInfo({ question }) {
   return (
-    <S.FcQuestionWrapper>
+    <S.QuestionWrapper>
       <S.QuestionDate>
         질문
         <S.DisplayTime>{timeForToday(question.createdAt)}</S.DisplayTime>
       </S.QuestionDate>
       <S.QuestionContent>{question.content}</S.QuestionContent>
-    </S.FcQuestionWrapper>
+    </S.QuestionWrapper>
   );
 }
 
@@ -20,9 +21,9 @@ export function AnswererImage({ answerer }) {
   if (!answerer) return;
   const { imageSource } = answerer;
   return (
-    <S.FcProfileWrapper>
-      <S.FcProfile $url={imageSource} alt="프로필" />
-    </S.FcProfileWrapper>
+    <S.ProfileWrapper>
+      <S.Profile $url={imageSource} alt="프로필" />
+    </S.ProfileWrapper>
   );
 }
 
@@ -31,12 +32,12 @@ export function AnswererInfo({ answerer, question }) {
   const { title } = answerer;
 
   return (
-    <S.FcAnswerer>
+    <S.Answerer>
       {title}
       {question?.answer ? (
         <S.DisplayTime>{timeForToday(question.answer?.createdAt)}</S.DisplayTime>
       ) : null}
-    </S.FcAnswerer>
+    </S.Answerer>
   );
 }
 
@@ -78,9 +79,9 @@ export function FeedCardFooter({ question }) {
   };
 
   return (
-    <S.FcFooter>
-      <S.FcFooterLine />
-      <S.FcReactionMarkWrapper>
+    <S.CardFooter>
+      <S.FooterLine />
+      <S.ReactionMarkWrapper>
         <S.Reaction
           onClick={handleReactionToggle}
           name="like"
@@ -104,7 +105,7 @@ export function FeedCardFooter({ question }) {
             싫어요 {reaction.dislikeCount === 0 ? '' : reaction.dislikeCount}
           </S.DislikeText>
         </S.Reaction>
-      </S.FcReactionMarkWrapper>
-    </S.FcFooter>
+      </S.ReactionMarkWrapper>
+    </S.CardFooter>
   );
 }

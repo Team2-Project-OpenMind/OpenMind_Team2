@@ -9,7 +9,7 @@ import * as S from '../post/PostStyle';
 import * as Layout from 'components/answerFeedCard/FeedCardLayout';
 import * as FC from 'components/answerFeedCard/FeedCardStyled';
 import { DeleteButton, ButtonWrapper, PreviousButton } from './AnswerStyle.js';
-import { Reply } from 'components/answerFeedCard/Reply';
+import AnswerUI from 'components/answerFeedCard/AnswerUI';
 import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
@@ -187,11 +187,11 @@ export default function Answer() {
                       />
 
                       <Layout.QuestionInfo question={question} />
-                      <FC.AnswerContainer>
+                      <FC.ContainerForAnswer>
                         <Layout.AnswererImage answerer={userTitleData} />
-                        <FC.AnswerWrapper>
+                        <FC.WrapperForAnswer>
                           <Layout.AnswererInfo question={question} answerer={userTitleData} />
-                          <FC.AnswerContent>
+                          <FC.ContentAboutAnswer>
                             {question?.answer ? (
                               <>
                                 <ButtonForEditorUI
@@ -210,13 +210,13 @@ export default function Answer() {
                               </>
                             ) : (
                               <>
-                                <FC.UnansweredMark>미답변</FC.UnansweredMark>
-                                <Reply onCreate={CreateReply} question={question} />
+                                <FC.UnAnswerMark>미답변</FC.UnAnswerMark>
+                                <AnswerUI onCreate={CreateReply} question={question} />
                               </>
                             )}
-                          </FC.AnswerContent>
-                        </FC.AnswerWrapper>
-                      </FC.AnswerContainer>
+                          </FC.ContentAboutAnswer>
+                        </FC.WrapperForAnswer>
+                      </FC.ContainerForAnswer>
 
                       <Layout.FeedCardFooter question={question} />
                     </FC.Wrapper>
