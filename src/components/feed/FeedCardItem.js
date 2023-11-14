@@ -5,9 +5,9 @@ import { timeForToday } from 'date';
 
 import AnswerStateTag from 'components/AnswerStateTag';
 import handleExtractVideoId from 'utils/ExtractYoutubeId';
-import YoutubePlayer from 'components/Youtube';
+import ReactPlayer from 'react-player';
 
-export default function FeedCardItem({ questionData }) {
+export default function FeedCardItem({ questionData, userTitleData }) {
   const { content, createdAt, like, dislike, answer } = questionData;
 
   const [likeCount, setLikeCount] = useState(like);
@@ -20,6 +20,7 @@ export default function FeedCardItem({ questionData }) {
 
   const YOUTUBE_BASE = 'https://www.youtube.com/watch?v=';
   const key = handleExtractVideoId(answer?.content);
+  const youtubeURL = YOUTUBE_BASE + key;
 
   const handleReactionChange = (name, value) => {
     setReaction((preValues) => ({
@@ -57,16 +58,16 @@ export default function FeedCardItem({ questionData }) {
       </S.Description>
       {answer && (
         <S.Contents>
-          <S.Profile />
+          <S.Profile src={userTitleData?.imageSource} />
           <S.Content>
             <S.ContentInfo>
-              <S.InfoTitle>아초는고양이</S.InfoTitle>
+              <S.InfoTitle>{userTitleData?.title}</S.InfoTitle>
               <S.InfoTimeDiff>{timeForToday(answer.createdAt)}</S.InfoTimeDiff>
             </S.ContentInfo>
             <S.ContentDescription $state={isAnswerRejected}>
               {isAnswerRejected ? '답변 거절' : answer.content}
               {!isAnswerRejected && answer.content.includes(YOUTUBE_BASE) && (
-                <YoutubePlayer videoId={key} />
+                <ReactPlayer url={youtubeURL} muted controls width={'400px'} height={'240px'} />
               )}
             </S.ContentDescription>
           </S.Content>

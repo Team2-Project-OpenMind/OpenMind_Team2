@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react';
 import { getSubject } from 'api/api.subjects';
 import BGM from 'assets/music/bgm.mp3';
 
-export default function Layout({ children }) {
+export default function Layout({ children, localId }) {
   const [isPath, setIsPath] = useState(false);
   const [selectUserId, setSelectUserId] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [newLocalData, setNewLocalData] = useState(null);
+  const [mobileSize, setMobileSize] = useState(false);
   const [userTitleData, setUserTitleData] = useState({
     title: '',
     imageSource: '',
@@ -20,7 +22,7 @@ export default function Layout({ children }) {
   const handleSubjectsRead = async (id) => {
     try {
       const userData = await getSubject(id);
-      console.log(userData);
+
       setUserTitleData({
         ...userTitleData,
         title: userData.name,
@@ -39,7 +41,18 @@ export default function Layout({ children }) {
   }, [selectUserId]);
 
   return (
-    <PagePath.Provider value={{ setIsPath, setSelectUserId, userTitleData }}>
+    <PagePath.Provider
+      value={{
+        setIsPath,
+        setSelectUserId,
+        userTitleData,
+        localId,
+        setNewLocalData,
+        newLocalData,
+        setMobileSize,
+        mobileSize,
+      }}
+    >
       <Container>
         {isPath ? <Banner errorMessage={errorMessage} /> : null}
         <Body>{children}</Body>

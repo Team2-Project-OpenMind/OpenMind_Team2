@@ -60,9 +60,10 @@ export const Contents = styled.div`
   gap: 1.2rem;
 `;
 
-export const Profile = styled(profileIcon)`
+export const Profile = styled.img`
   width: 4.8rem;
   height: 4.8rem;
+  border-radius: 50%;
 `;
 
 export const Content = styled.div`

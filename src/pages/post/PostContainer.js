@@ -130,7 +130,7 @@ export default function Post() {
           {!isLoading && isEmptyQuestions ? (
             <S.EmptyBoxImg />
           ) : (
-            <FeedCardList questionData={questionData} />
+            <FeedCardList questionData={questionData} userTitleData={userTitleData} />
           )}
           {isLoading && <FeedSkeleton />}
         </S.FeedContainer>
