@@ -6,7 +6,7 @@ import { updateAnswersPartial } from 'api/api.answers';
 import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }) {
+export default function PopOverMenu({ id, answerId, onChange, onClose, onMouseDown, onSelect }) {
   const wrapperRef = useRef();
   console.log(answerId);
   // console.log(id);
@@ -73,7 +73,7 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onClick }
   });
   const handleClickOutside = (event) => {
     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-      onClick(false);
+      onMouseDown(false);
     }
   };
 

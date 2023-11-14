@@ -111,17 +111,22 @@ export default function Answer() {
   };
 
   const handleSelectPopOver = (e) => {
-    e.preventDefault();
     const nextItem = e.currentTarget.getAttribute('id');
+    console.log(nextItem);
+    console.log(menuSelected);
+    setMenuSelected(nextItem);
     const isSame = nextItem === menuSelected;
-    if (isSame) {
-      setMenuSelected(null);
-      handleMenuToggle();
+    console.log(isSame);
+    if (isSame === true) {
+      // setMenuSelected(null);
+      setMenuOpen(false);
     } else {
       setMenuSelected(nextItem);
       setMenuOpen(true);
     }
   };
+  console.log(isMenuOpen);
+  console.log(menuSelected);
 
   const toggleSubmittedReply = () => setIsOn(!isOn);
 
@@ -164,9 +169,8 @@ export default function Answer() {
                           answerId={question?.answer?.id}
                           onChange={handleUpdateList}
                           onClose={handleMenuToggle}
-                          onClick={setMenuOpen}
-                          onSelect={handleSelectPopOver}
-                          $isOpen={isMenuOpen}
+                          onMouseDown={setMenuOpen}
+                          onSelect={setMenuSelected}
                         />
                       )}
 
