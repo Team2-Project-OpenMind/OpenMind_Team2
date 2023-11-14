@@ -9,7 +9,6 @@ import YoutubePlayer from 'components/Youtube';
 
 export default function FeedCardItem({ questionData }) {
   const { content, createdAt, like, dislike, answer } = questionData;
-  console.log(answer); // 삭제예정
 
   const [likeCount, setLikeCount] = useState(like);
   const [disLikeCount, setDisLikeCount] = useState(dislike);
