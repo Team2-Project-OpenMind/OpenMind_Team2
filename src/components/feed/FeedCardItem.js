@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import * as S from './FeedCardStyle';
 import { createReaction } from 'api/api.questions';
+import { timeForToday } from 'date';
 
 import AnswerStateTag from 'components/AnswerStateTag';
 import handleExtractVideoId from 'utils/ExtractYoutubeId';
 import YoutubePlayer from 'components/Youtube';
 
-export default function FeedCardItem({ questionData, onClick }) {
+export default function FeedCardItem({ questionData }) {
   const { content, createdAt, like, dislike, answer } = questionData;
+  console.log(answer); // 삭제예정
 
   const [likeCount, setLikeCount] = useState(like);
   const [disLikeCount, setDisLikeCount] = useState(dislike);
@@ -17,8 +19,8 @@ export default function FeedCardItem({ questionData, onClick }) {
     dislike: false,
   });
 
-  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
-  const key = handleExtractVideoId(answer?.content)
+  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v=';
+  const key = handleExtractVideoId(answer?.content);
 
   const handleReactionChange = (name, value) => {
     setReaction((preValues) => ({
@@ -40,7 +42,6 @@ export default function FeedCardItem({ questionData, onClick }) {
       }
     }
     handleReactionChange(name, value);
-    // onClick();
   };
 
   const isAnswerCompleted = answer !== null;
@@ -51,7 +52,7 @@ export default function FeedCardItem({ questionData, onClick }) {
       <AnswerStateTag state={isAnswerCompleted} />
       <S.Description>
         <S.Info>
-          <span>질문 · {createdAt}</span>
+          <span>질문 · {timeForToday(createdAt)}</span>
         </S.Info>
         <S.Title>{content}</S.Title>
       </S.Description>
@@ -61,11 +62,13 @@ export default function FeedCardItem({ questionData, onClick }) {
           <S.Content>
             <S.ContentInfo>
               <S.InfoTitle>아초는고양이</S.InfoTitle>
-              <S.InfoTimeDiff>2주전</S.InfoTimeDiff>
+              <S.InfoTimeDiff>{timeForToday(answer.createdAt)}</S.InfoTimeDiff>
             </S.ContentInfo>
             <S.ContentDescription $state={isAnswerRejected}>
               {isAnswerRejected ? '답변 거절' : answer.content}
-              {!isAnswerRejected && answer.content.includes(YOUTUBE_BASE) && <YoutubePlayer videoId={key}/>}
+              {!isAnswerRejected && answer.content.includes(YOUTUBE_BASE) && (
+                <YoutubePlayer videoId={key} />
+              )}
             </S.ContentDescription>
           </S.Content>
         </S.Contents>
