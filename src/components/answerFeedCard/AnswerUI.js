@@ -1,5 +1,4 @@
 import { AnswerInput, AnswerButton } from './FeedCardStyled';
-
 import { useState } from 'react';
 
 export default function AnswerUI({ onCreate, question }) {
