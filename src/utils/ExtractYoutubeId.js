@@ -1,4 +1,4 @@
-const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
+const YOUTUBE_BASE = 'https://www.youtube.com/watch?v=';
 
 const handleExtractVideoId = (content) => {
   const youtubeBaseIndex = content?.indexOf(YOUTUBE_BASE);
@@ -8,12 +8,11 @@ const handleExtractVideoId = (content) => {
     const endIndex = startIndex + 12;
 
     const youtubeVideoId = content?.substring(startIndex, endIndex);
-    console.log(youtubeVideoId) 
 
     return youtubeVideoId;
   } else {
     return null;
   }
-}
+};
 
-export default handleExtractVideoId
+export default handleExtractVideoId;

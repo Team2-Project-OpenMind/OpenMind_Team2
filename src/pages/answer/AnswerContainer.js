@@ -27,13 +27,9 @@ export default function Answer() {
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
 
-
-
-
-  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
+  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v=';
 
   const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
-
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -83,7 +79,6 @@ export default function Answer() {
         setQuestionList(addAnswer);
       };
       handle(result);
-      console.log(questionList);
     } catch (error) {
       console.log(error);
     }
@@ -108,7 +103,6 @@ export default function Answer() {
   const handleUpdateList = async () => {
     try {
       const { results } = await getSubjectsOnQuestions(LocalId);
-      console.log(results);
       setQuestionList(results);
     } catch (error) {
       console.log(error);
@@ -123,11 +117,8 @@ export default function Answer() {
 
   const handleSelectPopOver = (e) => {
     const nextItem = e.currentTarget.getAttribute('id');
-    console.log(nextItem);
-    console.log(menuSelected);
     setMenuSelected(nextItem);
     const isSame = nextItem === menuSelected;
-    console.log(isSame);
     if (isSame === true) {
       // setMenuSelected(null);
       setMenuOpen(false);
@@ -136,8 +127,6 @@ export default function Answer() {
       setMenuOpen(true);
     }
   };
-  console.log(isMenuOpen);
-  console.log(menuSelected);
 
   const toggleSubmittedReply = () => setIsOn(!isOn);
 
@@ -175,7 +164,7 @@ export default function Answer() {
                 {questionList.map((question) => {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
-                  const key = handleExtractVideoId(question?.answer?.content)
+                  const key = handleExtractVideoId(question?.answer?.content);
 
                   return (
                     <FC.Wrapper key={question.id}>
@@ -212,13 +201,12 @@ export default function Answer() {
                                 />
                                 <FC.AnswerMark>답변 완료</FC.AnswerMark>
                                 {!isRejected ? (
-                                  
                                   <FC.SubmittedAnswer $isDisplay={isOn}>
                                     {question.answer.content}
-                                    { question.answer.content.includes(YOUTUBE_BASE) && <YoutubePlayer videoId={key}/>}
+                                    {question.answer.content.includes(YOUTUBE_BASE) && (
+                                      <YoutubePlayer videoId={key} />
+                                    )}
                                   </FC.SubmittedAnswer>
-                                  
-                                  
                                 ) : (
                                   <FC.AnswerRejected>답변 거절</FC.AnswerRejected>
                                 )}

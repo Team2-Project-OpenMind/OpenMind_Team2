@@ -8,13 +8,10 @@ import { createAnswer } from 'api/api.questions';
 
 export default function PopOverMenu({ id, answerId, onChange, onClose, onMouseDown, onSelect }) {
   const wrapperRef = useRef();
-  console.log(answerId);
-  // console.log(id);
+
   const handleDeleteAnswer = async () => {
-    console.log(answerId);
     try {
-      const result = await deleteAnswers(answerId);
-      console.log(result);
+      await deleteAnswers(answerId);
     } catch (error) {
       console.log(error);
     }
@@ -38,8 +35,7 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onMouseDo
         isRejected: 'true',
       };
       try {
-        const res = await updateAnswersPartial(answerId, DATA);
-        console.log(res);
+        await updateAnswersPartial(answerId, DATA);
       } catch (error) {
         console.log(error);
       }
@@ -53,10 +49,8 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onMouseDo
       content,
       isRejected: 'true',
     };
-    console.log(content);
     try {
-      const answer = await createAnswer(id, POST_DATA);
-      console.log(answer);
+      await createAnswer(id, POST_DATA);
     } catch (error) {
       console.log(error);
     }
