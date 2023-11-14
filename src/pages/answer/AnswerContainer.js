@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
@@ -13,6 +13,10 @@ import { Reply } from 'components/answerFeedCard/Reply';
 import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
+import { pathState } from 'components/common/pathState.js';
+import { PagePath } from 'context/PathContext.js';
+import YoutubePlayer from 'components/Youtube';
+import handleExtractVideoId from 'utils/ExtractYoutubeId.js';
 
 export default function Answer() {
   const [questionList, setQuestionList] = useState([]);
@@ -23,7 +27,14 @@ export default function Answer() {
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
 
-  console.log(questionList);
+
+
+
+  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
+
+  const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
+
+
   const handleRenderSubjectsOnQ = async (id) => {
     try {
       const { results } = await getSubjectsOnQuestions(id);
@@ -33,7 +44,7 @@ export default function Answer() {
     }
   };
 
-  const handleRenderSubjectProfile = async (id) => {
+  /* const handleRenderSubjectProfile = async (id) => {
     try {
       const result = await getSubject(id);
       const { name, imageSource } = result;
@@ -42,7 +53,7 @@ export default function Answer() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; */
 
   const handleAllDeleteQuestionList = async (id) => {
     try {
@@ -131,17 +142,21 @@ export default function Answer() {
   const toggleSubmittedReply = () => setIsOn(!isOn);
 
   useEffect(() => {
+    setSelectUserId(LocalId);
     handleRenderSubjectsOnQ(LocalId);
-    handleRenderSubjectProfile(LocalId);
+    /*   handleRenderSubjectProfile(LocalId); */
+    if (pathState()) {
+      setIsPath(true);
+    } else {
+      setIsPath(false);
+    }
   }, [LocalId]);
-  console.log(questionList);
 
   return (
     <>
       <S.Wrapper>
-        <S.Title>{answererProfile.name}</S.Title>
+        <S.Title>{userTitleData.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
-
         <ButtonWrapper>
           <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId)}>삭제하기</DeleteButton>
         </ButtonWrapper>
@@ -160,6 +175,7 @@ export default function Answer() {
                 {questionList.map((question) => {
                   const isSelected = question?.id == menuSelected;
                   const isRejected = question?.answer?.isRejected === true;
+                  const key = handleExtractVideoId(question?.answer?.content)
 
                   return (
                     <FC.Wrapper key={question.id}>
@@ -183,9 +199,9 @@ export default function Answer() {
 
                       <Layout.QuestionInfo question={question} />
                       <FC.AnswerContainer>
-                        <Layout.AnswererImage answerer={answererProfile} />
+                        <Layout.AnswererImage answerer={userTitleData} />
                         <FC.AnswerWrapper>
-                          <Layout.AnswererInfo question={question} answerer={answererProfile} />
+                          <Layout.AnswererInfo question={question} answerer={userTitleData} />
                           <FC.AnswerContent>
                             {question?.answer ? (
                               <>
@@ -196,9 +212,13 @@ export default function Answer() {
                                 />
                                 <FC.AnswerMark>답변 완료</FC.AnswerMark>
                                 {!isRejected ? (
+                                  
                                   <FC.SubmittedAnswer $isDisplay={isOn}>
                                     {question.answer.content}
+                                    { question.answer.content.includes(YOUTUBE_BASE) && <YoutubePlayer videoId={key}/>}
                                   </FC.SubmittedAnswer>
+                                  
+                                  
                                 ) : (
                                   <FC.AnswerRejected>답변 거절</FC.AnswerRejected>
                                 )}

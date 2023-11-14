@@ -39,17 +39,17 @@ export async function getSubject(userId) {
   const res = await fetch(`${BASE_URL}/subjects/${userId}/`, {
     headers,
   });
-
   if (!res.ok) {
-    throw new Error('에러가 발생했습니다.');
+    throw new Error('이미지를 불러올 수 없습니다');
   }
   const data = await res.json();
   return data;
 }
 
 // 특정 유저의 질문목록
-export async function getSubjectsOnQuestions(userId) {
-  const res = await fetch(`${BASE_URL}/subjects/${userId}/questions/`, {
+export async function getSubjectsOnQuestions(userId, pageLimit, pageOffset) {
+  const QUERY_STIRNG = `?limit=${pageLimit}&offset=${pageOffset}`;
+  const res = await fetch(`${BASE_URL}/subjects/${userId}/questions/${QUERY_STIRNG}`, {
     headers,
   });
 

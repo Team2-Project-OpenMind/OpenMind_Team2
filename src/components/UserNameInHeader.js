@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { LocalIdContext } from 'context/LocalIdContext';
 
-export default function UserNameInHeader({ element, setIsOpenList, user }) {
+export default function UserNameInHeader({ element, user }) {
   const context = useContext(LocalIdContext);
   const { setLocalId } = context;
 
@@ -19,14 +19,6 @@ export default function UserNameInHeader({ element, setIsOpenList, user }) {
   );
 
   const disablePointer = { pointerEvents: 'none' };
-
-  element?.addEventListener('mouseover', () => {
-    setIsOpenList(true);
-  });
-
-  element?.addEventListener('mouseout', () => {
-    setIsOpenList(false);
-  });
 
   return (
     <>
@@ -49,20 +41,18 @@ const ListPageListLi = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 10px;
     height: 32px;
     text-decoration: none;
-    color: #000;
+    color: var(--gray50);
+
     h5 {
       font-size: 1.3rem;
       width: 56px;
       line-height: 16px;
     }
     &:hover {
-      color: #fff;
+      color: var(--blue50);
     }
-  }
-  &:hover {
-    background-color: var(--blue50);
   }
 `;
