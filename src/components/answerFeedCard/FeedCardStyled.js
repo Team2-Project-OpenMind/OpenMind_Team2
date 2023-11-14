@@ -175,6 +175,7 @@ export const CardInput = styled.textarea`
   font: var(--body3-regular);
   line-height: 2.2rem;
   border: none;
+  flex-wrap: nowrap;
   &:focus {
     outline: none;
   }
@@ -183,11 +184,13 @@ export const CardInput = styled.textarea`
 
 export const AnswerInput = styled(CardInput)`
   border: ${({ $isCompleted }) => (!$isCompleted ? '1px solid var(--brown40)' : 'none')};
+  flex-wrap: nowrap;
 `;
 
 export const EditInput = styled(CardInput)`
   border: ${({ $isCompletedEdited }) =>
     !$isCompletedEdited ? '1px solid var(--brown40)' : 'none'};
+  flex-wrap: nowrap;
 `;
 
 export const CardButton = styled.button`
@@ -271,13 +274,13 @@ export const EditorButton = styled.button`
   }};
 `;
 export const SubmittedAnswer = styled.div`
-  display: flex;
+  width: 50rem;
+  word-break: break-all;
   justify-content: flex-start;
   color: var(--gray60);
   font: var(--body3-regular);
   line-height: 2.2rem;
   display: ${({ $isDisplay }) => ($isDisplay ? 'block' : 'none')};
-  flex-wrap: nowrap;
 `;
 
 export const DisplayTime = styled.span`
