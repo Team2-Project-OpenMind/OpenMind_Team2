@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as Kebab } from 'assets/images/More.svg';
-
+import { ReactComponent as LikeIcon } from 'assets/images/thumbs-up.svg';
+import { ReactComponent as DisLikeIcon } from 'assets/images/thumbs-down.svg';
 export const Wrapper = styled.div`
   display: flex;
   position: relative;
@@ -16,7 +17,7 @@ export const Wrapper = styled.div`
   background: var(--gray10);
   box-shadow: var(--shadow1pt);
 `;
-export const FcHeader = styled.div`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,7 +43,7 @@ export const AnswerMark = styled.div`
   line-height: 1.8rem;
 `;
 
-export const UnansweredMark = styled.div`
+export const UnAnswerMark = styled.div`
   position: absolute;
   top: 32px;
   left: 32px;
@@ -69,7 +70,7 @@ export const KebabButton = styled(Kebab)`
   right: 32px;
 `;
 
-export const FcQuestionWrapper = styled.div`
+export const QuestionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -99,7 +100,7 @@ export const QuestionContent = styled.div`
   align-self: stretch;
 `;
 
-export const AnswerContainer = styled.div`
+export const ContainerForAnswer = styled.div`
   margin-top: 32px;
   display: flex;
   align-items: flex-start;
@@ -107,7 +108,7 @@ export const AnswerContainer = styled.div`
   align-self: stretch;
 `;
 
-export const FcProfile = styled.div`
+export const Profile = styled.div`
   border-radius: 48px;
   background-image: ${({ $url }) => ($url ? `url(${$url})` : '')};
   background-size: cover;
@@ -116,7 +117,7 @@ export const FcProfile = styled.div`
   flex-shrink: 0;
 `;
 
-export const FcProfileWrapper = styled.div`
+export const ProfileWrapper = styled.div`
   display: flex;
   width: 4.8rem;
   height: 4.8rem;
@@ -124,7 +125,7 @@ export const FcProfileWrapper = styled.div`
   align-items: center;
 `;
 
-export const AnswerWrapper = styled.div`
+export const WrapperForAnswer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -132,7 +133,7 @@ export const AnswerWrapper = styled.div`
   flex: 1 0 0;
 `;
 
-export const FcAnswerer = styled.div`
+export const Answerer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -144,7 +145,7 @@ export const FcAnswerer = styled.div`
   line-height: 2.4rem;
 `;
 
-export const AnswerContent = styled.div`
+export const ContentAboutAnswer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -160,7 +161,7 @@ export const AnswerRejected = styled.div`
   line-height: 2.2rem;
 `;
 
-export const FcInput = styled.textarea`
+export const CardInput = styled.textarea`
   display: flex;
   height: 18.6rem;
   padding: 1.6rem;
@@ -180,16 +181,16 @@ export const FcInput = styled.textarea`
   resize: none;
 `;
 
-export const FcAnswerInput = styled(FcInput)`
+export const AnswerInput = styled(CardInput)`
   border: ${({ $isCompleted }) => (!$isCompleted ? '1px solid var(--brown40)' : 'none')};
 `;
 
-export const FcEditInput = styled(FcInput)`
+export const EditInput = styled(CardInput)`
   border: ${({ $isCompletedEdited }) =>
     !$isCompletedEdited ? '1px solid var(--brown40)' : 'none'};
 `;
 
-export const FcButton = styled.button`
+export const CardButton = styled.button`
   display: flex;
   height: 4.6rem;
   padding: 1.2rem 2.4rem;
@@ -205,15 +206,15 @@ export const FcButton = styled.button`
   border: none;
 `;
 
-export const FcAnswerButton = styled(FcButton)`
+export const AnswerButton = styled(CardButton)`
   background: ${({ $isCompleted }) => ($isCompleted ? 'var(--brown40)' : 'var(--brown30)')};
 `;
 
-export const FcEditButton = styled(FcButton)`
+export const EditButton = styled(CardButton)`
   background: ${({ $isCompletedEdited }) =>
     $isCompletedEdited ? 'var(--brown40)' : 'var(--brown30)'};
 `;
-export const FcFooter = styled.div`
+export const CardFooter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -221,13 +222,13 @@ export const FcFooter = styled.div`
   align-self: stretch;
 `;
 
-export const FcFooterLine = styled.div`
+export const FooterLine = styled.div`
   height: 0.1rem;
   align-self: stretch;
   background: var(--gray30);
 `;
 
-export const FcReactionMarkWrapper = styled.div`
+export const ReactionMarkWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 3.2rem;
@@ -244,6 +245,7 @@ export const Reaction = styled.div`
   line-height: 1.8rem;
   color: ${({ $liked }) => ($liked ? 'var( --blue50)' : 'var(--gray40)')};
   color: ${({ $disliked }) => ($disliked ? 'var(--gray60)' : '')};
+  pointer-events: ${({ disabled }) => disabled === true && 'none'};
 `;
 export const EditorButton = styled.button`
   display: flex;
@@ -286,4 +288,25 @@ export const DisplayTime = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 18px;
+`;
+export const LikeText = styled.span`
+  color: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
+  font: var(--caption1-regular);
+`;
+
+export const DislikeText = styled.span`
+  color: ${({ $isActive }) => ($isActive === true ? 'var(--gray60)' : 'var(--gray40)')};
+  font: var(--caption1-regular);
+`;
+
+export const IconLike = styled(LikeIcon)`
+  & path {
+    fill: ${({ $isActive }) => ($isActive === true ? 'var(--blue50)' : 'var(--gray40)')};
+  }
+`;
+
+export const IconDisLike = styled(DisLikeIcon)`
+  & path {
+    fill: ${({ $isActive }) => ($isActive === true ? 'var(--gray60)' : 'var(--gray40)')};
+  }
 `;

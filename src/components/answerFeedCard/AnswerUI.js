@@ -1,19 +1,10 @@
-import YoutubePlayer from 'components/Youtube';
-import { FcAnswerInput, FcAnswerButton } from './FeedCardStyled';
+import { AnswerInput, AnswerButton } from './FeedCardStyled';
 
 import { useState } from 'react';
 
-export function Reply({ onCreate, question }) {
+export default function AnswerUI({ onCreate, question }) {
   const [reply, setReply] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
-
-  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v='
-
-  const handleExtractVideoId = () => {
-    const YoutubeURL = reply.substring(reply.indexOf('YOUTUBE_BASE'), 12);
-    console.log(YoutubeURL)
-    return YoutubeURL
-  }
 
   const handleSubmitReply = (questionId, answerData) => {
     onCreate(questionId, answerData);
@@ -28,22 +19,21 @@ export function Reply({ onCreate, question }) {
   };
   return (
     <>
-      <FcAnswerInput
+      <AnswerInput
         name="answer"
         value={reply}
         placeholder="답변을 입력해주세요"
         onChange={(e) => handleChangeAnswer(e)}
         $isCompleted={isCompleted}
       >
-      {reply}
-        
-      </FcAnswerInput>
-      <FcAnswerButton
+        {reply}
+      </AnswerInput>
+      <AnswerButton
         onClick={() => handleSubmitReply(question.id, { content: reply, isRejected: false })}
         $isCompleted={isCompleted}
       >
         답변 완료
-      </FcAnswerButton>
+      </AnswerButton>
     </>
   );
 }
