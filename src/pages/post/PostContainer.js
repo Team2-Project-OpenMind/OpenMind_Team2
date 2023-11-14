@@ -120,7 +120,7 @@ export default function Post() {
         )}
         <S.Title>{userTitleData?.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
-        <S.FeedContainer $isEmpty={isEmptyQuestions}>
+        <S.FeedContainer>
           <S.Info>
             <S.IconMessage />
             <S.QuestionCount>
