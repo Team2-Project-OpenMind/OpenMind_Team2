@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as S from './FeedCardStyled';
-
+import { PreButton } from '../../pages/answer/AnswerStyle';
 import { createReaction } from 'api/api.questions';
 import { timeForToday } from '../../date';
 

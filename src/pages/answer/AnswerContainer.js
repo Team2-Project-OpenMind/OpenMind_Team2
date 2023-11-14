@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
@@ -8,7 +8,7 @@ import PopOverMenu from 'components/modal/PopOverMenu';
 import * as S from '../post/PostStyle';
 import * as Layout from 'components/answerFeedCard/FeedCardLayout';
 import * as FC from 'components/answerFeedCard/FeedCardStyled';
-import { DeleteButton, ButtonWrapper } from './AnswerStyle.js';
+import { DeleteButton, ButtonWrapper, PreviousButton } from './AnswerStyle.js';
 import { Reply } from 'components/answerFeedCard/Reply';
 import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
@@ -25,6 +25,7 @@ export default function Answer() {
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
   const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
+  const navigate = useNavigate();
 
   const handleRenderSubjectsOnQ = async (id) => {
     try {
@@ -97,6 +98,10 @@ export default function Answer() {
 
   const toggleSubmittedReply = () => setIsOn(!isOn);
 
+  const handleMovePage = () => {
+    navigate(`/list`);
+  };
+
   // 이하 팝오버
   const handleUpdateList = async () => {
     try {
@@ -143,6 +148,7 @@ export default function Answer() {
         <S.Title>{userTitleData.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
         <ButtonWrapper>
+          <PreviousButton onClick={() => handleMovePage()}>질문하러가기</PreviousButton>
           <DeleteButton onClick={() => handleAllDeleteQuestionList(LocalId)}>삭제하기</DeleteButton>
         </ButtonWrapper>
         <S.FeedContainer>
