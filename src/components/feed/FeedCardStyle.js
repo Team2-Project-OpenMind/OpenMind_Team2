@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { breakPoints } from 'components/common/Media';
+
 import { ReactComponent as profileIcon } from 'assets/images/profile.svg';
 import { ReactComponent as LikeIcon } from 'assets/images/thumbs-up.svg';
 import { ReactComponent as DisLikeIcon } from 'assets/images/thumbs-down.svg';
@@ -11,6 +13,10 @@ export const FeedContainer = styled.li`
   background: var(--gray10);
   box-shadow: var(--shadow1pt);
   list-style: none;
+
+  @media screen and (${breakPoints.mobile}) {
+    padding: 2.4rem;
+  }
 `;
 
 /** 카드 아이템 */
@@ -19,6 +25,11 @@ export const Wrapper = styled.div`
   width: 100%;
   flex-direction: column;
   gap: 3.2rem;
+  word-break: break-all;
+
+  @media screen and (${breakPoints.mobile}) {
+    gap: 2.4rem;
+  }
 `;
 
 export const Tag = styled.span`
@@ -49,6 +60,10 @@ export const Info = styled.p`
 
 export const Title = styled.h3`
   font: var(--body2-bold);
+
+  @media screen and (${breakPoints.mobile}) {
+    font: var(--body3-bold);
+  }
 `;
 
 export const Contents = styled.div`
@@ -86,7 +101,6 @@ export const InfoTimeDiff = styled.span`
 `;
 
 export const ContentDescription = styled.div`
-  /* height: 15.4rem; */
   font: var(--body3-regular);
   color: ${({ $state }) => ($state ? 'var(--red50)' : 'var(--gray60)')};
   line-height: 2.2rem;

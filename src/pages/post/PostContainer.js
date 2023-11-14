@@ -73,7 +73,6 @@ export default function Post() {
 
   const handleLoaded = async () => {
     try {
-
       const res = await getSubjectsOnQuestions(id, pageLimit, pageOffset);
       const { count, next, results } = res;
 
@@ -94,7 +93,7 @@ export default function Post() {
       setIsLoading(false);
     }
   };
-  console.log(questionData);
+
   //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
   const handleModalShow = () => {
     setOpenModal(!isOpenModal);

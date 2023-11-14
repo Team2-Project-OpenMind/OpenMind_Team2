@@ -3,27 +3,34 @@ import arrowRight from '../assets/images/arrow-right.svg';
 import arrowDown from '../assets/images/arrow-down.svg';
 import { breakPoints } from './common/Media';
 import { useNavigate } from 'react-router';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import UserNameInHeader from './UserNameInHeader';
+import { PagePath } from 'context/PathContext';
 
-export default function Header({ localId }) {
+const BROWSER_WIDTH_CHECK = window.innerWidth;
+
+export default function Header() {
+  const { localId, newLocalData, mobileSize } = useContext(PagePath);
   const [userArray, setUserArray] = useState(null);
   const [isButtonStyle, setIsButtonStyle] = useState(false);
-  const [ulElement, setUlElement] = useState(null);
   const ulRef = useRef(null);
-  const [isHome, setIsHome] = useState(window.location.pathname === '/');
+  const [isHome, setIsHome] = useState(false);
+  const navigate = useNavigate();
 
   const keepUlElement = {
     zIndex: '1',
-    bottom: '-158%',
+    bottom: mobileSize || BROWSER_WIDTH_CHECK <= 767 ? '-123%' : '-158%',
     opacity: '1',
   };
 
-  const navigate = useNavigate();
+  const isLandingPage = () => {
+    return window.location.pathname === '/';
+  };
 
   const handleNavigator = (e) => {
     e.preventDefault();
-    if (!localId) {
+
+    if (!localId && !isLandingPage()) {
       alert('아이디를 만들어 주세요');
       navigate('/');
     } else {
@@ -43,15 +50,9 @@ export default function Header({ localId }) {
     }, 200);
   };
 
-  /* useRef 사용시 초기값 null 해결방법 useLayoutEffect()는 동기적으로 실행됨 */
-  useLayoutEffect(() => {
-    const { current } = ulRef;
-    setUlElement(current);
-  }, []);
-
   useEffect(() => {
-    setIsHome(window.location.pathname === '/' ? true : false);
-  }, [isHome]);
+    isLandingPage() ? setIsHome(true) : setIsHome(false);
+  }, []);
 
   return (
     <ListPageHeader isHome={isHome}>
@@ -69,7 +70,7 @@ export default function Header({ localId }) {
           </GoAskButton>
           {!isHome && (
             <ListPageListUl ref={ulRef} style={isButtonStyle ? { ...keepUlElement } : null}>
-              {userArray ? <UserNameInHeader element={ulElement} user={userArray} /> : null}
+              {userArray ? <UserNameInHeader user={userArray} count={newLocalData} /> : null}
             </ListPageListUl>
           )}
         </ListPageDiv>
@@ -89,10 +90,11 @@ const ListPageListUl = styled.ul`
   bottom: -147%;
   right: 50%;
   transform: translate(50%, 50%);
-  transition: 0.8s;
+  transition: 0.1s;
   width: 177px;
   text-align: center;
   border: 1px solid #ccc;
+  opacity: 0;
   z-index: -1;
   background-color: #fff;
   border-radius: 5px;
@@ -111,6 +113,12 @@ const ListPageListUl = styled.ul`
   &::-webkit-scrollbar-track {
     background: rgba(33, 122, 244, 0.1);
   }
+
+  @media screen and (${breakPoints.mobile}) {
+    width: 139px;
+    bottom: -123%;
+    height: 85px;
+  }
 `;
 /* ::-webkit-scrollbar : 스크롤바 영역에 대한 설정
 ::-webkit-scrollbar-thumb : 스크롤바 막대에 대한 설정
@@ -126,7 +134,7 @@ const ListPageHeader = styled.header`
     padding: 0 2.4rem;
 
     & button {
-      display: ${(props) => (props.isHome ? 'none' : 'block')};
+      display: ${(props) => (props.isHome ? 'none' : 'flex')};
     }
   }
 `;
