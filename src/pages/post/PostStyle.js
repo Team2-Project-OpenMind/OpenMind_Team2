@@ -28,6 +28,12 @@ export const Title = styled.h1`
   }
 `;
 
+export const LimitSelect = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 71.6rem;
+`;
+
 export const LinkContainer = styled.div`
   margin-top: 1.2rem;
   padding-bottom: 4.2rem;

@@ -94,6 +94,11 @@ export default function Post() {
     }
   };
 
+  const handleChoicePageLimit = (e) => {
+    setPageLimit(e.target.value);
+    setPageOffset(DEFAULT_OFFSET);
+  };
+
   //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
   const handleModalShow = () => {
     setOpenModal(!isOpenModal);
@@ -101,13 +106,18 @@ export default function Post() {
 
   useEffect(() => {
     setSelectUserId(id);
-    handleLoaded();
+
+    // 처음과 사용자가 limit을 변경했을때만 실행되도록
+    if (pageOffset === 0) {
+      handleLoaded();
+    }
+
     if (pathState()) {
       setIsPath(true);
     } else {
       setIsPath(false);
     }
-  }, []);
+  }, [pageLimit, pageOffset]);
 
   return (
     <>
@@ -119,6 +129,12 @@ export default function Post() {
         )}
         <S.Title>{userTitleData?.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
+        <S.LimitSelect>
+          <select onChange={handleChoicePageLimit}>
+            <option value={8}>8개씩 보기</option>
+            <option value={4}>4개씩 보기</option>
+          </select>
+        </S.LimitSelect>
         <S.FeedContainer>
           <S.Info>
             <S.IconMessage />
