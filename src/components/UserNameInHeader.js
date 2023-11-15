@@ -41,14 +41,14 @@ const ListPageListLi = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
     height: 32px;
-    text-decoration: none;
+    padding: 0 15px;
     color: var(--gray50);
+    text-decoration: none;
 
     h5 {
-      font-size: 1.3rem;
       width: 56px;
+      font-size: 1.3rem;
       line-height: 16px;
     }
 

@@ -1,11 +1,14 @@
-import CardList from 'components/listPageCard/CardList';
-import arrowUp from '../../assets/images/arrow-up.svg';
-import arrowDown from '../../assets/images/arrow-down.svg';
-import * as S from './ListStyle';
 import { useContext, useEffect, useState } from 'react';
+
 import { getAllDataSubjects } from 'api/api.subjects';
+
+import * as S from './ListStyle';
+import CardList from 'components/listPageCard/CardList';
 import { pathState } from 'components/common/pathState';
 import { PagePath } from 'context/PathContext';
+
+import arrowUp from '../../assets/images/arrow-up.svg';
+import arrowDown from '../../assets/images/arrow-down.svg';
 
 export default function ListContainer() {
   const [isDropdownView, setDropdownView] = useState(false);
@@ -41,7 +44,6 @@ export default function ListContainer() {
     setRange(textContent);
   };
 
-  /* Blur 이벤트 함수 select 포커스 아웃되었을때 반응 */
   const handleBlur = () => {
     setTimeout(() => {
       setDropdownView(false);
