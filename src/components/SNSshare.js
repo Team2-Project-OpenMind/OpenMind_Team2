@@ -31,7 +31,7 @@ export default function SNSshare({ OnClickSNSshare }) {
 
   useEffect(() => {
     window.Kakao?.cleanup();
-    window.Kakao?.init('5f8e5519dced3a3814f9c8fba6e03966');
+    window.Kakao?.init(process.env.REACT_APP_KAKAOMESSAGE_API);
   }, []);
 
   return (
