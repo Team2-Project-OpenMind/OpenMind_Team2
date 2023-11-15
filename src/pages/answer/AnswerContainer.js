@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 
 import FeedCardMainContent from 'components/answerFeedCard/FeedCardMainContent.js';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import PopOverMenu from 'components/modal/PopOverMenu';
 import * as S from '../post/PostStyle';
 import * as Layout from 'components/answerFeedCard/FeedCardLayout';
 import * as FC from 'components/answerFeedCard/FeedCardStyled';
-import { DeleteButton, ButtonWrapper, PreviousButton } from './AnswerStyle.js';
+import { DeleteButton, ButtonWrapper, PreviousButton, EmptyWindow } from './AnswerStyle.js';
 
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
@@ -25,6 +25,7 @@ export default function Answer() {
   const [menuSelected, setMenuSelected] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
+  const buttonRef = useRef();
 
   const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
 
@@ -109,6 +110,13 @@ export default function Answer() {
     setMenuOpen((isMenuOpen) => !isMenuOpen);
   };
 
+  const handleClosePopOver = (e) => {
+    console.log(e.target);
+    console.log('clicked');
+    setMenuOpen(false);
+    setMenuSelected(null);
+  };
+
   const handleSelectPopOver = (e) => {
     //id값을 받는다.
     const nextItem = e.currentTarget.getAttribute('id');
@@ -171,6 +179,7 @@ export default function Answer() {
                           onClose={handleMenuToggle}
                           onSelect={setMenuSelected}
                           onClick={setMenuOpen}
+                          element={buttonRef}
                         />
                       )}
 
