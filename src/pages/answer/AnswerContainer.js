@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 
-import ReactPlayer from 'react-player';
-
+import FeedCardMainContent from 'components/answerFeedCard/FeedCardMainContent.js';
 import { useNavigate } from 'react-router-dom';
 
 import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
@@ -13,8 +12,7 @@ import * as S from '../post/PostStyle';
 import * as Layout from 'components/answerFeedCard/FeedCardLayout';
 import * as FC from 'components/answerFeedCard/FeedCardStyled';
 import { DeleteButton, ButtonWrapper, PreviousButton } from './AnswerStyle.js';
-import AnswerUI from 'components/answerFeedCard/AnswerUI';
-import ButtonForEditorUI from 'components/answerFeedCard/ButtonForEditorUI';
+
 import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage.js';
 import SNSshare from 'components/SNSshare.js';
 import { pathState } from 'components/common/pathState.js';
@@ -23,8 +21,6 @@ import handleExtractVideoId from 'utils/ExtractYoutubeId.js';
 
 export default function Answer() {
   const [questionList, setQuestionList] = useState([]);
-  const [answererProfile, setAnswererProfile] = useState({});
-  const [isOn, setIsOn] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [menuSelected, setMenuSelected] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -105,8 +101,6 @@ export default function Answer() {
     }
   };
 
-  const toggleSubmittedReply = () => setIsOn(!isOn);
-
   const handleMovePage = () => {
     navigate(`/list`);
   };
@@ -179,13 +173,6 @@ export default function Answer() {
               <>
                 {questionList.map((question) => {
                   const isSelected = question?.id == menuSelected;
-                  const isRejected = question?.answer?.isRejected === true;
-
-
-
-                  const key = handleExtractVideoId(question?.answer?.content);
-                  const youtubeURL = YOUTUBE_BASE + key;
-
 
                   return (
                     <FC.Wrapper key={question.id}>
@@ -211,40 +198,11 @@ export default function Answer() {
                         <Layout.AnswererImage answerer={userTitleData} />
                         <FC.WrapperForAnswer>
                           <Layout.AnswererInfo question={question} answerer={userTitleData} />
-                          <FC.ContentAboutAnswer>
-                            {question?.answer ? (
-                              <>
-                                <ButtonForEditorUI
-                                  question={question}
-                                  onPatch={PatchReply}
-                                  onToggle={toggleSubmittedReply}
-                                />
-                                <FC.AnswerMark>답변 완료</FC.AnswerMark>
-                                {!isRejected ? (
-                                  <FC.SubmittedAnswer $isDisplay={isOn}>
-                                    {question.answer.content}
-
-                                    {question.answer.content.includes(YOUTUBE_BASE) && (
-                                      <ReactPlayer
-                                        url={youtubeURL}
-                                        muted
-                                        controls
-                                        width={'400px'}
-                                        height={'240px'}
-                                      />
-                                    )}
-                                  </FC.SubmittedAnswer>
-                                ) : (
-                                  <FC.AnswerRejected>답변 거절</FC.AnswerRejected>
-                                )}
-                              </>
-                            ) : (
-                              <>
-                                <FC.UnAnswerMark>미답변</FC.UnAnswerMark>
-                                <AnswerUI onCreate={CreateReply} question={question} />
-                              </>
-                            )}
-                          </FC.ContentAboutAnswer>
+                          <FeedCardMainContent
+                            question={question}
+                            onCreate={CreateReply}
+                            onPatch={PatchReply}
+                          />
                         </FC.WrapperForAnswer>
                       </FC.ContainerForAnswer>
                       <Layout.FeedCardFooter question={question} />
