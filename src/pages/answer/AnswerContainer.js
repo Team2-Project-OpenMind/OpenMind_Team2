@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import FeedCardMainContent from 'components/answerFeedCard/FeedCardMainContent.js';
 import { useNavigate } from 'react-router-dom';
 
-import { getSubjectsOnQuestions, getSubject } from '../../api/api.subjects.js';
+import { getSubjectsOnQuestions } from '../../api/api.subjects.js';
 import { deleteQuestion, createAnswer } from '../../api/api.questions';
 import { updateAnswersPartial } from '../../api/api.answers';
 
@@ -26,8 +26,6 @@ export default function Answer() {
   const [isCopied, setIsCopied] = useState(false);
   const LocalId = window.localStorage.getItem('id');
 
-  const YOUTUBE_BASE = 'https://www.youtube.com/watch?v=';
-
   const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
 
   const navigate = useNavigate();
@@ -40,17 +38,6 @@ export default function Answer() {
       console.log(error);
     }
   };
-
-  /* const handleRenderSubjectProfile = async (id) => {
-    try {
-      const result = await getSubject(id);
-      const { name, imageSource } = result;
-
-      setAnswererProfile({ ...answererProfile, name, imageSource });
-    } catch (error) {
-      console.log(error);
-    }
-  }; */
 
   const handleAllDeleteQuestionList = async (id) => {
     try {
