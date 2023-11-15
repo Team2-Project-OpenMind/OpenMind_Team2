@@ -7,32 +7,22 @@ import PLAY_IMG from 'assets/images/play.png';
 import PAUSE_IMG from 'assets/images/pause.png';
 
 export default function BGMbutton() {
-  const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(window.localStorage.getItem('bgm') || true);
+  const audioRef = useRef();
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleBGMClick = () => {
-    if (isPlaying) {
-      setIsPlaying(false);
-      window.localStorage.setItem('bgm', false);
-      audioRef.current.pause();
+    setIsPlaying(!isPlaying);
+    if (!isPlaying) {
+      audioRef.current.play();
       return;
     }
-    setIsPlaying(true);
-    window.localStorage.setItem('bgm', true);
-    audioRef.current.play();
+    audioRef.current.pause();
   };
-
-  useEffect(() => {
-    if (window.localStorage.getItem('bgm') === null) {
-      window.localStorage.setItem('bgm', true);
-    }
-    setIsPlaying(window.localStorage.getItem('bgm'));
-  }, []);
 
   return (
     <Button onClick={handleBGMClick}>
       {isPlaying ? <img src={PAUSE_IMG} alt="" /> : <img src={PLAY_IMG} alt="" />}
-      <audio ref={audioRef} loop type="audio/mp3" src={BGM}></audio>
+      <audio ref={audioRef} autoPlay={true} loop type="audio/mp3" src={BGM}></audio>
     </Button>
   );
 }

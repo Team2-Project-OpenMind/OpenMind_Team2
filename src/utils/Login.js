@@ -7,16 +7,11 @@ import { useRef } from 'react';
 
 export default function LogIn() {
   const formRef = useRef();
-  /* const [cookies, setCookies] = useCookies(['id']); */
   const navigate = useNavigate();
 
   const handleLogInFormSubmit = async (e) => {
     e.preventDefault();
     if (!window.localStorage.getItem('id')) {
-      // TODO
-      // 1. getAllSubjects로 유저 이름 유효성 검사 getAllSubjects
-      // 2. 존재한다면 id 리턴
-      // 3. 존재하지 않는다면 createSubject
       const userName = formRef.current.username.value;
       console.log(userName);
       const data = await createSubject({ name: userName });
