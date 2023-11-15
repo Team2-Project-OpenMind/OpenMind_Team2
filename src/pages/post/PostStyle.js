@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { breakPoints } from 'components/common/Media';
+
 import { ReactComponent as MessageIcon } from 'assets/images/message.svg';
 import { ReactComponent as emptyIcon } from 'assets/images/emptyIcon.svg';
 
@@ -28,15 +29,61 @@ export const Title = styled.h1`
   }
 `;
 
-export const LimitSelect = styled.div`
+export const Dropdown = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 71.6rem;
+  position: relative;
+
+  cursor: pointer;
+
+  @media screen and (${breakPoints.mobile}) {
+    width: 100%;
+  }
+`;
+
+export const DropdownButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(${({ $isDropdownView }) => ($isDropdownView ? '--gray60' : '--gray40')});
+  border-radius: 8px;
+  background: var(--gray10);
+  cursor: pointer;
+
+  span {
+    font: var(--caption1-regular);
+    color: var(${({ $isDropdownView }) => ($isDropdownView ? '--gray60' : '--gray40')});
+  }
+`;
+
+export const DropdownList = styled.ul`
+  width: 104px;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: var(--gray10);
+  z-index: 1;
+`;
+
+export const DropdownOption = styled.li`
+  padding: 0.5rem;
+  font: var(--caption1-regular);
+  color: var(--gray50);
+  text-align: center;
+
+  &:hover {
+    color: var(--blue50);
+  }
 `;
 
 export const LinkContainer = styled.div`
   margin-top: 1.2rem;
-  padding-bottom: 4.2rem;
+  padding-bottom: 2.2rem;
   display: inline-flex;
   align-items: flex-start;
   gap: 1.2rem;
