@@ -48,7 +48,6 @@ export default function Post() {
       if (previous === null) {
         return; // 초기 렌더링 콜백함수 호출될때 중복으로 데이터 불러오지 않기
       }
-      console.log(isLoading); // 삭제예정
       setQuestionData((prev) => [...prev, ...results]);
 
       if (next === null) {
