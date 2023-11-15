@@ -16,15 +16,15 @@ const localId = JSON.parse(window.localStorage.getItem('userAccounts'));
 
 function App() {
   return (
-    <Layout>
+    <Layout localId={localId}>
       <Routes>
         <Route path="/">
           <Route
             index
             element={
               <>
-                <Header localId={localId} />
-                <LandingContainer saveCookie={localId} />
+                <Header />
+                <LandingContainer />
               </>
             }
           ></Route>
@@ -33,7 +33,7 @@ function App() {
               index
               element={
                 <>
-                  <Header localId={localId} />
+                  <Header />
                   <ListContainer />
                 </>
               }
@@ -46,7 +46,7 @@ function App() {
             <Route path="*" element={<Navigate to="/post"></Navigate>}></Route>
           </Route>
           <Route path={'post/:id/answer'}>
-            <Route index element={<AnswerContainer userId={localId} />} />
+            <Route index element={<AnswerContainer />} />
             <Route path="*" element={<Navigate to="../"></Navigate>}></Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />

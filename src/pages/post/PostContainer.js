@@ -9,6 +9,7 @@ import ClipBoardCopyMessage from 'components/ClipBoardCopyMessage';
 import ModalPortal from 'components/ModalPortal';
 import QuestionModal from 'components/modal/QuestionModal';
 import FeedCardList from 'components/feed/FeedCardList';
+import FeedSkeleton from 'components/feed/FeedSkeleton';
 import SNSshare from 'components/SNSshare';
 
 import { pathState } from 'components/common/pathState';
@@ -47,7 +48,7 @@ export default function Post() {
       if (previous === null) {
         return; // 초기 렌더링 콜백함수 호출될때 중복으로 데이터 불러오지 않기
       }
-
+      console.log(isLoading); // 삭제예정
       setQuestionData((prev) => [...prev, ...results]);
 
       if (next === null) {
@@ -99,7 +100,6 @@ export default function Post() {
     setOpenModal(!isOpenModal);
   };
 
-
   useEffect(() => {
     setSelectUserId(id);
     handleLoaded();
@@ -120,15 +120,19 @@ export default function Post() {
         )}
         <S.Title>{userTitleData?.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
-        <S.FeedContainer $isEmpty={isEmptyQuestions}>
+        <S.FeedContainer>
           <S.Info>
             <S.IconMessage />
             <S.QuestionCount>
               {isEmptyQuestions ? '아직 질문이 없습니다' : `${questionCount}개의 질문이 있습니다`}
             </S.QuestionCount>
           </S.Info>
-          {isEmptyQuestions ? <S.EmptyBoxImg /> : <FeedCardList questionData={questionData}/>}
-          {isLoading && <div>스켈레톤</div>}
+          {!isLoading && isEmptyQuestions ? (
+            <S.EmptyBoxImg />
+          ) : (
+            <FeedCardList questionData={questionData} userTitleData={userTitleData} />
+          )}
+          {isLoading && <FeedSkeleton />}
         </S.FeedContainer>
         <S.CreateQuestionButton onClick={handleModalShow}>질문 작성하기</S.CreateQuestionButton>
         {isCopied && <ClipBoardCopyMessage />}

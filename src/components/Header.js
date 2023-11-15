@@ -1,29 +1,39 @@
+import { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
+
+import { breakPoints } from './common/Media';
+import UserNameInHeader from './UserNameInHeader';
+import { PagePath } from 'context/PathContext';
+
 import arrowRight from '../assets/images/arrow-right.svg';
 import arrowDown from '../assets/images/arrow-down.svg';
-import { breakPoints } from './common/Media';
-import { useNavigate } from 'react-router';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import UserNameInHeader from './UserNameInHeader';
 
-export default function Header({ localId }) {
+const BROWSER_WIDTH_CHECK = window.innerWidth;
+const MOBILE_SIZE_WIDTH = 767;
+
+export default function Header() {
+  const { localId, newLocalData, mobileSize } = useContext(PagePath);
   const [userArray, setUserArray] = useState(null);
   const [isButtonStyle, setIsButtonStyle] = useState(false);
-  const [ulElement, setUlElement] = useState(null);
   const ulRef = useRef(null);
-  const [isHome, setIsHome] = useState(window.location.pathname === '/');
+  const [isHome, setIsHome] = useState(false);
+  const navigate = useNavigate();
 
   const keepUlElement = {
     zIndex: '1',
-    bottom: '-158%',
+    bottom: mobileSize || BROWSER_WIDTH_CHECK <= MOBILE_SIZE_WIDTH ? '-123%' : '-158%',
     opacity: '1',
   };
 
-  const navigate = useNavigate();
+  const isLandingPage = () => {
+    return window.location.pathname === '/';
+  };
 
   const handleNavigator = (e) => {
     e.preventDefault();
-    if (!localId) {
+
+    if (!localId && !isLandingPage()) {
       alert('아이디를 만들어 주세요');
       navigate('/');
     } else {
@@ -43,15 +53,9 @@ export default function Header({ localId }) {
     }, 200);
   };
 
-  /* useRef 사용시 초기값 null 해결방법 useLayoutEffect()는 동기적으로 실행됨 */
-  useLayoutEffect(() => {
-    const { current } = ulRef;
-    setUlElement(current);
-  }, []);
-
   useEffect(() => {
-    setIsHome(window.location.pathname === '/' ? true : false);
-  }, [isHome]);
+    isLandingPage() ? setIsHome(true) : setIsHome(false);
+  }, []);
 
   return (
     <ListPageHeader isHome={isHome}>
@@ -69,7 +73,7 @@ export default function Header({ localId }) {
           </GoAskButton>
           {!isHome && (
             <ListPageListUl ref={ulRef} style={isButtonStyle ? { ...keepUlElement } : null}>
-              {userArray ? <UserNameInHeader element={ulElement} user={userArray} /> : null}
+              {userArray ? <UserNameInHeader user={userArray} count={newLocalData} /> : null}
             </ListPageListUl>
           )}
         </ListPageDiv>
@@ -79,9 +83,9 @@ export default function Header({ localId }) {
 }
 
 const ListPageDiv = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const ListPageListUl = styled.ul`
@@ -89,14 +93,15 @@ const ListPageListUl = styled.ul`
   bottom: -147%;
   right: 50%;
   transform: translate(50%, 50%);
-  transition: 0.8s;
+  transition: 0.1s;
+  opacity: 0;
+  z-index: -1;
   width: 177px;
+  height: 130px;
   text-align: center;
   border: 1px solid #ccc;
-  z-index: -1;
-  background-color: #fff;
   border-radius: 5px;
-  height: 130px;
+  background-color: #fff;
   overflow: auto;
   cursor: pointer;
   &::-webkit-scrollbar {
@@ -105,11 +110,16 @@ const ListPageListUl = styled.ul`
   &::-webkit-scrollbar-thumb {
     height: 30%; /* 스크롤바의 길이 */
     background: var(--gray30); /* 스크롤바의 색상 */
-
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {
     background: rgba(33, 122, 244, 0.1);
+  }
+
+  @media screen and (${breakPoints.mobile}) {
+    bottom: -123%;
+    width: 139px;
+    height: 85px;
   }
 `;
 /* ::-webkit-scrollbar : 스크롤바 영역에 대한 설정
@@ -126,7 +136,7 @@ const ListPageHeader = styled.header`
     padding: 0 2.4rem;
 
     & button {
-      display: ${(props) => (props.isHome ? 'none' : 'block')};
+      display: ${(props) => (props.isHome ? 'none' : 'flex')};
     }
   }
 `;

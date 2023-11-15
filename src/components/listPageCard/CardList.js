@@ -1,13 +1,19 @@
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import CardItem from './CardItem';
+
 import * as S from './CardListStyle';
-import { useEffect, useState } from 'react';
+
+import CardItem from './CardItem';
 import Pagination from 'components/pagination/Pagination';
+import { PagePath } from 'context/PathContext';
 
 const BROWSER_WIDTH = window.innerWidth;
 const TABLET_SIZE = 865;
+const MOBILE_SIZE = 767;
 
 export default function CardList({ data, message, range }) {
+  const newLocalDatas = [];
+  const { localId, setNewLocalData, setMobileSize } = useContext(PagePath);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(BROWSER_WIDTH >= TABLET_SIZE ? 8 : 6); //한페이지당 렌더링 되는 데이터 수
 
@@ -18,8 +24,14 @@ export default function CardList({ data, message, range }) {
       } else {
         setPostPerPage(6);
       }
+      if (e.target.innerWidth <= MOBILE_SIZE) {
+        setMobileSize(true);
+      } else {
+        setMobileSize(false);
+      }
     });
-  }, [postsPerPage]);
+    setNewLocalData(newLocalDatas);
+  }, [postsPerPage, data]);
 
   //페이지숫자 리스트 구현 계산
   const indexOfLast = currentPage * postsPerPage; //페이지 마지막수 1 * 8
@@ -34,6 +46,16 @@ export default function CardList({ data, message, range }) {
 
   const { results } = data;
 
+  if (localId?.users) {
+    localId.users.user.map((list) => {
+      return results.map((data) => {
+        if (list.id === data.id) {
+          newLocalDatas.push(data);
+        }
+      });
+    });
+  }
+
   const sortData = results?.sort((a, b) => {
     if (range === '이름순') {
       return a.name > b.name ? 1 : -1;
@@ -42,7 +64,7 @@ export default function CardList({ data, message, range }) {
     }
   });
 
-  const postLists = currentPosts(sortData); //위 조건문 통과 후에 페이징 슬라이스
+  const postLists = currentPosts(sortData);
 
   return (
     <>

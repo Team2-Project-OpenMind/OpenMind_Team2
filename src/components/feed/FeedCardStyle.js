@@ -32,18 +32,6 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Tag = styled.span`
-  width: 80px;
-  padding: 0.4rem 1.2rem;
-  font-size: 1.4rem;
-  font: var(--caption1-regular);
-  color: var(--brown40);
-  text-align: center;
-  border: 1px solid var(--brown-40, #542f1a);
-  border-radius: 0.8rem;
-  background: var(--grayscale-10, #fff);
-`;
-
 export const Description = styled.div`
   display: flex;
   flex-direction: column;
@@ -72,9 +60,10 @@ export const Contents = styled.div`
   gap: 1.2rem;
 `;
 
-export const Profile = styled(profileIcon)`
+export const Profile = styled.img`
   width: 4.8rem;
   height: 4.8rem;
+  border-radius: 50%;
 `;
 
 export const Content = styled.div`
