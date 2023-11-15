@@ -118,5 +118,6 @@ export const CreateQuestionButton = styled.button`
 `;
 
 export const Target = styled.div`
-  height: 1px;
+  width: 100%;
+  height: 50px;
 `;
