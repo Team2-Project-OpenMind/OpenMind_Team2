@@ -1,13 +1,16 @@
-import styled from 'styled-components';
-import arrowRight from '../assets/images/arrow-right.svg';
-import arrowDown from '../assets/images/arrow-down.svg';
-import { breakPoints } from './common/Media';
-import { useNavigate } from 'react-router';
 import { useContext, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router';
+
+import { breakPoints } from './common/Media';
 import UserNameInHeader from './UserNameInHeader';
 import { PagePath } from 'context/PathContext';
 
+import arrowRight from '../assets/images/arrow-right.svg';
+import arrowDown from '../assets/images/arrow-down.svg';
+
 const BROWSER_WIDTH_CHECK = window.innerWidth;
+const MOBILE_SIZE_WIDTH = 767;
 
 export default function Header() {
   const { localId, newLocalData, mobileSize } = useContext(PagePath);
@@ -19,7 +22,7 @@ export default function Header() {
 
   const keepUlElement = {
     zIndex: '1',
-    bottom: mobileSize || BROWSER_WIDTH_CHECK <= 767 ? '-123%' : '-158%',
+    bottom: mobileSize || BROWSER_WIDTH_CHECK <= MOBILE_SIZE_WIDTH ? '-123%' : '-158%',
     opacity: '1',
   };
 
@@ -80,9 +83,9 @@ export default function Header() {
 }
 
 const ListPageDiv = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const ListPageListUl = styled.ul`
@@ -91,14 +94,14 @@ const ListPageListUl = styled.ul`
   right: 50%;
   transform: translate(50%, 50%);
   transition: 0.1s;
-  width: 177px;
-  text-align: center;
-  border: 1px solid #ccc;
   opacity: 0;
   z-index: -1;
-  background-color: #fff;
-  border-radius: 5px;
+  width: 177px;
   height: 130px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
   overflow: auto;
   cursor: pointer;
   &::-webkit-scrollbar {
@@ -107,7 +110,6 @@ const ListPageListUl = styled.ul`
   &::-webkit-scrollbar-thumb {
     height: 30%; /* 스크롤바의 길이 */
     background: var(--gray30); /* 스크롤바의 색상 */
-
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {
@@ -115,8 +117,8 @@ const ListPageListUl = styled.ul`
   }
 
   @media screen and (${breakPoints.mobile}) {
-    width: 139px;
     bottom: -123%;
+    width: 139px;
     height: 85px;
   }
 `;

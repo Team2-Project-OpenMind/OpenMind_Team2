@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
-import CardItem from './CardItem';
-import * as S from './CardListStyle';
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import * as S from './CardListStyle';
+
+import CardItem from './CardItem';
 import Pagination from 'components/pagination/Pagination';
 import { PagePath } from 'context/PathContext';
 
@@ -62,7 +64,7 @@ export default function CardList({ data, message, range }) {
     }
   });
 
-  const postLists = currentPosts(sortData); //위 조건문 통과 후에 페이징 슬라이스
+  const postLists = currentPosts(sortData);
 
   return (
     <>
