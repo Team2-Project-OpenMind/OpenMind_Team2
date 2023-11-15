@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { breakPoints } from '../../components/common/Media';
 import { useContext } from 'react';
 import { PagePath } from 'context/PathContext';
@@ -11,7 +12,7 @@ export default function Banner({ errorMessage }) {
   return (
     <>
       <Wrapper>
-        <Logo href="/"></Logo>
+        <Logo to="/"></Logo>
         {!errorMessage ? (
           <Profile src={imageSource} />
         ) : (
@@ -40,7 +41,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Logo = styled.a`
+const Logo = styled(Link)`
   position: absolute;
   top: 5rem;
 
