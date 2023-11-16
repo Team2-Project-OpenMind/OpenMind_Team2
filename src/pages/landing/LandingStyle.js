@@ -6,12 +6,17 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   height: calc(100vh - 137px);
+  padding: 3.5rem;
 
   background-color: ${(props) => props.theme.backgroundColor};
   background: ${(props) => props.theme.heroImage};
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center bottom;
+
+  @media screen and (${breakPoints.mobile}) {
+    height: 100vh;
+  }
 `;
 
 export const GoAskButton = styled.a`
@@ -40,6 +45,8 @@ export const GoAskButton = styled.a`
 
   @media screen and (${breakPoints.mobile}) {
     display: none;
+    padding: 0.8rem 1.2rem;
+    font-size: 1.4rem;
   }
 `;
 
@@ -47,6 +54,7 @@ export const MobileGoAskButton = styled(GoAskButton)`
   position: static;
   display: none;
   @media screen and (${breakPoints.mobile}) {
+    width: 12.7rem;
     display: flex;
     position: static;
     margin: 4rem auto;
@@ -60,8 +68,10 @@ export const Logo = styled.img`
 
   content: ${(props) => props.theme.logoImage};
   @media screen and (${breakPoints.mobile}) {
-    width: 100%;
-    padding: 0 6.3rem 0;
+    margin-top: 8rem;
+    margin-bottom: 1rem;
+    width: 24.8rem;
+    padding: 0;
   }
 `;
 
