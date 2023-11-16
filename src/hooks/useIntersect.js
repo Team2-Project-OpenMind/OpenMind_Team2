@@ -23,7 +23,6 @@ const useIntersect = (callback, hasNext) => {
 
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasNext) {
-        console.log('옵져버 실행중'); // 삭제예정
         callback(entries[0]);
       }
     }, options);
