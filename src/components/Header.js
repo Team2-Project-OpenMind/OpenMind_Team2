@@ -59,7 +59,7 @@ export default function Header() {
   }, []);
 
   return (
-    <ListPageHeader>
+    <ListPageHeader isHome={isHome}>
       <HeaderWrap>
         <Link to="/">
           <h1>
