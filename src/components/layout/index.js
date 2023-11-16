@@ -40,7 +40,7 @@ export default function Layout({ children, localId }) {
       handleSubjectsRead(selectUserId);
     }
   }, [selectUserId]);
-
+console.log(isPath)
   return (
     <PagePath.Provider
       value={{
