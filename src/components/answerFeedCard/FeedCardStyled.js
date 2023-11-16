@@ -332,3 +332,12 @@ export const IconDisLike = styled(DisLikeIcon)`
     fill: ${({ $isActive }) => ($isActive === true ? 'var(--gray60)' : 'var(--gray40)')};
   }
 `;
+
+
+export const VideoWrapper = styled.div`
+  width: 100%;
+  height: 400px;
+  @media screen and (${breakPoints.mobile}) {
+    height: 200px;
+  }
+`;

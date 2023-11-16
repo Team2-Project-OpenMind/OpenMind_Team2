@@ -30,7 +30,10 @@ export default function FeedCardContentUI({ question, onPatch, onCreate }) {
               {question.answer.content}
 
               {question.answer.content.includes(YOUTUBE_BASE) && (
-                <ReactPlayer url={youtubeURL} muted controls width={'400px'} height={'240px'} />
+                <FC.VideoWrapper>
+                  <ReactPlayer url={youtubeURL} muted controls width={'100%'} height={'100%'} />
+                </FC.VideoWrapper>
+
               )}
             </FC.SubmittedAnswer>
           ) : (

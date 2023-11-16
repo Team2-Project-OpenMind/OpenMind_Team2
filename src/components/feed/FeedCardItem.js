@@ -2,6 +2,7 @@ import { useState } from 'react';
 import * as S from './FeedCardStyle';
 import { createReaction } from 'api/api.questions';
 import { timeForToday } from 'date';
+import { VideoWrapper } from 'components/answerFeedCard/FeedCardStyled';
 
 import AnswerStateTag from 'components/AnswerStateTag';
 import handleExtractVideoId from 'utils/ExtractYoutubeId';
@@ -67,7 +68,9 @@ export default function FeedCardItem({ questionData, userTitleData }) {
             <S.ContentDescription $state={isAnswerRejected}>
               {isAnswerRejected ? '답변 거절' : answer.content}
               {!isAnswerRejected && answer.content.includes(YOUTUBE_BASE) && (
-                <ReactPlayer url={youtubeURL} muted controls width={'400px'} height={'240px'} />
+                <VideoWrapper>
+                  <ReactPlayer url={youtubeURL} muted controls width={'100%'} height={'100%'} />
+                </VideoWrapper>
               )}
             </S.ContentDescription>
           </S.Content>
