@@ -33,7 +33,6 @@ export default function FeedCardContentUI({ question, onPatch, onCreate }) {
                 <FC.VideoWrapper>
                   <ReactPlayer url={youtubeURL} muted controls width={'100%'} height={'100%'} />
                 </FC.VideoWrapper>
-
               )}
             </FC.SubmittedAnswer>
           ) : (

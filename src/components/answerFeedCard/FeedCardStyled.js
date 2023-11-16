@@ -106,7 +106,6 @@ export const ContainerForAnswer = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 1.2rem;
-  align-self: stretch;
 `;
 
 export const Profile = styled.div`
@@ -164,6 +163,7 @@ export const AnswerRejected = styled.div`
 
 export const CardInput = styled.textarea`
   display: flex;
+  padding: 0;
   height: 18.6rem;
   padding: 1.6rem;
   justify-content: center;
