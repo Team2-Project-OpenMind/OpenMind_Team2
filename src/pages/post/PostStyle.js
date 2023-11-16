@@ -101,7 +101,7 @@ export const FeedContainer = styled.div`
   align-items: center;
   gap: 1.6rem;
   position: relative;
-  width: 100%;
+  /* width: 100%; */
   max-width: 71.6rem;
   height: 100%;
   min-height: 33rem;
