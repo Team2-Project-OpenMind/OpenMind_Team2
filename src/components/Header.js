@@ -99,6 +99,7 @@ const ListPageListUl = styled.ul`
   z-index: -1;
   width: 177px;
   height: 130px;
+  padding-top: 5px;
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 5px;
