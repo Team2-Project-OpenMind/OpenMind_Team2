@@ -160,13 +160,11 @@ export const AnswerRejected = styled.div`
 
 export const CardInput = styled.textarea`
   display: flex;
-  padding: 0;
+  padding: 1.6rem;
   height: 18.6rem;
-  /* padding: 1.6rem; */
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  align-self: stretch;
   border-radius: 0.8rem;
   background: var(--gray20);
   color: var(--gray40);
@@ -175,9 +173,6 @@ export const CardInput = styled.textarea`
   border: none;
   flex-wrap: nowrap;
   width: 100%;
-  &::placeholder{
-    padding: 10px;
-  }
   &:focus {
     outline: none;
   }
