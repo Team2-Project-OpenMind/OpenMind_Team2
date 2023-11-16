@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createSubject } from 'api/api.subjects';
 import personImg from '../assets/images/Person.svg';
 import { useRef, useState } from 'react';
+import { breakPoints } from './common/Media';
 
 const userAccounts = { user: [] };
 
@@ -57,7 +58,8 @@ export default function LogIn() {
 }
 
 const Form = styled.form`
-width: 100%;
+
+  width: 100%;
   max-width: 40rem;
   height: fit-content;
   margin: 2.4rem 2.8rem;
@@ -67,7 +69,8 @@ width: 100%;
 
   border-radius: 1.6rem;
   @media screen and (${breakPoints.mobile}) {
-  margin: 0 3.5rem;
+    margin: 0 3.5rem;
+
   }
 `;
 
