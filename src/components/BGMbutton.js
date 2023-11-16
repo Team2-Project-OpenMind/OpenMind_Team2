@@ -50,14 +50,14 @@ export const Button = styled.button`
   cursor: pointer;
 
   @media screen and (${breakPoints.mobile}) {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     bottom: 1.5rem;
-    left: 4rem;
+    left: 5rem;
     font-size: 1rem;
     & img {
-      width: 1rem;
-      height: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 `;
