@@ -98,10 +98,10 @@ export const LinkIcon = styled.img`
 export const FeedContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   align-items: center;
   gap: 1.6rem;
   position: relative;
-  width: 100%;
   max-width: 71.6rem;
   height: 100%;
   min-height: 33rem;
@@ -109,6 +109,7 @@ export const FeedContainer = styled.div`
   border-radius: 1.6rem;
   border: 1px solid var(--brown30);
   background: var(--brown10);
+  //주석
 `;
 
 export const Info = styled.div`
