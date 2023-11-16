@@ -58,6 +58,7 @@ export default function LogIn() {
 }
 
 const Form = styled.form`
+
   width: 100%;
   max-width: 40rem;
   height: fit-content;
@@ -69,6 +70,7 @@ const Form = styled.form`
   border-radius: 1.6rem;
   @media screen and (${breakPoints.mobile}) {
     margin: 0 3.5rem;
+
   }
 `;
 
