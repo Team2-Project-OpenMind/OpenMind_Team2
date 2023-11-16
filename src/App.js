@@ -43,11 +43,11 @@ function App() {
           <Route path="post">
             <Route index element={<PostContainer />} />
             <Route path=":id" element={<PostContainer />} />
-            <Route path="/post" element={<Navigate to="/post"></Navigate>}></Route>
+            <Route path="*" element={<Navigate to="/post"></Navigate>}></Route>
           </Route>
           <Route path={'post/:id/answer'}>
             <Route index element={<AnswerContainer />} />
-            <Route path="../" element={<Navigate to="../"></Navigate>}></Route>
+            <Route path="*" element={<Navigate to="../"></Navigate>}></Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Route>
