@@ -22,7 +22,7 @@ export const Button = styled.button`
 
   font-size: 2rem;
 
-  background-color: ${(props) => props.theme.backgroundColor};
+  background-color: var(--gray20);
   border-radius: 50%;
   cursor: pointer;
 
