@@ -27,10 +27,10 @@ export const Button = styled.button`
   cursor: pointer;
 
   @media screen and (${breakPoints.mobile}) {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     bottom: 1.5rem;
     left: 1.5rem;
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 `;
