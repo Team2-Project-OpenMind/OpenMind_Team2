@@ -42,7 +42,8 @@ function QuestionModal({ id, onClose }) {
     let result;
     try {
       setIsLoading(true);
-      await createQuestions(USER_ID, questionsData);
+      const ss = await createQuestions(USER_ID, questionsData);
+      console.log(ss)
     } catch (error) {
       console.log(error);
     } finally {

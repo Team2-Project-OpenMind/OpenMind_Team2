@@ -15,6 +15,9 @@ import SNSshare from 'components/SNSshare';
 import { pathState } from 'components/common/pathState';
 import { PagePath } from 'context/PathContext';
 
+import arrowUp from 'assets/images/arrow-up.svg';
+import arrowDown from 'assets/images/arrow-down.svg';
+
 const DEFAULT_LIMIT = 0;
 const DEFAULT_OFFSET = 0;
 
@@ -24,6 +27,7 @@ export default function Post() {
   const [questionCount, setQuestionCount] = useState(0);
   const [questionData, setQuestionData] = useState([]);
   const [isOpenModal, setOpenModal] = useState(false);
+  const [isDropdownView, setIsDropdownView] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const { setIsPath, setSelectUserId, userTitleData } = useContext(PagePath);
 
@@ -48,7 +52,6 @@ export default function Post() {
       if (previous === null) {
         return; // 초기 렌더링 콜백함수 호출될때 중복으로 데이터 불러오지 않기
       }
-      console.log(isLoading); // 삭제예정
       setQuestionData((prev) => [...prev, ...results]);
 
       if (next === null) {
@@ -95,20 +98,35 @@ export default function Post() {
     }
   };
 
+  const handleChoicePageLimit = (e) => {
+    setPageLimit(e.target.value);
+    setPageOffset(DEFAULT_OFFSET);
+    setIsDropdownView(false);
+  };
+
   //특정 버튼을 누를 때마다 모달의 개폐 상태가 바뀌게하는 함수
   const handleModalShow = () => {
     setOpenModal(!isOpenModal);
   };
 
+  const handleDropdownShow = () => {
+    setIsDropdownView((prev) => !prev);
+  };
+
   useEffect(() => {
     setSelectUserId(id);
-    handleLoaded();
+
+    // 처음과 사용자가 limit을 변경했을때만 실행되도록
+    if (pageOffset === 0) {
+      handleLoaded();
+    }
+
     if (pathState()) {
       setIsPath(true);
     } else {
       setIsPath(false);
     }
-  }, []);
+  }, [pageLimit, pageOffset]);
 
   return (
     <>
@@ -120,6 +138,18 @@ export default function Post() {
         )}
         <S.Title>{userTitleData?.title}</S.Title>
         <SNSshare OnClickSNSshare={setIsCopied}></SNSshare>
+        <S.Dropdown>
+          <S.DropdownButton onClick={handleDropdownShow} $isDropdownView={isDropdownView}>
+            <span>{pageLimit === 0 ? 8 : pageLimit}개씩 보기</span>
+            <img src={isDropdownView ? arrowUp : arrowDown} alt="dropdown" />
+          </S.DropdownButton>
+          {isDropdownView && (
+            <S.DropdownList onClick={handleChoicePageLimit}>
+              <S.DropdownOption value={8}>8개씩 보기</S.DropdownOption>
+              <S.DropdownOption value={4}>4개씩 보기</S.DropdownOption>
+            </S.DropdownList>
+          )}
+        </S.Dropdown>
         <S.FeedContainer>
           <S.Info>
             <S.IconMessage />

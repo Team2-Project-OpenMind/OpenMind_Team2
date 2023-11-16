@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { breakPoints } from 'components/common/Media';
 
-import { ReactComponent as profileIcon } from 'assets/images/profile.svg';
 import { ReactComponent as LikeIcon } from 'assets/images/thumbs-up.svg';
 import { ReactComponent as DisLikeIcon } from 'assets/images/thumbs-down.svg';
 

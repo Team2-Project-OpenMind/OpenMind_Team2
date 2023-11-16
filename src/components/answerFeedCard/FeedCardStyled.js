@@ -106,7 +106,6 @@ export const ContainerForAnswer = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 1.2rem;
-  align-self: stretch;
 `;
 
 export const Profile = styled.div`
@@ -164,6 +163,7 @@ export const AnswerRejected = styled.div`
 
 export const CardInput = styled.textarea`
   display: flex;
+  padding: 0;
   height: 18.6rem;
   padding: 1.6rem;
   justify-content: center;
@@ -330,5 +330,14 @@ export const IconLike = styled(LikeIcon)`
 export const IconDisLike = styled(DisLikeIcon)`
   & path {
     fill: ${({ $isActive }) => ($isActive === true ? 'var(--gray60)' : 'var(--gray40)')};
+  }
+`;
+
+
+export const VideoWrapper = styled.div`
+  width: 100%;
+  height: 400px;
+  @media screen and (${breakPoints.mobile}) {
+    height: 200px;
   }
 `;
