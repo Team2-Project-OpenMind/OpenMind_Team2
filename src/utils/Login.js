@@ -34,8 +34,9 @@ export default function LogIn() {
 }
 
 const Form = styled.form`
-  width: 100%;
   max-width: 40rem;
+  width: 100%;
+  //주석
   height: fit-content;
   margin: 2.4rem 2.8rem;
   padding: 3.2rem;
