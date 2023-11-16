@@ -18,8 +18,8 @@ export default function SNSshare({ OnClickSNSshare }) {
   const handleKakaoClick = () => {
     // TODO : 앱 도메인 등록 필요, 이미지 뭐 넣을지 정하기 + 이름 설명 넣기
     const KAKAO_SHARE_DATA = {
-      title: '카카오 공유할 제목',
-      description: '카카오 공유할 설명',
+      title: 'Team2-OpenMind',
+      description: '이 사람에게 궁금한걸 물어보세요!',
       imageUrl: 'https://codeit-frontend.codeit.com/static/images/brand/og_tag.png',
     };
     shareKakao({ url: shareLink, ...KAKAO_SHARE_DATA });

@@ -51,3 +51,9 @@ export const PreviousButton = styled(DeleteButton)`
   cursor: pointer;
   z-index: 50;
 `;
+
+export const EmptyWindow = styled.div`
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+`;

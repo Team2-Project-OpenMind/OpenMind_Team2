@@ -8,6 +8,7 @@ import { PagePath } from 'context/PathContext';
 
 import arrowRight from '../assets/images/arrow-right.svg';
 import arrowDown from '../assets/images/arrow-down.svg';
+import { Link } from 'react-router-dom';
 
 const BROWSER_WIDTH_CHECK = window.innerWidth;
 const MOBILE_SIZE_WIDTH = 767;
@@ -58,13 +59,13 @@ export default function Header() {
   }, []);
 
   return (
-    <ListPageHeader isHome={isHome}>
+    <ListPageHeader>
       <HeaderWrap>
-        <a href="/">
+        <Link to="/">
           <h1>
             <img src="images/logo.svg" alt="로고이미지" style={isHome ? { display: 'none' } : {}} />
           </h1>
-        </a>
+        </Link>
 
         <ListPageDiv>
           <GoAskButton type="button" onClick={handleNavigator} onBlur={handleBlur}>

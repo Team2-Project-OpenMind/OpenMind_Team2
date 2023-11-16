@@ -6,7 +6,15 @@ import { updateAnswersPartial } from 'api/api.answers';
 import { deleteQuestion } from 'api/api.questions';
 import { createAnswer } from 'api/api.questions';
 
-export default function PopOverMenu({ id, answerId, onChange, onClose, onClick, onSelect }) {
+export default function PopOverMenu({
+  id,
+  answerId,
+  onChange,
+  onClose,
+  onClick,
+  onSelect,
+  element,
+}) {
   const wrapperRef = useRef();
 
   const handleDeleteAnswer = async () => {
@@ -66,7 +74,7 @@ export default function PopOverMenu({ id, answerId, onChange, onClose, onClick, 
     };
   });
   const handleClickOutside = (event) => {
-    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+    if (wrapperRef && !wrapperRef.current.contains(event.target) && event.target !== element) {
       onClick(false);
       // onSelect(null);
     }
@@ -95,6 +103,7 @@ const Container = styled.div`
   border: 1px solid var(--gray30);
   background: var(--gray10);
   box-shadow: var(--shadow1pt);
+  z-index: 11;
 `;
 
 const MenuItem = styled.button`
