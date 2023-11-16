@@ -22,7 +22,7 @@ export default function BGMbutton() {
   return (
     <Button onClick={handleBGMClick}>
       {isPlaying ? <img src={PAUSE_IMG} alt="" /> : <img src={PLAY_IMG} alt="" />}
-      <audio ref={audioRef} autoPlay={true} loop type="audio/mp3" src={BGM}></audio>
+      <audio ref={audioRef} loop type="audio/mp3" src={BGM}></audio>
     </Button>
   );
 }
