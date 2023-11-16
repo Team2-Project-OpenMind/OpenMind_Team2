@@ -76,10 +76,7 @@ export const QuestionWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-top: 32px;
-  gap: 1rem;
-  flex: 1 0 0;
-  height: 4.6rem;
-`;
+  gap: 1rem;`
 
 export const QuestionDate = styled.div`
   display: flex;
@@ -102,10 +99,10 @@ export const QuestionContent = styled.div`
 `;
 
 export const ContainerForAnswer = styled.div`
-  margin-top: 32px;
   display: flex;
   align-items: flex-start;
   gap: 1.2rem;
+  width: 100%;
 `;
 
 export const Profile = styled.div`
@@ -130,7 +127,7 @@ export const WrapperForAnswer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 0.4rem;
-  flex: 1 0 0;
+  width: 100%;
 `;
 
 export const Answerer = styled.div`
@@ -149,8 +146,8 @@ export const ContentAboutAnswer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
   gap: 0.8rem;
-  align-self: stretch;
 `;
 
 export const AnswerRejected = styled.div`
@@ -165,7 +162,7 @@ export const CardInput = styled.textarea`
   display: flex;
   padding: 0;
   height: 18.6rem;
-  padding: 1.6rem;
+  /* padding: 1.6rem; */
   justify-content: center;
   align-items: center;
   gap: 1rem;
@@ -177,6 +174,10 @@ export const CardInput = styled.textarea`
   line-height: 2.2rem;
   border: none;
   flex-wrap: nowrap;
+  width: 100%;
+  &::placeholder{
+    padding: 10px;
+  }
   &:focus {
     outline: none;
   }
