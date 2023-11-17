@@ -1,29 +1,100 @@
-### ⚠️ 확정된 내용 아닙니다!!! 나중에 작업 어느 정도 마무리되면 같이 더 예쁘게 꾸며봐요!!
+### Codeit-Sprint FE 1기 - Part2 Project
 
-# 🖥️ 프로젝트 소개(오픈마인드)
-
-질문과 답변을 통해 마음을 열고 대화 나누는 소통 플랫폼인 '오픈마인드' 서비스를 제공된 기획과 디자인을 따라 만들어 주세요.
 <br>
 
-## 코드잇-스프린트 1기 Part2-2팀 마인드 (오픈마인드)
+<div align="center">
+  <h1>💌 Open-Mind</h1> 
+  <p>질문과 답변을 통해 마음을 열고 대화 나누는 소통 플랫폼인 '오픈마인드'를 개발하였습니다.</p>
+</div>
 
-#### 팀원: 박소현(팀장), 강나현, 고민혁, 남민섭, 안유진
+<br>
 
-## 🕰️ 개발 기간
+### 🕰️ 개발 기간
 
-- 23.11.03 - 23.11.17
+23.11.03 - 23.11.17
 
-## ⚙️ 사용한 스킬
+<br>
 
-- Html, Css, JavaScript, React, Styled-components, GitHub, Git
+### 💫 팀원 소개
 
-## ✔️Team Formatting Rules
+|이름|이미지|
+|:----------:|:---------------------------------:|
+|[박소현](https://github.com/ParkSohyunee)|
+|[안유진](https://github.com/Eugene-A-01)|
+|[남민섭](https://github.com/namminimi)|
+|[강나현](https://github.com/Nahyun-Kang)|
+|[고민혁](https://github.com/minhyeokG0)|
 
-#### <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Formatting-Rules" >Team Formatting Rules 상세보기 - WIKI 이동</a>
+<br>
 
-## ✔️Team Rules
+<!-- Table of Contents -->
+# :notebook_with_decorative_cover: Table of Contents
 
-#### <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Rules" >Team Rules 상세보기 - WIKI 이동</a>
+- [About the Project](#star2-about-the-project)
+  * [Team Rules](#team-rules)
+  * [Tech Stack](#space_invader-tech-stack)
+  * [Features](#dart-features)
+- [Getting Started](#toolbox-getting-started)
+- [Usage](#eyes-usage)
+
+<br/>
+
+<!-- About the Project -->
+## :star2: About the Project
+
+<!-- Team Rules -->
+### Team Rules
+- <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Formatting-Rules" >Team Formatting Rules 상세보기</a>
+- <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Rules" >Team Rules 상세보기</a>
+
+<br/>
+
+<!-- TechStack -->
+### :space_invader: Tech Stack
+- Frontend 기술 스택
+- 라이브러리
+- 백엔드 API
+- 배포
+
+<br/>
+
+<!-- Features -->
+### :dart: Features
+
+- 로그인
+- 질문 생성, 조회, 삭제
+- 답변 생성, 조회, 수정, 삭제
+- 질문 목록 조회, 페이지네이션
+- SNS 공유 기능, 링크 복사 기능
+- 다크 모드 테마
+- BGM 기능
+- 유튜브 임베드 기능
+
+<br/>
+
+<!-- Getting Started -->
+## 	:toolbox: Getting Started
+
+```
+$ git clone https://github.com/Team2-Project-OpenMind/OpenMind_Team2.git
+
+$ npm install
+
+$ npm start
+
+# http://localhost:3000 접속
+```
+
+<br/>
+
+> 🌐 배포주소 https://open-mind-team2.vercel.app/ <br/>
+
+<br/>
+
+<!-- Usage -->
+## :eyes: Usage
+
+<!-- 기획요구사항 
 
 ## 기획 요구 사항
 
@@ -86,3 +157,5 @@
 - 수정할 내용이 없으면 '수정완료' 버튼은 활성화 되지 않습니다.
 - 화면 최상단의 '삭제하기' 버튼을 누르면 받은 질문들과 피드가 한 번에 삭제가 됩니다.
 </details>
+
+-->
