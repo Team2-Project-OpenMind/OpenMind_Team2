@@ -31,7 +31,8 @@
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
-  * [Team Rules](#team-rules)
+  * [User Flow](#world_map-user-flow)
+  * [Team Rules](#crystal_ball-team-rules)
   * [Tech Stack](#space_invader-tech-stack)
   * [Features](#dart-features)
 - [Getting Started](#toolbox-getting-started)
@@ -42,8 +43,15 @@
 <!-- About the Project -->
 ## :star2: About the Project
 
+<!-- User Flow -->
+### :world_map: User Flow
+<div align="center"> 
+  <img width="600" alt="screenshot" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/bc9f61a2-1906-4aa1-83f2-9053960d2f1d">
+</div>
+
+
 <!-- Team Rules -->
-### Team Rules
+### :crystal_ball: Team Rules
 - <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Formatting-Rules" >Team Formatting Rules 상세보기</a>
 - <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Rules" >Team Rules 상세보기</a>
 
