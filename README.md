@@ -17,13 +17,9 @@
 
 ### 💫 팀원 소개
 
-|이름|이미지|
-|:----------:|:---------------------------------:|
-|[박소현](https://github.com/ParkSohyunee)|
-|[안유진](https://github.com/Eugene-A-01)|
-|[남민섭](https://github.com/namminimi)|
-|[강나현](https://github.com/Nahyun-Kang)|
-|[고민혁](https://github.com/minhyeokG0)|
+|박소현|안유진|남민섭|강나현|고민혁|
+|:----------:|:----------:|:----------:|:----------:|:----------:|
+|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ParkSohyunee)|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Eugene-A-01)|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/namminimi)|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Nahyun-Kang)|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/minhyeokG0)|
 
 <br>
 
@@ -36,7 +32,7 @@
   * [Tech Stack](#space_invader-tech-stack)
   * [Features](#dart-features)
 - [Getting Started](#toolbox-getting-started)
-- [Usage](#eyes-usage)
+- [Usage](#eyes-screenshots)
 
 <br/>
 
@@ -59,10 +55,32 @@
 
 <!-- TechStack -->
 ### :space_invader: Tech Stack
-- Frontend 기술 스택
-- 라이브러리
-- 백엔드 API
-- 배포
+
+<details>
+  <summary>Frontend 기술 스택</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React (v18.2.0)</a></li>
+    <li><a href="https://styled-components.com/">Styled-components </a></li>
+  </ul>
+</details>
+
+<details>
+  <summary>라이브러리</summary>
+  <ul>
+    <li><a href="https://reactrouter.com/en/main">react-Router (라우팅)</a></li>
+    <li><a href="https://www.npmjs.com/package/react-helmet">react-helmet (페이지별 SEO)</a></li>
+    <li><a href="https://developers.kakao.com/docs/latest/ko/message/js-link/">kakao-map-api (카카오 링크 공유기능)</a></li>
+    <li><a href="https://www.npmjs.com/package/react-player">react-player (동영상 플레이어)</a></li>    
+    <li><a href="https://prettier.io/">prettier (코드 포멧)</a></li>
+  </ul>
+</details>
+
+<details>
+<summary>배포</summary>
+  <ul>
+    <li><a href="https://vercel.com/">Vercel</a></li>
+  </ul>
+</details>
 
 <br/>
 
@@ -99,8 +117,36 @@ $ npm start
 
 <br/>
 
-<!-- Usage -->
-## :eyes: Usage
+<!-- Screenshots -->
+## :eyes: Screenshots
+
+<div align="center">
+  <h2>✨ 랜딩(Main)페이지</h2>
+  <img width="1465" alt="랜딩_라이트" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/2dbb80e5-f626-4bcb-875a-2b2525da3932"> 
+  <img width="1469" alt="랜딩_다크" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/87272f0c-5011-44b4-b36c-7dc12fa83abd">
+</div>
+
+<br/>
+
+<div align="center">
+  <h2>✨ 질문목록(List) 페이지</h2>
+  <img width="1469" alt="리스트" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/26c9f0d1-8da6-41ce-b5f9-ce8cc35f252e">
+</div>
+
+<br/>
+
+<div align="center">
+  <h2>✨ 개별피드(Post) 페이지</h2>
+  <img width="1469" alt="포스트" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/826092d6-02ff-4189-ba02-d02c36e9cdb1">
+  <img width="1469" alt="포스트_질문작성" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/ce14eae5-8509-4587-a066-f94329e62f85">
+</div>
+
+<br/>
+
+<div align="center">
+  <h2>✨ 답변작성(Answer) 페이지</h2>
+  <img width="1469" alt="답변" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/8e001b5e-11bf-419d-bb91-f471bfb7cb2d">
+</div>
 
 <!-- 기획요구사항 
 
