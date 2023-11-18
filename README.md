@@ -23,6 +23,60 @@
 
 <br>
 
+### 📍 담당 기능
+- 기능 구현 설명 및 시연, 문제 해결법에 대한 자세한 설명은 [📝Notion 페이지](https://cypress-tv-724.notion.site/OpenMind-23aab6245d6342febbfa2b4b2c886fde?pvs=4)에서 확인하실 수 있습니다.
+
+<br>
+
+### 👩🏻‍💻박소현
+
+- 페이지 : 질문 피드(post) 페이지
+- 공통 : 레아아웃 설정, Post Card 컴포넌트, Tag 컴포넌트
+- 기능
+  - swagger 전체 API 연동
+  - 질문 목록 불러오기, 무한스크롤, 피드 개수 Dropdown 기능, 스켈레톤 UI 적용
+  - Observer API custom hook 분리
+
+### 👩🏻‍💻안유진
+
+- 페이지 : 랜딩 페이지, 404 페이지
+- 공통 : GlobalStyle 설정, 메타태그 설정, 테마 및 BGM 토글버튼 컴포넌트
+- 기능
+  - 로그인 기능(로컬스토리지 사용)
+  - 라우팅 설정, 리다이렉션 설정, SNS 공유 기능
+  - 다크모드/라이트 모드, BGM 기능
+
+### 🧑‍💻남민섭
+
+- 페이지 : 질문 목록(list) 페이지
+- 공통 : List Card 컴포넌트
+- 기능
+  - 질문 리스트 불러오기, 페이지네이션 기능
+  - 최신순/이름순 정렬 Dropdown 기능
+  - 사용자에 따른 답변페이지 이동 기능(로컬 스토리지 사용) 
+  - 질문 목록 카드 리스트 반응형 적용
+
+### 👩🏻‍💻강나현
+
+- 페이지 : 질문 피드(post) 페이지, 답변(answer) 페이지
+- 공통 : Popover 모달, 질문 작성 모달 컴포넌트, Kebab menu 컴포넌트
+- 기능
+  - 포스트 페이지 질문 작성 기능
+  - 답변 페이지 답변 삭제, 질문 삭제, 답변 거절 기능
+  - 포스트 페이지 좋아요/싫어요 기능
+  - 답변 페이지 유튜브 임베드 기능 
+
+### 🧑‍💻고민혁
+
+- 페이지 : 답변(answer) 페이지
+- 공통 : Answer 카드 컴포넌트
+- 기능
+  - 답변페이지 불러오기, 답변페이지에서 리스트페이지로 이동하기 적용
+  - 답변 생성, 수정, 전체 삭제 기능
+  - Time diff utils 공통 로직 적용
+ 
+<br/>
+
 <!-- Table of Contents -->
 # :notebook_with_decorative_cover: Table of Contents
 
@@ -32,7 +86,7 @@
   * [Tech Stack](#space_invader-tech-stack)
   * [Features](#dart-features)
 - [Getting Started](#toolbox-getting-started)
-- [Usage](#eyes-screenshots)
+- [Screenshots](#eyes-screenshots)
 
 <br/>
 
