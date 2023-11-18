@@ -22,7 +22,7 @@ export default function BGMbutton() {
   return (
     <Button onClick={handleBGMClick}>
       {isPlaying ? <img src={PAUSE_IMG} alt="" /> : <img src={PLAY_IMG} alt="" />}
-      <audio ref={audioRef} autoPlay={true} loop type="audio/mp3" src={BGM}></audio>
+      <audio ref={audioRef} loop type="audio/mp3" src={BGM}></audio>
     </Button>
   );
 }
@@ -45,19 +45,19 @@ export const Button = styled.button`
     height: 2rem;
   }
 
-  background-color: ${(props) => props.theme.backgroundColor};
+  background-color: var(--gray20);
   border-radius: 50%;
   cursor: pointer;
 
   @media screen and (${breakPoints.mobile}) {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     bottom: 1.5rem;
-    left: 4rem;
+    left: 5rem;
     font-size: 1rem;
     & img {
-      width: 1rem;
-      height: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 `;

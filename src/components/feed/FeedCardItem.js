@@ -2,6 +2,7 @@ import { useState } from 'react';
 import * as S from './FeedCardStyle';
 import { createReaction } from 'api/api.questions';
 import { timeForToday } from 'date';
+import { VideoWrapper } from 'components/answerFeedCard/FeedCardStyled';
 
 import AnswerStateTag from 'components/AnswerStateTag';
 import handleExtractVideoId from 'utils/ExtractYoutubeId';
@@ -67,7 +68,9 @@ export default function FeedCardItem({ questionData, userTitleData }) {
             <S.ContentDescription $state={isAnswerRejected}>
               {isAnswerRejected ? '답변 거절' : answer.content}
               {!isAnswerRejected && answer.content.includes(YOUTUBE_BASE) && (
-                <ReactPlayer url={youtubeURL} muted controls width={'400px'} height={'240px'} />
+                <VideoWrapper>
+                  <ReactPlayer url={youtubeURL} muted controls width={'100%'} height={'100%'} />
+                </VideoWrapper>
               )}
             </S.ContentDescription>
           </S.Content>
@@ -81,7 +84,9 @@ export default function FeedCardItem({ questionData, userTitleData }) {
           disabled={reaction.dislike}
         >
           <S.IconLike $isActive={reaction.like} />
-          <S.LikeText $isActive={reaction.like}>좋아요 {like === 0 ? '' : likeCount}</S.LikeText>
+          <S.LikeText $isActive={reaction.like}>
+            좋아요 {likeCount === 0 ? '' : likeCount}
+          </S.LikeText>
         </S.Option>
         <S.Option
           onClick={handleReactionToggle}
@@ -91,7 +96,7 @@ export default function FeedCardItem({ questionData, userTitleData }) {
         >
           <S.IconDisLike $isActive={reaction.dislike} />
           <S.DislikeText $isActive={reaction.dislike}>
-            싫어요 {dislike === 0 ? '' : disLikeCount}
+            싫어요 {disLikeCount === 0 ? '' : disLikeCount}
           </S.DislikeText>
         </S.Option>
       </S.Reaction>

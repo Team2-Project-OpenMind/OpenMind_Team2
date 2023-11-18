@@ -19,6 +19,7 @@ export default function Header() {
   const [isButtonStyle, setIsButtonStyle] = useState(false);
   const ulRef = useRef(null);
   const [isHome, setIsHome] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const navigate = useNavigate();
 
   const keepUlElement = {
@@ -58,8 +59,16 @@ export default function Header() {
     isLandingPage() ? setIsHome(true) : setIsHome(false);
   }, []);
 
-  return (
-    <ListPageHeader>
+  window.addEventListener('resize', (e) => {
+    if (window.innerWidth <= 767) {
+      setIsMobile(true);
+      return;
+    }
+    setIsMobile(false);
+  });
+
+  return isHome && isMobile ? null : (
+    <ListPageHeader isHome={isHome} isMobile={isMobile}>
       <HeaderWrap>
         <Link to="/">
           <h1>
@@ -99,6 +108,7 @@ const ListPageListUl = styled.ul`
   z-index: -1;
   width: 177px;
   height: 130px;
+  padding-top: 5px;
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 5px;

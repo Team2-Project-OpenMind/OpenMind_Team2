@@ -1,29 +1,154 @@
-### ⚠️ 확정된 내용 아닙니다!!! 나중에 작업 어느 정도 마무리되면 같이 더 예쁘게 꾸며봐요!!
+### Codeit-Sprint FE 1기 - Part2 Project
 
-# 🖥️ 프로젝트 소개(오픈마인드)
-
-질문과 답변을 통해 마음을 열고 대화 나누는 소통 플랫폼인 '오픈마인드' 서비스를 제공된 기획과 디자인을 따라 만들어 주세요.
 <br>
 
-## 코드잇-스프린트 1기 Part2-2팀 마인드 (오픈마인드)
+<div align="center">
+  <h1>💌 Open-Mind</h1> 
+  <p>질문과 답변을 통해 마음을 열고 대화 나누는 소통 플랫폼인 '오픈마인드'를 개발하였습니다.</p>
+</div>
 
-#### 팀원: 박소현(팀장), 강나현, 고민혁, 남민섭, 안유진
+<br>
 
-## 🕰️ 개발 기간
+### 🕰️ 개발 기간
 
-- 23.11.03 - 23.11.17
+23.11.03 - 23.11.17
 
-## ⚙️ 사용한 스킬
+<br>
 
-- Html, Css, JavaScript, React, Styled-components, GitHub, Git
+### 💫 팀원 소개
 
-## ✔️Team Formatting Rules
+|박소현|안유진|남민섭|강나현|고민혁|
+|:----------:|:----------:|:----------:|:----------:|:----------:|
+|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ParkSohyunee)|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Eugene-A-01)|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/namminimi)|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Nahyun-Kang)|[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/minhyeokG0)|
 
-#### <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Formatting-Rules" >Team Formatting Rules 상세보기 - WIKI 이동</a>
+<br>
 
-## ✔️Team Rules
+<!-- Table of Contents -->
+# :notebook_with_decorative_cover: Table of Contents
 
-#### <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Rules" >Team Rules 상세보기 - WIKI 이동</a>
+- [About the Project](#star2-about-the-project)
+  * [User Flow](#world_map-user-flow)
+  * [Team Rules](#crystal_ball-team-rules)
+  * [Tech Stack](#space_invader-tech-stack)
+  * [Features](#dart-features)
+- [Getting Started](#toolbox-getting-started)
+- [Usage](#eyes-screenshots)
+
+<br/>
+
+<!-- About the Project -->
+## :star2: About the Project
+
+<!-- User Flow -->
+### :world_map: User Flow
+<div align="center"> 
+  <img width="600" alt="screenshot" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/bc9f61a2-1906-4aa1-83f2-9053960d2f1d">
+</div>
+
+
+<!-- Team Rules -->
+### :crystal_ball: Team Rules
+- <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Formatting-Rules" >Team Formatting Rules 상세보기</a>
+- <a href="https://github.com/Nahyunfirstorganization/OpenMind_Team2/wiki/Team-Rules" >Team Rules 상세보기</a>
+
+<br/>
+
+<!-- TechStack -->
+### :space_invader: Tech Stack
+
+<details>
+  <summary>Frontend 기술 스택</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React (v18.2.0)</a></li>
+    <li><a href="https://styled-components.com/">Styled-components </a></li>
+  </ul>
+</details>
+
+<details>
+  <summary>라이브러리</summary>
+  <ul>
+    <li><a href="https://reactrouter.com/en/main">react-Router (라우팅)</a></li>
+    <li><a href="https://www.npmjs.com/package/react-helmet">react-helmet (페이지별 SEO)</a></li>
+    <li><a href="https://developers.kakao.com/docs/latest/ko/message/js-link/">kakao-map-api (카카오 링크 공유기능)</a></li>
+    <li><a href="https://www.npmjs.com/package/react-player">react-player (동영상 플레이어)</a></li>    
+    <li><a href="https://prettier.io/">prettier (코드 포멧)</a></li>
+  </ul>
+</details>
+
+<details>
+<summary>배포</summary>
+  <ul>
+    <li><a href="https://vercel.com/">Vercel</a></li>
+  </ul>
+</details>
+
+<br/>
+
+<!-- Features -->
+### :dart: Features
+
+- 로그인
+- 질문 생성, 조회, 삭제
+- 답변 생성, 조회, 수정, 삭제
+- 질문 목록 조회, 페이지네이션
+- SNS 공유 기능, 링크 복사 기능
+- 다크 모드 테마
+- BGM 기능
+- 유튜브 임베드 기능
+
+<br/>
+
+<!-- Getting Started -->
+## 	:toolbox: Getting Started
+
+```
+$ git clone https://github.com/Team2-Project-OpenMind/OpenMind_Team2.git
+
+$ npm install
+
+$ npm start
+
+# http://localhost:3000 접속
+```
+
+<br/>
+
+> 🌐 배포주소 https://open-mind-team2.vercel.app/ <br/>
+
+<br/>
+
+<!-- Screenshots -->
+## :eyes: Screenshots
+
+<div align="center">
+  <h2>✨ 랜딩(Main)페이지</h2>
+  <img width="1465" alt="랜딩_라이트" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/2dbb80e5-f626-4bcb-875a-2b2525da3932"> 
+  <img width="1469" alt="랜딩_다크" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/87272f0c-5011-44b4-b36c-7dc12fa83abd">
+</div>
+
+<br/>
+
+<div align="center">
+  <h2>✨ 질문목록(List) 페이지</h2>
+  <img width="1469" alt="리스트" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/26c9f0d1-8da6-41ce-b5f9-ce8cc35f252e">
+</div>
+
+<br/>
+
+<div align="center">
+  <h2>✨ 개별피드(Post) 페이지</h2>
+  <img width="1469" alt="포스트" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/826092d6-02ff-4189-ba02-d02c36e9cdb1">
+  <img width="1469" alt="포스트_질문작성" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/ce14eae5-8509-4587-a066-f94329e62f85">
+</div>
+
+<br/>
+
+<div align="center">
+  <h2>✨ 답변작성(Answer) 페이지</h2>
+  <img width="1469" alt="답변" src="https://github.com/Team2-Project-OpenMind/OpenMind_Team2/assets/124856726/8e001b5e-11bf-419d-bb91-f471bfb7cb2d">
+</div>
+
+<!-- 기획요구사항 
 
 ## 기획 요구 사항
 
@@ -86,3 +211,5 @@
 - 수정할 내용이 없으면 '수정완료' 버튼은 활성화 되지 않습니다.
 - 화면 최상단의 '삭제하기' 버튼을 누르면 받은 질문들과 피드가 한 번에 삭제가 됩니다.
 </details>
+
+-->

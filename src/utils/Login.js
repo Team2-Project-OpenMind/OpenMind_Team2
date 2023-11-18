@@ -13,9 +13,7 @@ export default function LogIn() {
     e.preventDefault();
     if (!window.localStorage.getItem('id')) {
       const userName = formRef.current.username.value;
-      console.log(userName);
       const data = await createSubject({ name: userName });
-      console.log(data);
       window.localStorage.setItem('id', data?.id);
       navigate(`/post/${data?.id}/answer`);
     } else {
@@ -36,7 +34,9 @@ export default function LogIn() {
 }
 
 const Form = styled.form`
-  width: 40rem;
+  max-width: 40rem;
+  width: 100%;
+  //주석
   height: fit-content;
   margin: 2.4rem 2.8rem;
   padding: 3.2rem;
@@ -44,6 +44,10 @@ const Form = styled.form`
   background-color: var(--gray10);
 
   border-radius: 1.6rem;
+
+  @media screen and (${breakPoints.mobile}) {
+    margin: 0 3.5rem;
+  }
 `;
 
 const Input = styled.div`
