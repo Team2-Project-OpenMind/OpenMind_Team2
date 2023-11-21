@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { createSubject } from 'api/api.subjects';
 import personImg from '../assets/images/Person.svg';
