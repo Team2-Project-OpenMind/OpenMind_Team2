@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 import { ThemeProvider } from 'context/ThemeProvider';
 
 import GlobalStyle from 'components/common/GlobalStyle';
@@ -13,11 +14,13 @@ root.render(
   <React.StrictMode>
     <ThemeProvider>
       <GlobalStyle />
-      <LocalIdContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </LocalIdContextProvider>
+      <CookiesProvider>
+        <LocalIdContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </LocalIdContextProvider>
+      </CookiesProvider>
     </ThemeProvider>
   </React.StrictMode>,
 );
